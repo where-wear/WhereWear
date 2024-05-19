@@ -1,10 +1,11 @@
 //import AuthProvider from '@/components/providers/AuthProvider';
 //import HomeComponent from '@/components/sign/HomeComponent';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Home',
+    default: 'WhereWear',
     template: '%s | wherewear',
   },
 };
@@ -17,6 +18,10 @@ const HomePage = () => {
           <HomeComponent />
         </div>
       </AuthProvider> */}
+      <h1>Wherewear 메인</h1>
+      <Link href={'/signin'}>
+        <button>로그인페이지로 이동</button>
+      </Link>
     </>
   );
 };
