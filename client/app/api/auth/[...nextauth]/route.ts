@@ -4,7 +4,7 @@ import KakaoProvider from 'next-auth/providers/kakao';
 
 const handler = NextAuth({
   pages: {
-    signIn: '/signin',
+    signIn: '/',
   },
 
   providers: [
