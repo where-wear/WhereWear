@@ -23,6 +23,7 @@
 // };
 
 // export default KakaoLogin;
+//위는 next auth 사용했을경우
 
 'use client';
 import React from 'react';
