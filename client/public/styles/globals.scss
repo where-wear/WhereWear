@@ -1,0 +1,23 @@
+// 메인화면 크기 제한
+body {
+  margin: 0;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  touch-action: manipulation;
+  width: 100%;
+  min-height: 100vh;
+  //   font-family: 'Pretendard JP', Pretendard, sans-serif;
+  background: #fff;
+  color: #242729;
+}
+.__next,
+.root {
+  max-width: 600px;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  margin: 0 auto;
+}

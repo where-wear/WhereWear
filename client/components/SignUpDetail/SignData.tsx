@@ -23,7 +23,7 @@ const SignData = () => {
     // 회원 정보 입력 api 요청
     try {
       const response = await axios.post(
-        'http://localhost:8000/accounts/signUp',
+        'http://localhost:8080/api/accounts/signUp',
         transformedData
       );
       console.log('서버 응답:', response.data);
