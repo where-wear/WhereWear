@@ -10,3 +10,8 @@ export interface UserDataType {
   job: string;
   introduction: string;
 }
+
+// back- bar프롭스 타입
+export interface BackBarTextType {
+  text: string;
+}
