@@ -1,4 +1,37 @@
+@charset "utf-8";
+//기본셋팅
+/* 기본 셋업 */
+header,
+section,
+article,
+aside,
+footer,
+main,
+a,
+button,
+input,
+textarea,
+img,
+nav,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+span {
+  margin: 0;
+  padding: 0;
+  /* 폰트 크기 상속 */
+  font-size: inherit;
+}
 // 메인화면 크기 제한
+
 body {
   margin: 0;
 }
@@ -15,9 +48,15 @@ body {
 }
 .__next,
 .root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 600px;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: #ffffff;
   margin: 0 auto;
+}
+.content_box {
+  height: 100%;
 }

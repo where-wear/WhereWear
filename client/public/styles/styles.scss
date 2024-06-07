@@ -1,0 +1,8 @@
+@import 'setting/mixin';
+@import 'setting/vars';
+//--------------헤더, 푸터-------------------
+@import 'pages/main/header';
+@import 'pages/main/footer';
+
+//--------------로그 생성-------------------
+@import 'pages/Log/addLog';

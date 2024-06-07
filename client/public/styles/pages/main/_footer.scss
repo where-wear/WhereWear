@@ -1,0 +1,40 @@
+.footer-box {
+  position: fixed;
+  bottom: 0; /* 푸터를 화면 하단에 고정 */
+  background-color: var(--main-black);
+  width: 100%;
+  max-width: 600px; /* 부모 요소의 최대 너비와 동일하게 설정 */
+  height: 92px;
+  left: 50%; /* 부모 요소의 가운데에 위치 */
+  transform: translateX(-50%); /* 가로 방향 중앙 정렬 */
+  z-index: 100; //높이 상단 공정
+
+  ul {
+    width: 100%;
+    max-width: 600px;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    color: white;
+    li {
+      cursor: pointer;
+      text-align: center;
+      margin-top: 22px;
+      width: 100%;
+      &.addLog-li {
+        margin-top: 10px; //추가 버튼만 마진값 조절
+      }
+    }
+  }
+}
+
+.footer-icon {
+  width: 30px;
+}
+.addLog-icon {
+  width: 52px;
+}
+
+//나중에 모바일 사이즈로 아이콘 크기 조절해야할것같음
