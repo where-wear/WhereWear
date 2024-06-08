@@ -3,17 +3,19 @@
 }
 
 // 나중에 하단 고정 코드도 적어야 함
+
 @mixin bottom-button {
-  margin: 20px;
-  width: auto;
+  position: fixed;
+  bottom: 0px;
+  width: calc(100% - 40px); // 전체 너비에서 좌우 마진을 뺀 값
+  max-width: 560px;
   height: 52px;
+  margin: 0 20px 20px 20px;
   background-color: var(--main-black);
   cursor: pointer;
   text-align: center;
-  p {
-    color: white;
-    position: relative;
-    top: 50%;
-    transform: translate(0, -50%);
-  }
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
