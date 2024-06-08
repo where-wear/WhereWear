@@ -1,3 +1,9 @@
 .add-log-button {
   @include bottom-button;
 }
+.photo-label {
+  outline: 1px;
+  input {
+    display: none;
+  }
+}

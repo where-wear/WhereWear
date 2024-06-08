@@ -3,7 +3,14 @@
 import React from 'react';
 
 const AddLogPhoto = () => {
-  return <div>AddLogPhoto</div>;
+  return (
+    <>
+      <label className="photo-label">
+        <input type="file"></input>
+        <div>사진을 선택 해주세요</div>
+      </label>
+    </>
+  );
 };
 
 export default AddLogPhoto;
