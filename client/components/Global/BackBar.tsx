@@ -11,10 +11,10 @@ const BackBar = (props: BackBarTextType) => {
   return (
     <>
       <div className="back-arrow-block">
-        <div onClick={() => router.back()}>
+        <div onClick={() => router.back()} className="back-arrow-inner">
           <img src="image/back-arrow.svg" />
+          <div className="back-bar-text">{props.text}</div>
         </div>
-        <div>{props.text}</div>
       </div>
     </>
   );

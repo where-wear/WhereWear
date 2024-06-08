@@ -19,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="kr">
       <body className={inter.className}>
-        <ClientWrapper>
-          <div className="content_box">{children}</div>
-        </ClientWrapper>
+        <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
   );

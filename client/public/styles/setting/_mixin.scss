@@ -3,21 +3,19 @@
 }
 
 // 나중에 하단 고정 코드도 적어야 함
-@mixin bottom-button-container {
-  width: 100vw;
-  max-width: 560px;
-  position: fixed;
-  bottom: 0px; // 하단 여백 조정
-  left: 50%; // 가운데 정렬을 위해
-  transform: translateX(-50%); // 가운데 정렬
-  z-index: 100; //
-  padding: 20px;
-}
+
 @mixin bottom-button {
+  position: fixed;
+  bottom: 0px;
+  width: calc(100% - 40px); // 전체 너비에서 좌우 마진을 뺀 값
+  max-width: 560px;
   height: 52px;
+  margin: 0 20px 20px 20px;
   background-color: var(--main-black);
   cursor: pointer;
   text-align: center;
   color: white;
-  // 버튼 내부 여백 조정
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

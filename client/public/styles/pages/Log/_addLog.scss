@@ -1,23 +1,32 @@
-.add-log-box {
-  @include bottom-button-container;
-}
 .add-log-button {
   @include bottom-button;
 }
-.Photo-box {
+.photo-box {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 20%;
-  min-height: 200px;
+  height: auto;
+
   margin: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
   .photo-label {
     display: block;
     margin-left: 20px;
     width: 73px;
     height: 96px;
-    background-color: black;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: #797979;
     input {
       display: none;
     }
+  }
+
+  .photo-box-text {
+    // todo : 글씨크기 수정해야함
+    margin: 25px 20px 20px 20px;
+    color: #b9b9b9;
+    font-size: small;
   }
 }

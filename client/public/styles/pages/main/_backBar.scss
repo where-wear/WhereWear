@@ -1,12 +1,19 @@
 .back-arrow-block {
   margin: 0;
-  padding: 20px;
-  display: flex;
+  padding: 0;
+
   height: auto;
   width: 100%;
+  .back-arrow-inner {
+    display: flex;
+    margin: 20px;
+  }
   img {
     cursor: pointer;
 
     width: 20px;
+  }
+  .back-bar-text {
+    font-weight: bolder;
   }
 }
