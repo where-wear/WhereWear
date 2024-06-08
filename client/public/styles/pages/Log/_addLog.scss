@@ -1,9 +1,23 @@
+.add-log-box {
+  @include bottom-button-container;
+}
 .add-log-button {
   @include bottom-button;
 }
-.photo-label {
-  outline: 1px;
-  input {
-    display: none;
+.Photo-box {
+  display: flex;
+  width: 100%;
+  height: 20%;
+  min-height: 200px;
+  margin: 0;
+  .photo-label {
+    display: block;
+    margin-left: 20px;
+    width: 73px;
+    height: 96px;
+    background-color: black;
+    input {
+      display: none;
+    }
   }
 }

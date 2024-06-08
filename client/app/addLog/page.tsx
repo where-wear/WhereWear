@@ -13,9 +13,10 @@ const page = () => {
       <BackBar text="패션로그 작성" />
       {/* 사진 업로드 */}
       <AddLogPhoto />
-
-      <div className="add-log-button" onClick={addLogFormHandler}>
-        <p>패션 로그 업로드하기</p>
+      <div className="add-log-box">
+        <div className="add-log-button" onClick={addLogFormHandler}>
+          <p>패션 로그 업로드하기</p>
+        </div>
       </div>
     </>
   );

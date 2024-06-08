@@ -5,10 +5,12 @@ import React from 'react';
 const AddLogPhoto = () => {
   return (
     <>
-      <label className="photo-label">
-        <input type="file"></input>
-        <div>사진을 선택 해주세요</div>
-      </label>
+      <div className="Photo-box">
+        <label className="photo-label">
+          <input type="file"></input>
+          <div>사진을 선택 해주세요</div>
+        </label>
+      </div>
     </>
   );
 };
