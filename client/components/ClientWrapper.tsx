@@ -12,7 +12,7 @@ export default function ClientWrapper({
 }) {
   const pathname = usePathname();
 
-  const hideHeaderFooterPaths = ['/addLog']; // 헤더,푸터 사용안할 페이지의 경로
+  const hideHeaderFooterPaths = ['/addLog', '/addLog/tag']; // 헤더,푸터 사용안할 페이지의 경로
 
   const hideHeaderFooter = hideHeaderFooterPaths.includes(pathname);
 

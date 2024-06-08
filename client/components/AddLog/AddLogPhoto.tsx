@@ -8,7 +8,9 @@ const AddLogPhoto = () => {
       <div className="photo-box">
         <label className="photo-label">
           <input type="file"></input>
-          <div>사진을 선택 해주세요</div>
+          <div>사진추가</div>
+          <img src="/image/plusImage.svg" alt="" />
+          <div>(1/10)</div>
         </label>
         <div className="photo-box-text">
           <div>플레이스에서의 패션 추억을 공유해주세요.</div>
