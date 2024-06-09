@@ -1,5 +1,6 @@
 'use client';
 import AddLogPhoto from '@/components/AddLog/AddLogPhoto';
+import AddLogShow from '@/components/AddLog/AddLogShow';
 import BackBar from '@/components/Global/BackBar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -40,7 +41,7 @@ const page = () => {
         <div className="add-log-inner">
           <div>전체공개</div>
           <div>
-            <img src="/image/right-arrow.svg" alt="" />
+            <AddLogShow />
           </div>
         </div>
       </div>
