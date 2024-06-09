@@ -15,3 +15,8 @@ export interface UserDataType {
 export interface BackBarTextType {
   text: string;
 }
+
+// Add title 타이틀 프롭스 타입(상단 제목)
+export interface AddTitlePropsType {
+  text: string;
+}

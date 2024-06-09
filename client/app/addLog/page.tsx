@@ -3,7 +3,7 @@ import AddLogPhoto from '@/components/AddLog/AddLogPhoto';
 import BackBar from '@/components/Global/BackBar';
 import Link from 'next/link';
 import React from 'react';
-//! Link쓰면 주소가 저장되기때문에 모달창뜨는 느낌으로 바뀌어야 할 것같다 (중간 발표전에는 못고칠 예정)
+//! Link쓰면 주소가 저장되기때문에 모달창뜨는 느낌으로 바뀌어야 할 것같다 (중간 발표전에는 못고칠 예정) 또는 주소가 저장되지않게 하는방법도 있음
 const page = () => {
   function addLogFormHandler() {
     //Todo: formdata제출
@@ -23,13 +23,13 @@ const page = () => {
             <img src="/image/right-arrow.svg" alt="" />
           </div>
         </Link>
-        <Link href={'/addLog/tag'} className="add-log-inner ">
+        <Link href={'/addLog/Item'} className="add-log-inner ">
           <div>패션 아이템 추가</div>
           <div>
             <img src="/image/right-arrow.svg" alt="" />
           </div>
         </Link>
-        <Link href={'/addLog/tag'} className="add-log-inner ">
+        <Link href={'/addLog/place'} className="add-log-inner ">
           <div>플레이스 추가</div>
           <div>
             <img src="/image/right-arrow.svg" alt="" />

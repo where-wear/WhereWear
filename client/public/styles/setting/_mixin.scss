@@ -3,7 +3,7 @@
 }
 
 // 나중에 하단 고정 코드도 적어야 함
-
+//하단 버튼 믹스인
 @mixin bottom-button {
   position: fixed;
   bottom: 0px;
@@ -18,4 +18,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+//링크 컴포넌트 색상,밑줄 없애기
+
+@mixin link-style {
+  color: var(--main-black);
+  text-decoration: none;
+  cursor: pointer;
 }
