@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { Map } from 'react-kakao-maps-sdk';
 
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env
-  .KAKAO_CLIENT_ID!}&autoload=false`;
+  .NEXT_PUBLIC_KAKAO_CLIENT_ID!}&autoload=false`;
 
 const KakaoMap = () => {
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
