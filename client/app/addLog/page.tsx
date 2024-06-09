@@ -2,12 +2,14 @@
 import AddLogPhoto from '@/components/AddLog/AddLogPhoto';
 import BackBar from '@/components/Global/BackBar';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 //! Link쓰면 주소가 저장되기때문에 모달창뜨는 느낌으로 바뀌어야 할 것같다 (중간 발표전에는 못고칠 예정) 또는 주소가 저장되지않게 하는방법도 있음
 const page = () => {
+  const router = useRouter();
   function addLogFormHandler() {
     //Todo: formdata제출
-    return;
+    router.push('/home');
   }
   return (
     <>

@@ -65,7 +65,7 @@
 
 //-----------------------------태그 작성 페이지-----------------------------
 .add-log-tag-container {
-  margin: 20px;
+  margin: 0 20px 20px 20px;
   label {
     display: block;
     width: 100%;
@@ -85,6 +85,7 @@
   }
 }
 .show-tag-container {
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
 }
