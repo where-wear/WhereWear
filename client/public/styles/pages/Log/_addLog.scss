@@ -151,3 +151,35 @@
     margin-right: 20px;
   }
 }
+
+//-----------------------------플레이스 추가 페이지-----------------------------
+.add-log-show-container {
+  .add-log-show-background {
+    width: 35px;
+    height: 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &.add-log-show-yes {
+      background-color: rgb(117, 160, 54);
+      justify-content: flex-end;
+    }
+
+    &.add-log-show-no {
+      background-color: #797979;
+      justify-content: flex-start;
+    }
+  }
+
+  .add-log-circle {
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    margin: 1.3px;
+  }
+}
