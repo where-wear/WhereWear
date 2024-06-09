@@ -1,0 +1,18 @@
+.addtitle-container {
+  height: 60px;
+  .addtitle-box {
+    display: flex;
+    margin: 20px;
+    justify-content: space-between;
+    .addtitle-text {
+      font-size: large;
+      font-weight: bold;
+    }
+    .addtitle-inner {
+      font-size: small;
+      position: relative;
+      top: 5px;
+      @include link-style;
+    }
+  }
+}

@@ -1,9 +1,10 @@
 @import 'setting/mixin';
 @import 'setting/vars';
-//--------------헤더, 푸터-------------------
+//--------------글로벌-------------------
 @import 'pages/main/header';
 @import 'pages/main/footer';
 @import 'pages/main/backBar';
+@import 'pages/main/addLogTitle';
 
-//--------------로그 생성-------------------
+//--------------로그 생성------------------
 @import 'pages/Log/addLog';
