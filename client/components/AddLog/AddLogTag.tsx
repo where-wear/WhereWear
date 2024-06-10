@@ -1,20 +1,27 @@
+//todo: 되돌아가기 버튼을 누를경우 store의 tag값을날려야함
 'use client';
-import React, { useState } from 'react';
-// 태그 핸들러
-// 리덕스 추가 해야할듯
+import React, { useState, useEffect } from 'react';
+import { useStore } from '@/Zustand/store';
 
 const AddLogTag = () => {
   const [tag, setTag] = useState('');
-  const [tagArray, setTagArray] = useState<string[]>([]);
 
+  const logData = useStore((state) => state.logData);
+  const setLogData = useStore((state) => state.setLogData);
+  const [tagArray, setTagArray] = useState<string[]>(logData.tag);
   // 태그 추가 핸들러
   const addTag = () => {
     if (tag && tagArray.length < 10) {
-      setTagArray([...tagArray, tag]);
+      const newTagArray = [...tagArray, tag];
+      setTagArray(newTagArray);
+      setLogData({
+        ...logData,
+        tag: newTagArray,
+      });
       setTag('');
     } else {
-      setTag(''); //10개 넘는경우 그냥 인풋 값 비움
-      //todo: 나중에 경고창 뜨거나 하단에 알림을 적어야함
+      setTag(''); // 10개 넘는 경우 그냥 인풋 값 비움
+      // todo: 나중에 경고창 뜨거나 하단에 알림을 적어야함
     }
   };
 
@@ -28,8 +35,19 @@ const AddLogTag = () => {
 
   // 태그 삭제 핸들러
   const removeTag = (indexToRemove: number) => {
-    setTagArray(tagArray.filter((_, index) => index !== indexToRemove));
+    const newTagArray = tagArray.filter((_, index) => index !== indexToRemove);
+    setTagArray(newTagArray);
+    setLogData({
+      ...logData,
+      tag: newTagArray,
+    });
   };
+  //! 임시 주석
+  // logData가 변경될 때마다 콘솔에 출력
+  useEffect(() => {
+    console.log(logData);
+  }, [logData]);
+
   return (
     <>
       <div className="add-log-tag-container">
