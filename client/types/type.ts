@@ -20,3 +20,18 @@ export interface BackBarTextType {
 export interface AddTitlePropsType {
   text: string;
 }
+
+//로그 타입
+export interface AddlogData {
+  logPhotoList: string[];
+  text: string;
+  tag: string[];
+  item: { category: string; itemName: string }[];
+  place: {
+    placeName: string;
+    placeAddress: string;
+    placeX: string;
+    placeY: string;
+  }[];
+  isShow: boolean;
+}
