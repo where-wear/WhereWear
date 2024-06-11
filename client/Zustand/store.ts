@@ -15,7 +15,7 @@ export const useStore = create<AddlogDataState>((set) => ({
     tag: [],
     item: [],
     place: [],
-    isShow: false,
+    isShow: true,
   },
   setLogData: (data) => set({ logData: data }),
 }));

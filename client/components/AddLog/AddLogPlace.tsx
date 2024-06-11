@@ -3,11 +3,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useStore } from '@/Zustand/store';
 import { KakaoLocalResultType } from '@/types/type';
+import { useRouter } from 'next/navigation';
 
 const KAKAO_API_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json';
 //todo:  (선택한 div 의 정보 )나중에 카카오 로컬에서 위도 경도 , 매장이름, 주소 가져가서 핑찍기
 
 const AddLogPlace = () => {
+  //라우터 조정 변수
+  const router = useRouter();
   // 카카오 로컬 api 요청 핸들러
   const [place, setPlace] = useState('');
   const [results, setResults] = useState<KakaoLocalResultType[]>([]);
@@ -60,8 +63,8 @@ const AddLogPlace = () => {
         },
       ],
     });
-
-    //todo: css커서  pointer로 바꾸고 누르면 이전페이지로 넘어가게 만들어주기
+    router.back();
+    //todo: 누르면 이전페이지로 넘어가게 만들어주기
   };
 
   return (
