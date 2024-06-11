@@ -35,3 +35,12 @@ export interface AddlogData {
   }[];
   isShow: boolean;
 }
+
+//카카오 로컬 api 타입
+export interface KakaoLocalResultType {
+  id: number;
+  place_name: string;
+  address_name: string;
+  x: string;
+  y: string;
+}

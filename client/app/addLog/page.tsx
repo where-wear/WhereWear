@@ -1,6 +1,7 @@
 'use client';
 import AddLogPhoto from '@/components/AddLog/AddLogPhoto';
 import AddLogShow from '@/components/AddLog/AddLogShow';
+import AddLogText from '@/components/AddLog/AddLogText';
 import BackBar from '@/components/Global/BackBar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -18,6 +19,7 @@ const page = () => {
       {/* 사진 업로드 */}
 
       <AddLogPhoto />
+      <AddLogText />
       <hr className="hr-style" />
       <div className="add-log-component-box">
         <Link href={'/addLog/tag'} className="add-log-inner ">
