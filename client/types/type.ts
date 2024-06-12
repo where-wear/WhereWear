@@ -23,7 +23,7 @@ export interface AddTitlePropsType {
 
 //로그 타입
 export interface AddlogData {
-  logPhotoList: string[];
+  logPhotoList: { photoName: string; photoData: string }[];
   text: string;
   tag: string[];
   item: { category: string; itemName: string }[];
