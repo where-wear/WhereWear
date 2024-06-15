@@ -1,40 +1,60 @@
 'use client';
 import AddLogPhoto from '@/components/AddLog/AddLogPhoto';
 import AddLogShow from '@/components/AddLog/AddLogShow';
+import AddLogText from '@/components/AddLog/AddLogText';
 import BackBar from '@/components/Global/BackBar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useStore } from '@/Zustand/store';
+
 //! Link쓰면 주소가 저장되기때문에 모달창뜨는 느낌으로 바뀌어야 할 것같다 (중간 발표전에는 못고칠 예정) 또는 주소가 저장되지않게 하는방법도 있음
 const page = () => {
+  // 스토어값 가져오기
+  const logData = useStore((state) => state.logData);
+
   const router = useRouter();
   function addLogFormHandler() {
     //Todo: formdata제출
-    router.push('/home');
+    router.push(
+      '/home?x=' + logData.place.placeX + '&y=' + logData.place.placeY
+    );
   }
+
+  // 태그 앞에 # 붙이고 한 칸 띄우기
+  const formattedTags = logData.tag.map((tag) => `#${tag}`).join(' ');
+
+  // 아이템 이름만 표시
+  const itemNames = logData.item.map((item) => item.itemName).join(', ');
+
   return (
     <>
       <BackBar text="패션로그 작성" />
       {/* 사진 업로드 */}
 
       <AddLogPhoto />
+      <AddLogText />
       <hr className="hr-style" />
       <div className="add-log-component-box">
         <Link href={'/addLog/tag'} className="add-log-inner ">
           <div>태그입력</div>
-          <div>
+          <div className="add-log-store-arrow">
+            <div className="add-log-store">{formattedTags}</div>
             <img src="/image/right-arrow.svg" alt="" />
           </div>
         </Link>
         <Link href={'/addLog/Item'} className="add-log-inner ">
-          <div>패션 아이템 추가</div>
-          <div>
+          <div>패션 아이템 추가*</div>
+          <div className="add-log-store-arrow">
+            <div className="add-log-store">{itemNames}</div>
             <img src="/image/right-arrow.svg" alt="" />
           </div>
         </Link>
         <Link href={'/addLog/place'} className="add-log-inner ">
-          <div>플레이스 추가</div>
-          <div>
+          <div>플레이스 추가*</div>
+
+          <div className="add-log-store-arrow">
+            <div className="add-log-store">{logData.place.placeName}</div>
             <img src="/image/right-arrow.svg" alt="" />
           </div>
         </Link>

@@ -10,12 +10,12 @@ interface AddlogDataState {
 //전역 상태관리 라이브러리
 export const useStore = create<AddlogDataState>((set) => ({
   logData: {
-    logPhotoList: [],
+    logImageList: [],
     text: '',
     tag: [],
     item: [],
-    place: [],
-    isShow: false,
+    place: { placeName: '', placeAddress: '', placeX: '', placeY: '' },
+    isShow: true,
   },
   setLogData: (data) => set({ logData: data }),
 }));

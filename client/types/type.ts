@@ -23,7 +23,7 @@ export interface AddTitlePropsType {
 
 //로그 타입
 export interface AddlogData {
-  logPhotoList: string[];
+  logImageList: { imageName: string; imageData: string }[];
   text: string;
   tag: string[];
   item: { category: string; itemName: string }[];
@@ -32,6 +32,15 @@ export interface AddlogData {
     placeAddress: string;
     placeX: string;
     placeY: string;
-  }[];
+  };
   isShow: boolean;
+}
+
+//카카오 로컬 api 타입
+export interface KakaoLocalResultType {
+  id: number;
+  place_name: string;
+  address_name: string;
+  x: string;
+  y: string;
 }

@@ -1,18 +1,25 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useStore } from '@/Zustand/store';
+import { KakaoLocalResultType } from '@/types/type';
+import { useRouter } from 'next/navigation';
+
 const KAKAO_API_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json';
 //todo:  (선택한 div 의 정보 )나중에 카카오 로컬에서 위도 경도 , 매장이름, 주소 가져가서 핑찍기
 
-interface KakaoLocalResultType {
-  id: number;
-  place_name: string;
-  address_name: string;
-}
 const AddLogPlace = () => {
+  //라우터 조정 변수
+  const router = useRouter();
   // 카카오 로컬 api 요청 핸들러
   const [place, setPlace] = useState('');
   const [results, setResults] = useState<KakaoLocalResultType[]>([]);
+
+  //스토어값 가져오기
+  const logData = useStore((state) => state.logData);
+  const setLogData = useStore((state) => state.setLogData);
+
+  //카카오 로컬 검색 핸들러
   const searchPlaceHandler = async (query: string) => {
     try {
       const response = await axios.get(KAKAO_API_URL, {
@@ -43,6 +50,21 @@ const AddLogPlace = () => {
     }
   }, [place]);
 
+  //플레이스 스토어 저장 핸들러
+  const handleResultClick = (result: KakaoLocalResultType) => {
+    setLogData({
+      ...logData,
+      place: {
+        // place를 객체로 수정
+        placeName: result.place_name,
+        placeAddress: result.address_name,
+        placeX: result.x,
+        placeY: result.y,
+      },
+    });
+    router.back();
+  };
+
   return (
     <>
       <div className="add-log-place-container">
@@ -63,8 +85,12 @@ const AddLogPlace = () => {
           {results.length > 0 && (
             <div className="search-results">
               {results.map((result) => (
-                <div key={result.id} className="search-result-item">
-                  <div className="search-result-photo">사진</div>
+                <div
+                  key={result.id}
+                  className="search-result-item"
+                  onClick={() => handleResultClick(result)}
+                >
+                  {/* <div className="search-result-photo">사진</div> */}
                   <div>
                     <h2>{result.place_name}</h2>
                     <p>{result.address_name}</p>

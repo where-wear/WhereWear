@@ -5,10 +5,17 @@ import Link from 'next/link';
 const page = () => {
   return (
     <>
-      <KakaoLogin />
-      <Link href={'/home'}>
-        <button>둘러보기</button>
-      </Link>
+      <div className="home-container">
+        <img src="/image/home_main_text.png" className="home-main-text" />
+        <img src="/image/home_sub_text.png" className="home-sub-text" />
+        <div className="kakao-login-icon">
+          <KakaoLogin />
+        </div>
+
+        <Link href={'/home'} style={{ textDecoration: 'none' }}>
+          <div className="justshow-button">그냥 둘러볼게요!</div>
+        </Link>
+      </div>
     </>
   );
 };
