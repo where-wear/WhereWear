@@ -54,17 +54,15 @@ const AddLogPlace = () => {
   const handleResultClick = (result: KakaoLocalResultType) => {
     setLogData({
       ...logData,
-      place: [
-        {
-          placeName: result.place_name,
-          placeAddress: result.address_name,
-          placeX: result.x,
-          placeY: result.y,
-        },
-      ],
+      place: {
+        // place를 객체로 수정
+        placeName: result.place_name,
+        placeAddress: result.address_name,
+        placeX: result.x,
+        placeY: result.y,
+      },
     });
     router.back();
-    //todo: 누르면 이전페이지로 넘어가게 만들어주기
   };
 
   return (
@@ -92,7 +90,7 @@ const AddLogPlace = () => {
                   className="search-result-item"
                   onClick={() => handleResultClick(result)}
                 >
-                  <div className="search-result-photo">사진</div>
+                  {/* <div className="search-result-photo">사진</div> */}
                   <div>
                     <h2>{result.place_name}</h2>
                     <p>{result.address_name}</p>

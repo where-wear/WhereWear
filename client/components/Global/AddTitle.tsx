@@ -13,7 +13,9 @@ const AddTitle = (props: AddTitlePropsType) => {
             취소
           </Link>
           <div className="addtitle-text">{props.text}</div>
-          <div className="addtitle-inner">확인</div>
+          <Link href={'/addLog'} className="addtitle-inner">
+            확인
+          </Link>
         </div>
       </div>
     </>

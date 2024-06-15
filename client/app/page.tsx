@@ -11,9 +11,12 @@ export const metadata: Metadata = {
 const HomePage = () => {
   return (
     <>
-      <h1>Wherewear 메인</h1>
-      <Link href={'/signin'}>
-        <button>로그인페이지로 이동</button>
+      <Link href="/signin">
+        <div className="home-container">
+          <img src="/image/home_main_text.png" className="home-main-text" />
+          <img src="/image/home_sub_text.png" className="home-sub-text" />
+          <img src="/image/home_W.png" className="home-w" />
+        </div>
       </Link>
     </>
   );

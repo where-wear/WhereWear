@@ -13,6 +13,8 @@ export default function ClientWrapper({
   const pathname = usePathname();
 
   const hideHeaderFooterPaths = [
+    '/signin',
+    '/',
     '/addLog',
     '/addLog/tag',
     '/addLog/Item',
