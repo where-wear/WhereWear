@@ -21,13 +21,20 @@ export default function ClientWrapper({
     '/addLog/place',
   ]; // 헤더,푸터 사용안할 페이지의 경로
 
-  const hideHeaderFooter = hideHeaderFooterPaths.includes(pathname);
+  // 헤더만 숨길 페이지 경로
+  const hideHeaderPaths = ['/recommendLog'];
+
+  // const hideHeaderFooter = hideHeaderFooterPaths.includes(pathname);
+  const hideHeader =
+    hideHeaderFooterPaths.includes(pathname) ||
+    hideHeaderPaths.includes(pathname);
+  const hideFooter = hideHeaderFooterPaths.includes(pathname);
 
   return (
     <div className="__next">
-      {!hideHeaderFooter && <Header />}
+      {!hideHeader && <Header />}
       <div className="content_box">{children}</div>
-      {!hideHeaderFooter && <Footer />}
+      {!hideFooter && <Footer />}
     </div>
   );
 }

@@ -1,0 +1,116 @@
+.top-black-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-color: black;
+  height: 26%;
+  justify-content: space-between;
+  .recommend-title-container {
+    margin-top: 16%;
+    margin-left: 20px;
+    .recommend-usernickname-text {
+      font-size: 20px;
+    }
+    .recommend-place-text {
+      font-size: x-large;
+      font-weight: 500;
+      margin-top: 3px;
+    }
+  }
+}
+
+.recommend-button-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+
+  .recommend-button-inner {
+    width: 50%;
+    text-align: center;
+    font-size: 16px;
+    .recommend-bottom-bar {
+      height: 5px;
+      background-color: white;
+      opacity: 40%;
+      margin-top: 10px;
+    }
+    .none {
+      display: none;
+    }
+    .recommend-log-text {
+      color: #707070;
+    }
+  }
+}
+
+.recommend-contents-container {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.test-drop-down {
+  display: flex;
+  margin-top: 25px;
+  width: 100px;
+  height: 28px;
+  border: 1.3px solid;
+  border-radius: 20px;
+  border-color: #d4d4d4;
+  color: #8b8b8b;
+  justify-content: center;
+  font-size: small;
+  .rkdskarn {
+    margin-right: 3px;
+    position: relative;
+    top: 2px;
+  }
+  .ghktkfvy {
+    margin-left: 3px;
+    position: relative;
+    top: 7px;
+  }
+}
+//top패션로그 텍스트
+.top-fashion-log-text {
+  margin: 5px;
+}
+.top-fashion-log-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .top-fashion-log-item {
+    .log-image {
+      width: 102px;
+      height: 102px;
+    }
+  }
+}
+
+.weekend-hot-keyword-item {
+  display: flex;
+  .keyword-text {
+    margin: 5px;
+    padding: 7px 11px 7px 11px;
+    border: 1.3px solid;
+    border-radius: 13px;
+    border-color: #7a7a7a;
+    color: #5c5b5b;
+    font-size: 14px;
+  }
+}
+
+//상단 이미지
+.recommendW {
+  position: absolute;
+  top: 28%;
+  right: 0;
+  img {
+    height: 11vh;
+  }
+}
