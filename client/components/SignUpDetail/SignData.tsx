@@ -4,11 +4,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { UserDataType } from "@/types/type";
 import axios from "axios";
 import BackBar from "../Global/BackBar";
-import Cookies from "js-cookie";
+import { useSearchParams } from "next/navigation";
 const SignData = () => {
   //닉네임 체크 관련 변수
   const [CheckNickname, setCheckNickname] = useState<string>("");
-
+  //토큰
+  const params = useSearchParams();
+  const token = params.get("token");
   const {
     register,
     handleSubmit,
@@ -18,18 +20,18 @@ const SignData = () => {
   const ninckNameCheckHandler = async () => {
     //닉네임 체크하는 axios요청 함수 checkNickname 변수를 담아서 보내기
     try {
-      const refreshToken = Cookies.get("refresh_token");
+      console.log(`서버에 보내는 토큰 ${token} , 닉네임 ${CheckNickname}`);
       const response = await axios.post(
         "http://localhost:8080/api/accounts/nicknameCheck",
         {
           params: { nickname: CheckNickname },
 
           headers: {
-            Authorization: `Bearer ${refreshToken}`, // 헤더에 토큰 추가
+            Authorization: `Bearer ${token}`, // 헤더에 토큰 추가
           },
         }
       );
-      console.log(response);
+      console.log(response, "성공");
     } catch (error) {}
   };
 
