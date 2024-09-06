@@ -19,6 +19,7 @@ export default function ClientWrapper({
     '/addLog/tag',
     '/addLog/Item',
     '/addLog/place',
+    '/signin/userdata'
   ]; // 헤더,푸터 사용안할 페이지의 경로
 
   // 헤더만 숨길 페이지 경로

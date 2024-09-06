@@ -1,1 +1,4 @@
 //유저, 팔로우 관련 버튼 이미지 설정
+.user-data-sub {
+  @include bottom-button;
+}

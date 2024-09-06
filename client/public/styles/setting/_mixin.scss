@@ -27,3 +27,9 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+//input 박스 없애고 하단 밑줄만
+@mixin input-underbar {
+  border-bottom: 2px solid;
+  border-color: #121212;
+}
