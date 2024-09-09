@@ -44,3 +44,15 @@ export interface KakaoLocalResultType {
   x: string;
   y: string;
 }
+
+//로그인시 회원정보
+
+export interface UserData {
+  nickname: string;
+  image: string;
+  height: number;
+  weight: number;
+  footSize: number;
+  job: string;
+  introduction: string;
+}
