@@ -2,7 +2,7 @@
 //todo:추가해야함
 //회원가입 상세 정보
 export interface UserDataType {
-  image: string;
+  image: File | null;
   nickname: string;
   height: number;
   weight: number;

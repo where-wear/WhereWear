@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
+interface UserImageProps {
+  onImageChange: (file: File | null) => void; // 이미지 파일을 전달할 함수
+}
 
-const UserImage = () => {
-  // 유저 이미지 주소
+const UserImage: React.FC<UserImageProps> = ({ onImageChange }) => {
+  // 미리보기 이미지 설정
   const [imageUrl, setImageUrl] = useState<string>(
-    '/image/profile/defaultImage.png'
+    "/image/profile/defaultImage.png"
   );
-  const getImageHandler = async () => {
-    //이미지 올린후 멀티파트 사용
+
+  // 미리보기 핸들러
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file: File | null = e.target.files?.[0] || null;
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setImageUrl(previewUrl); // 미리보기 업데이트
+      onImageChange(file); // 상위 컴포넌트로 파일 전달
+    } else {
+      onImageChange(null); // 파일이 없을 경우 null 전달
+    }
   };
+
   return (
     <>
       <div>
-        <img src={`${imageUrl}`} />
+        <img src={`${imageUrl}`} className="signin-user-image" />
       </div>
-      <div onClick={getImageHandler}>{/* 수정할때 쓰는 버튼 */}</div>
+      <div>
+        {/* 이미지 파일 올리는 버튼  */}
+        <input type="file" onChange={handleImageChange} />
+      </div>
     </>
   );
 };
