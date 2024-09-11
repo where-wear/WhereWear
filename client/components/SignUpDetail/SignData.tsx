@@ -9,12 +9,15 @@ import axios from "axios";
 import BackBar from "../Global/BackBar";
 import { redirect, useSearchParams } from "next/navigation";
 import { UserData } from "@/types/type";
+import UserImage from "./UserImage";
 const SignData = () => {
   //닉네임 체크 관련 변수
   const [CheckNickname, setCheckNickname] = useState<string>("");
 
   //중복확인 변수
   const [isCheck, setIsCheck] = useState<boolean>(false);
+  //이미지 상태
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   //닉네임이 변할때 마다 중복확인 변수를 false로 초기화
   useEffect(() => {
@@ -36,7 +39,7 @@ const SignData = () => {
 
   //api 요청때 사용할 폼 데이터
   const [userdata, setUserData] = useState<UserDataType>({
-    image: "",
+    image: null,
     nickname: "",
     height: 0,
     weight: 0,
@@ -72,6 +75,16 @@ const SignData = () => {
     } catch (error) {}
   };
   const subUserDataHandler = async () => {
+    const formData = new FormData();
+    if (imageFile) {
+      formData.append("image", imageFile); // 이미지 파일 추가
+    }
+    formData.append("nickname", userdata.nickname);
+    formData.append("height", String(userdata.height));
+    formData.append("weight", String(userdata.weight));
+    formData.append("footSize", String(userdata.footSize));
+    formData.append("job", userdata.job);
+    formData.append("introduction", userdata.introduction);
     //닉네임 변수가 false 일경우,다른거 안적었을경우 제출버튼이 눌리지않음
     try {
       const response = await axios.post(
@@ -80,6 +93,7 @@ const SignData = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -95,6 +109,16 @@ const SignData = () => {
   return (
     <>
       <BackBar text=" 추가 정보 입력 " />
+
+      <UserImage
+        onImageChange={(file) => {
+          setImageFile(file); // 이미지 파일을 상태로 저장
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            image: file, // 이미지 이름을 userdata에 저장
+          }));
+        }}
+      />
 
       <form onSubmit={handleSubmit(subUserDataHandler)}>
         <div>
