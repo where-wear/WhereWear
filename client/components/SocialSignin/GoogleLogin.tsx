@@ -7,14 +7,17 @@ const GoogleLogin = () => {
   };
 
   return (
-    <div>
-      <img
-        style={{ cursor: 'pointer' }}
-        onClick={handleLogin}
-        src="/image/google_login_button.svg"
-        alt="구글 로그인"
-      />
-      구글 로그인
+    <div className="social-login-button google-button ">
+      <div className="social-login-image">
+        <img
+          style={{ width: '25px' }}
+          onClick={handleLogin}
+          src="/image/googleLogo.png"
+          alt="구글 로그인"
+        />
+      </div>
+
+      <div className="social-login-text">구글로 시작하기</div>
     </div>
   );
 };

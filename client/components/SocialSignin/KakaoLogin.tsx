@@ -1,19 +1,23 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 const KakaoLogin = () => {
   const handleLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
+    window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
   };
 
   return (
-    <div>
-      <img
-        style={{ cursor: "pointer" }}
-        onClick={handleLogin}
-        src="/image/kakao_login_medium_wide.png"
-        alt="카카오 로그인"
-      />
+    <div className="social-login-button kakao-button ">
+      <div className="social-login-image">
+        <img
+          style={{ width: '50px' }}
+          onClick={handleLogin}
+          src="/image/kakaoLogo.png"
+          alt="카카오 로그인"
+        />
+      </div>
+
+      <div>카카오로 시작하기</div>
     </div>
   );
 };

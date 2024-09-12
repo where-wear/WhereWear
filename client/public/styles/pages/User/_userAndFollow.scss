@@ -3,7 +3,92 @@
   @include bottom-button;
 }
 .signin-user-image {
-  width: 100px;
-  height: 100px;
+  width: 77px;
+  height: 77px;
   border-radius: 100%;
+}
+.signin-user-image-container {
+  margin-top: 5.7vh;
+  margin-bottom: 5.7vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .upload-image-container {
+    margin-top: 7px;
+  }
+  .signin-user-upload-image {
+    input {
+      display: none;
+    }
+  }
+}
+
+//유저 추가정보 입력 칸
+.signup-user-input-underline {
+  display: block;
+  width: 110px;
+  height: 20px;
+  border-bottom: 2px solid #dcdcde;
+  align-items: center; /* 텍스트 중앙 정렬 */
+  margin: 0px 8px 0px 8px;
+
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: transparent;
+    color: black;
+  }
+}
+
+.signup-user-text-box {
+  display: inline-block;
+  width: 130x;
+  height: 61px;
+  border: 2px solid #dcdcde;
+  border-radius: 7px;
+  padding: 10px;
+  textarea {
+    border: none;
+    outline: none;
+    width: 130px;
+    height: 60px;
+    background-color: transparent;
+    color: black;
+  }
+  textarea::placeholder {
+    color: #d7d7d7;
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+
+.user-input-container {
+  display: flex;
+  margin: 2px 0px 32px 18px;
+  .tile-label {
+    width: 80px;
+    text-align: end;
+    font-weight: 500;
+    margin-right: 20px;
+  }
+  .gray-unit {
+    position: relative;
+    top: 4px;
+    color: #7c7c7c;
+    font-weight: 500;
+  }
+  button {
+    position: relative;
+    bottom: 8px;
+    width: 70px;
+    height: 26px;
+    background-color: transparent;
+    border: 1.5px solid #dcdcde;
+    border-radius: 5px;
+    color: #5a5a5a;
+    font-size: small;
+    font-weight: 500;
+  }
 }
