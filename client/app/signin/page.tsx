@@ -20,11 +20,11 @@ const page = () => {
           <div className="google-login-icon">
             <GoogleLogin />
           </div>
-        </div>
 
-        <Link href={'/home'} style={{ textDecoration: 'none' }}>
-          <div className="justshow-button">그냥 둘러볼게요!</div>
-        </Link>
+          <Link href={'/home'} style={{ textDecoration: 'none' }}>
+            <div className="justshow-button">그냥 둘러볼게요!</div>
+          </Link>
+        </div>
       </div>
     </>
   );

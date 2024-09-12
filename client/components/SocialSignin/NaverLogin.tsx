@@ -7,13 +7,17 @@ const NaverLogin = () => {
   };
 
   return (
-    <div>
-      <img
-        style={{ cursor: 'pointer', height: '45px' }}
-        onClick={handleLogin}
-        src="/image/naver_login_button.png"
-        alt="네이버 로그인"
-      />
+    <div className="social-login-button naver-button ">
+      <div className="social-login-image">
+        <img
+          style={{ width: '20px' }}
+          onClick={handleLogin}
+          src="/image/naverLogo.png"
+          alt="네이버 로그인"
+        />
+      </div>
+
+      <div>네이버로 시작하기</div>
     </div>
   );
 };

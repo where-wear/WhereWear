@@ -1,5 +1,5 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 interface UserImageProps {
   onImageChange: (file: File | null) => void; // 이미지 파일을 전달할 함수
 }
@@ -7,7 +7,7 @@ interface UserImageProps {
 const UserImage: React.FC<UserImageProps> = ({ onImageChange }) => {
   // 미리보기 이미지 설정
   const [imageUrl, setImageUrl] = useState<string>(
-    "/image/profile/defaultImage.png"
+    '/image/profile/defaultImage.png'
   );
 
   // 미리보기 핸들러
@@ -24,12 +24,17 @@ const UserImage: React.FC<UserImageProps> = ({ onImageChange }) => {
 
   return (
     <>
-      <div>
-        <img src={`${imageUrl}`} className="signin-user-image" />
-      </div>
-      <div>
-        {/* 이미지 파일 올리는 버튼  */}
-        <input type="file" onChange={handleImageChange} />
+      <div className="signin-user-image-container">
+        <div>
+          <img src={`${imageUrl}`} className="signin-user-image" />
+        </div>
+        <div className="upload-image-container">
+          {/* 이미지 파일 올리는 버튼  */}
+          <label className="signin-user-upload-image">
+            <input type="file" onChange={handleImageChange} />
+            <img src="/image/pen.svg" />
+          </label>
+        </div>
       </div>
     </>
   );
