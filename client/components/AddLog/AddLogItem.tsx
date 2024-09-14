@@ -1,3 +1,4 @@
+//아이템  "" 이면 그냥 함수 중단 시키기(버튼 안눌리게 처리한다던지)
 'use client';
 import { useStore } from '@/Zustand/store';
 import React, { useState } from 'react';
@@ -16,7 +17,7 @@ const AddLogItem = () => {
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
-    setSelectedSubCategory(null); // 서브 카테고리를 초기화합니다.
+    setSelectedSubCategory(null); // 서브 카테고리 초기화
   };
 
   const handleSubCategoryClick = (subCategory: string) => {
@@ -129,7 +130,6 @@ const AddLogItem = () => {
                   ))}
                 </>
               )}
-              {/* 다른 카테고리들도 여기에 추가하세요 */}
             </div>
           )}
         </div>
