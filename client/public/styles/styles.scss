@@ -1,14 +1,17 @@
-@import "setting/mixin";
-@import "setting/vars";
+@import 'setting/mixin';
+@import 'setting/vars';
 //--------------글로벌-------------------
-@import "pages/main/header";
-@import "pages/main/footer";
-@import "pages/main/backBar";
-@import "pages/main/addLogTitle";
-@import "pages/main/home";
+@import 'pages/main/header';
+@import 'pages/main/footer';
+@import 'pages/main/backBar';
+@import 'pages/main/addLogTitle';
+@import 'pages/main/home';
+//--------------로그 조회------------------
+@import 'pages/Log/Log';
 //--------------로그 생성------------------
-@import "pages/Log/addLog";
+@import 'pages/Log/addLog';
 //--------------추천 로그------------------
-@import "pages/Log/recommendLog";
+
+@import 'pages/Log/recommendLog';
 //--------------유저,팔로우------------------
-@import "pages/User/userAndFollow";
+@import 'pages/User/userAndFollow';
