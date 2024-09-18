@@ -42,9 +42,13 @@ const page = () => {
     });
     // 다른 데이터 추가
     formData.append('text', logData.text);
-    formData.append('tag', JSON.stringify(logData.tag));
-    formData.append('item', JSON.stringify(logData.item));
+    formData.append('tags', JSON.stringify(logData.tag));
+    formData.append('items', JSON.stringify(logData.item));
     formData.append('place', JSON.stringify(logData.place));
+    formData.append('x', JSON.stringify(logData.place.placeX));
+    formData.append('y', JSON.stringify(logData.place.placeY));
+    formData.append('placeName', JSON.stringify(logData.place.placeName));
+    formData.append('adress', JSON.stringify(logData.place.placeAddress));
     formData.append('isShow', String(logData.isShow));
     try {
       console.log(formData);
