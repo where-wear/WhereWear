@@ -1,11 +1,14 @@
-'use client';
-import React, { useState, ChangeEvent, useEffect } from 'react';
-import { useStore } from '@/Zustand/store';
-import { AddlogData } from '@/types/type';
+"use client";
+import React, { useState, ChangeEvent, useEffect } from "react";
+import { useStore } from "@/Zustand/store";
+import { AddlogData } from "@/types/type";
 
 interface ImageInfo {
   imageName: string;
   imageData: string; // base64 코드를 저장할 곳
+}
+interface UserImageProps {
+  onImageChange: (file: File | null) => void; // 이미지 파일을 전달할 함수
 }
 
 const AddLogPhoto: React.FC = () => {
@@ -42,7 +45,7 @@ const AddLogPhoto: React.FC = () => {
         setUploadImages((prev) => [...prev, ...newImages]);
       })
       .catch((error) => {
-        console.error('Error reading files:', error);
+        console.error("Error reading files:", error);
       });
   };
 
