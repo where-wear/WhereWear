@@ -1,30 +1,64 @@
 // ------------------------------------로그조회-------------------------
 .log-photo-box {
+  margin-top: 60px;
   background-color: gray;
-  height: 60vh;
+  height: 57vh;
   color: white;
+  display: flex;
+  align-items: flex-end;
+  .log-photo-text {
+    margin-bottom: 12px;
+    width: 100px;
+    text-align: center;
+    .log-place-name-text {
+      font-size: 18px;
+    }
+    .log-place-address-text {
+      font-size: 10px;
+    }
+  }
 }
 
 .log-another-user-circle-container {
+  margin-top: 8px;
   display: flex;
   height: 5vh;
   align-items: center;
   .log-another-user-circle {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-between;
     width: 85vw;
+    .log-another-user-circle-inner {
+      img {
+        border-radius: 100%;
+        height: 4vh;
+        width: 4vh;
+      }
+    }
   }
   .log-show-more {
+    position: relative;
+    bottom: 7px;
     width: 15vw;
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-size: 25px;
     cursor: pointer;
   }
 }
 
 .log-user-contents-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   .log-user-image {
+    text-align: center;
     width: 6vh;
     height: 6vh;
     border-radius: 100%;
@@ -32,18 +66,150 @@
   }
   .log-user-contents-box {
     display: flex;
+    .log-nickname-date-container {
+      margin-left: 10px;
+      .log-nickname {
+        font-size: 17px;
+        font-weight: 450;
+      }
+      .log-date {
+        font-size: 11px;
+      }
+    }
   }
 }
 .log-follow-button {
+  padding-top: 1px;
+  padding-right: 2px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
   width: 70px;
-  height: 20px;
+  height: 19px;
+  background-color: var(--main-black);
+  border-radius: 7px;
+  color: white;
+  cursor: pointer;
+}
+
+.log-maintext {
+  padding: 20px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.log-tag-container {
+  height: 10vh;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  .log-tag {
+    height: 20px;
+    font-size: small;
+    font-weight: 450;
+    color: var(--main-black);
+    margin: 0 4px 0 4px;
+    margin-right: 10px;
+    background-color: #ededed;
+    border-radius: 5px;
+    .tag-inner {
+      margin: 0px 5px 0px 5px;
+    }
+  }
+}
+
+.log-item-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+  .log-item-title {
+    font-size: 16px;
+    font-weight: 550;
+    margin-bottom: 10px;
+  }
+  .log-item-inner {
+    font-size: 13px;
+    font-weight: 550;
+  }
 }
 
 .log-place-container {
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+
   height: 12vh;
-  .log-place-redirect-button {
-    width: 200px;
-    height: 30px;
-    background-color: #eecd14;
+  .log-place-title {
+    font-size: 16px;
+    font-weight: 550;
+    margin-bottom: 18px;
   }
+  .log-place-redirect-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .log-place-redirect-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      height: 40px;
+      background-color: #fae200;
+      box-shadow: 0 5px 3px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      img {
+        position: relative;
+        right: 12px;
+        height: 25px;
+      }
+      .log-place-button-text {
+        position: relative;
+        right: 10px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.log-arround-container {
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 25vh;
+  margin-bottom: 40px;
+  .log-arround-info {
+    font-size: 16px;
+    font-weight: 550;
+    margin-bottom: 18px;
+  }
+  .log-arround-info-image {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+//-----------------------로그 이미지 변경 언더바----------------
+.log-underbar-container {
+  background-color: #d9d9d9;
+  .log-photo-underbar {
+    height: 6px;
+    width: 33vw;
+    background-color: #8f00ff;
+  }
+}
+//----------------------hr------------------------
+.log-hr {
+  margin-bottom: 8px;
+  background-color: #bebebe;
+  height: 1px;
+  border: 0px;
 }
