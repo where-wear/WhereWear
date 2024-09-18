@@ -1,0 +1,49 @@
+// ------------------------------------로그조회-------------------------
+.log-photo-box {
+  background-color: gray;
+  height: 60vh;
+  color: white;
+}
+
+.log-another-user-circle-container {
+  display: flex;
+  height: 5vh;
+  align-items: center;
+  .log-another-user-circle {
+    width: 85vw;
+  }
+  .log-show-more {
+    width: 15vw;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+.log-user-contents-container {
+  display: flex;
+  justify-content: space-between;
+  .log-user-image {
+    width: 6vh;
+    height: 6vh;
+    border-radius: 100%;
+    background-color: #646464;
+  }
+  .log-user-contents-box {
+    display: flex;
+  }
+}
+.log-follow-button {
+  width: 70px;
+  height: 20px;
+}
+
+.log-place-container {
+  height: 12vh;
+  .log-place-redirect-button {
+    width: 200px;
+    height: 30px;
+    background-color: #eecd14;
+  }
+}
