@@ -1,19 +1,22 @@
 //아이템  "" 이면 그냥 함수 중단 시키기(버튼 안눌리게 처리한다던지)
-'use client';
-import { useStore } from '@/Zustand/store';
-import React, { useState } from 'react';
-import AddItemModal from './AddItemModal';
+//필요없는 코드 지우기(state관련)
+"use client";
+import { useStore } from "@/Zustand/store";
+import React, { useState } from "react";
+import AddItemModal from "./AddItemModal";
 
 const AddLogItem = () => {
   const logData = useStore((state) => state.logData);
   const setLogData = useStore((state) => state.setLogData);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
-    '상의'
+    "상의"
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null
   );
+
+  //전역state에 저장
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
@@ -30,10 +33,34 @@ const AddLogItem = () => {
   };
 
   const handleModalSave = (itemName: string) => {
-    const categoryString = `${selectedCategory}>${selectedSubCategory}`;
+    let categoryNum = 0;
+    if (selectedSubCategory == "숄더백") {
+      categoryNum = 1;
+    } else if (selectedSubCategory == "토트백") {
+      categoryNum = 2;
+    } else if (selectedSubCategory == "크로스백") {
+      categoryNum = 3;
+    } else if (selectedSubCategory == "클러치백") {
+      categoryNum = 4;
+    } else if (selectedSubCategory == "백팩") {
+      categoryNum = 5;
+    } else if (selectedSubCategory == "에코백") {
+      categoryNum = 6;
+    } else if (selectedSubCategory == "셔츠") {
+      categoryNum = 7;
+    } else if (selectedSubCategory == "맨투맨") {
+      categoryNum = 8;
+    } else if (selectedSubCategory == "니트스웨터") {
+      categoryNum = 9;
+    } else if (selectedSubCategory == "후드") {
+      categoryNum = 10;
+    } else if (selectedSubCategory == "스포츠티") {
+      categoryNum = 11;
+    }
+
     setLogData({
       ...logData,
-      item: [...logData.item, { category: categoryString, itemName }],
+      item: [...logData.item, { categoryId: categoryNum, itemName }],
     });
     setIsModalOpen(false);
   };
@@ -55,20 +82,20 @@ const AddLogItem = () => {
         <div className="add-log-item-container">
           <div className="add-log-item-category">
             {[
-              '상의',
-              '아우터',
-              '바지',
-              '원피스/스커트',
-              '신발',
-              '가방',
-              '패션 소품',
-              '뷰티템',
-              '스포츠/레저',
+              "상의",
+              "아우터",
+              "바지",
+              "원피스/스커트",
+              "신발",
+              "가방",
+              "패션 소품",
+              "뷰티템",
+              "스포츠/레저",
             ].map((category) => (
               <div
                 key={category}
                 className={`add-log-item-category-inner ${
-                  selectedCategory === category ? 'selected' : ''
+                  selectedCategory === category ? "selected" : ""
                 }`}
                 onClick={() => handleCategoryClick(category)}
               >
@@ -78,15 +105,15 @@ const AddLogItem = () => {
           </div>
           {selectedCategory && (
             <div className="add-log-item-detail">
-              {selectedCategory === '상의' && (
+              {selectedCategory === "상의" && (
                 <>
                   {[
-                    '티셔츠',
-                    '셔츠',
-                    '맨투맨',
-                    '니트스웨터',
-                    '후드',
-                    '스포츠티',
+                    "티셔츠",
+                    "셔츠",
+                    "맨투맨",
+                    "니트스웨터",
+                    "후드",
+                    "스포츠티",
                   ].map((subCategory) => (
                     <div
                       className="add-log-item-imgtext"
@@ -104,15 +131,15 @@ const AddLogItem = () => {
                   ))}
                 </>
               )}
-              {selectedCategory === '가방' && (
+              {selectedCategory === "가방" && (
                 <>
                   {[
-                    '숄더백',
-                    '토트백',
-                    '크로스백',
-                    '클러치백',
-                    '백팩',
-                    '에코백',
+                    "숄더백",
+                    "토트백",
+                    "크로스백",
+                    "클러치백",
+                    "백팩",
+                    "에코백",
                   ].map((subCategory) => (
                     <div
                       className="add-log-item-imgtext"
