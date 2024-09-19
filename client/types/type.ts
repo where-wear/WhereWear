@@ -26,7 +26,7 @@ export interface AddlogData {
   logImageList: { imageName: string; imageData: string }[];
   text: string;
   tag: string[];
-  item: { category: string; itemName: string }[];
+  item: { categoryId: number; itemName: string }[];
   place: {
     placeName: string;
     placeAddress: string;
