@@ -5,15 +5,12 @@ import React, { useEffect } from 'react';
 const page = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      let accessToken = localStorage.getItem('accessToken') || '';
-      if (!accessToken) {
-        const params = new URLSearchParams(window.location.search);
-        const token = params.get('token');
+      // URL 쿼리에서 token 값을 가져옴
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
 
-        if (token) {
-          localStorage.setItem('accessToken', token);
-          accessToken = token;
-        }
+      if (token) {
+        localStorage.setItem('accessToken', token);
       }
     }
   }, []);
