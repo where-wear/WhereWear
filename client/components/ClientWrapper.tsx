@@ -21,16 +21,18 @@ export default function ClientWrapper({
     '/addLog/place',
     '/signin/userdata',
     '/Log/',
+    '/setting',
   ]; // 헤더,푸터 사용안할 페이지의 경로
 
   // 헤더만 숨길 페이지 경로
   const hideHeaderPaths = ['/recommendLog'];
   const isDynamicLogPage = /^\/Log\/\d+$/.test(pathname);
-  // const hideHeaderFooter = hideHeaderFooterPaths.includes(pathname);
+  const ismyPage = /^\/myPage\/[^\/]+$/.test(pathname);
   const hideHeader =
     hideHeaderFooterPaths.includes(pathname) ||
     hideHeaderPaths.includes(pathname) ||
-    isDynamicLogPage;
+    isDynamicLogPage ||
+    ismyPage;
   const hideFooter =
     hideHeaderFooterPaths.includes(pathname) || isDynamicLogPage;
 

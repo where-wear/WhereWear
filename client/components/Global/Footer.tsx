@@ -29,7 +29,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href={'/home'}>
+                <Link href={'/myPage/1'}>
                   <img src={'/image/myPageIcon.svg'} className="footer-icon" />
                 </Link>
               </li>

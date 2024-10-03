@@ -1,0 +1,126 @@
+.my-page-container {
+  margin-top: 25px;
+  display: flex;
+  width: 100%;
+  height: 15vh;
+  margin-bottom: 15px;
+}
+.my-page-user-container {
+  display: flex;
+  flex-direction: column;
+  width: 32vw;
+  justify-content: center;
+  align-content: center;
+  .my-page-image {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    .my-page-image-inner {
+      text-align: center;
+      width: 70px;
+      height: 70px;
+      border-radius: 100%;
+      background-color: gray;
+      margin-bottom: 5px;
+    }
+  }
+  .my-page-user-nickname {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    .my-page-user-nickname-inner {
+      color: #828282;
+      font-weight: 500;
+    }
+  }
+}
+
+.my-page-data-container {
+  width: 68vw;
+
+  .my-page-button-container {
+    justify-content: flex-end;
+    margin-right: 20px;
+    display: flex;
+    .my-page-button {
+      margin: 5px;
+      img {
+        width: 16px;
+      }
+    }
+  }
+
+  .my-page-log-follow {
+    color: #777777;
+    font-weight: 450;
+    margin-bottom: 10px;
+    display: flex;
+  }
+  .my-page-number {
+    .my-page-number-inner {
+      margin-top: 5px;
+      font-weight: 500;
+    }
+    margin-right: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .my-page-coment {
+    margin-right: 20px;
+    height: 41px;
+    font-size: 13px;
+    color: #a7a7a7;
+    overflow: hidden;
+  }
+}
+.my-page-hr {
+  margin: 0px;
+}
+
+.maypage-log-container {
+  .my-page-log-image-container {
+    display: flex;
+    flex-wrap: wrap;
+    .my-page-log-image-inner {
+      height: 190px;
+      .my-page-log-image {
+        width: 33.33333vw;
+        height: 153px;
+      }
+    }
+    .my-page-log-place-name {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      img {
+        width: 14px;
+        margin-right: 3px;
+      }
+    }
+  }
+}
+
+//--------------세팅페이지-------------------
+.setting-container {
+  margin-top: 75px;
+  margin-left: 30px;
+  font-size: 15px;
+  font-weight: 450;
+}
+.setting-container-another {
+  margin-left: 30px;
+  font-size: 15px;
+  font-weight: 450;
+}
+
+.setting-hr {
+}
+.setting-link {
+  margin-top: 15px;
+}
+.setting-link-com {
+  @include link-style;
+}
