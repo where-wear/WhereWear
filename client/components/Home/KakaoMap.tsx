@@ -1,6 +1,8 @@
+
 //지도레벨1-14 1이 제일확대
 //!쿼리 사용한 현 위치 수정해야함
 //
+
 'use client';
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
