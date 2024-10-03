@@ -56,3 +56,10 @@ export interface UserData {
   job: string;
   introduction: string;
 }
+
+//맵 마커 로그 개수 데이터
+export interface MapMarkerCountData {
+  x: number;
+  y: number;
+  logCount: number;
+}

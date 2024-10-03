@@ -1,4 +1,3 @@
-
 //지도레벨1-14 1이 제일확대
 //!쿼리 사용한 현 위치 수정해야함
 //
@@ -9,24 +8,32 @@ import Script from 'next/script';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import LogMarker from './LogMarker';
 import axios from 'axios';
-
+import { MapMarkerCountData } from '@/types/type';
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env
   .NEXT_PUBLIC_KAKAO_CLIENT_ID!}&autoload=false`;
 
 const KakaoMap = () => {
-  const [data, setData] = useState<{
+  //현재 카카오맵 변화 측정
+  const [mapdata, setMapData] = useState<{
     level: number;
     position: {
       lat: number;
       lng: number;
     };
   }>();
+  //api 요청으로 받아온 데이터(일단 임시 데이터)
+  //! 아래의 맵 데이터가 변하면 그대로 마커생성
+  const [logMapData, setLogMapData] = useState<MapMarkerCountData[]>([
+    { x: 0, y: 0, logCount: 0 },
+    { x: 0, y: 0, logCount: 0 },
+  ]);
 
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const [location, setLocation] = useState<{ lat: number; lng: number }>({
     lat: 37.483034,
     lng: 126.902435,
   });
+
   const [queryLat, setQueryLat] = useState<number | null>(null);
   const [queryLng, setQueryLng] = useState<number | null>(null);
 
@@ -69,16 +76,35 @@ const KakaoMap = () => {
     }
   }, []);
 
+  useEffect(() => {
+    //지도 위치가 확대,축소되거나 위치의 값이 변했을때 하는 행동
+    //몇초에 한번씩만 작동할건지 정해야함 나중에 디바운스 해줘야함 x,y 값을  1.5 초마다 갱신하는 state를 생성해서 그것이 변하면 실행
+    if (mapdata) {
+      //만약 디바운스 처리된 데이터가 변했다면 api요청 함수 실행
+      getMarkerData();
+    }
+  }, [mapdata]);
+
   //!테스트
   useEffect(() => {
-    console.log(`지도레벨 ${data?.level}`);
-  }, [data]);
+    console.log(`지도레벨 ${mapdata?.level}`);
+  }, [mapdata]);
 
   //----------------지도레벨이 1인경우 데이터 가져오기
-
-  //----------------지도레벨이 2인경우
-  //----------------지도레벨이 3인경우
-  //----------------지도레벨이 3인경우
+  // 지도 레벨이 1인경우 모든 데이터 흩뿌려서 표시
+  const getMarkerData = async () => {
+    try {
+      const response: MapMarkerCountData[] = await axios.get('/', {});
+      //서버에서 받아올 데이터 위치정보가 임시로 response.x response.y라 생각하고 작성
+      //받아온 데이터 state에 저장
+      //객체 형태로 리스트 받아졌을경우 받아온x,y값에 로그 개수 표시
+      if (response) {
+        setLogMapData(response);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     if (isScriptLoaded) {
@@ -104,7 +130,7 @@ const KakaoMap = () => {
           const level = map.getLevel();
           const latlng = map.getCenter();
 
-          setData({
+          setMapData({
             level: level,
             position: {
               lat: latlng.getLat(),
