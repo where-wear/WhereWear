@@ -1,10 +1,17 @@
 //로그 보여지는 화면-> url 로그번호
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import BackBar from '@/components/Global/BackBar';
+import FollowButton from '@/components/User/FollowButton';
 const page = () => {
+  const [token, setToken] = useState<string | null>(null);
+  // 스토어값 가져오기
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    setToken(accessToken);
+  }, [token]);
   //태그 나중에 flex-wrap해줘야함
   const testTag: string[] = ['태그예시1', '태그예시2', '태그긴문장예시3'];
   const testImgUrl: string[] = [
@@ -20,12 +27,12 @@ const page = () => {
     'https://via.placeholder.com/300x200.png?text=80x80',
     'https://via.placeholder.com/300x200.png?text=80x80',
   ];
-
+  //! 나중에 타입 설정
+  const [logData, setLogData] = useState({ logUserId: 1 });
   const { logId } = useParams();
   //다른로그 더보기
   const showMoreLog = () => {};
-  //로그작성자 팔로우
-  const followLogUser = async () => {};
+
   //플레이스 정보 이동
   const redirectPlaceInfo = () => {};
 
@@ -84,9 +91,13 @@ const page = () => {
             <div className="log-date">3000년 13월 47일</div>
           </div>
         </div>
-        <div className="log-follow-button" onClick={followLogUser}>
-          + 팔로우
-        </div>
+
+        {/* token 값이 있을 때만 FollowButton을 렌더링 */}
+        {token ? (
+          <FollowButton token={token} userID={logData.logUserId} />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="log-maintext">게시글 내용 입니다.</div>
       <div className="log-tag-container">

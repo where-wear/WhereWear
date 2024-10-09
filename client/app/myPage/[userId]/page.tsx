@@ -1,6 +1,7 @@
 //유저 개인의 페이지
 //url구별은 userId사용 페이지 이름엔 닉네임이 들어가게
 //이미지 클릭시 관련 로그로 넘어감
+//나랑 userID 다른경우 팔로우 버튼이 보임
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
