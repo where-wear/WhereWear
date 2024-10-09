@@ -24,7 +24,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href={'/home'}>
+                <Link href={'/LikeLog'}>
                   <img src={'/image/likeIcon.svg'} className="footer-icon" />
                 </Link>
               </li>
