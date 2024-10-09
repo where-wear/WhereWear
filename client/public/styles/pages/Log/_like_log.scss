@@ -1,0 +1,36 @@
+.like-log-header {
+  font-size: 20px;
+  margin: 20px 20px 15px 20px;
+  font-weight: 550;
+}
+.like-log-container {
+  position: relative;
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  //   justify-content: space-between;
+  .like-log-inner {
+    margin-right: 5px;
+    margin-bottom: 20px;
+    .like-log-image {
+      img {
+        width: 100px;
+      }
+    }
+    .like-place-plcename {
+      font-size: 12px;
+      font-weight: 550;
+    }
+    .like-place-address {
+      display: flex;
+      font-size: 10px;
+      font-weight: 200;
+      align-items: center;
+      img {
+        margin-right: 2px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}
