@@ -48,15 +48,16 @@ const page = () => {
     // 다른 데이터 추가
     formData.append('text', logData.text);
     formData.append('tags', JSON.stringify(logData.tag));
-    // formData.append("items", logData.item);
-    //
-    logData.item.forEach((item, index) => {
-      formData.append(`items[${index}][itemName]`, item.itemName);
-      formData.append(
-        `items[${index}][categoryId]`,
-        item.categoryId.toString()
-      ); // 숫자를 문자열로 변환
-    });
+    formData.append('items', JSON.stringify(logData.item));
+
+    // logData.item.forEach((item, index) => {
+    //   formData.append(`items[${index}][itemName]`, item.itemName);
+    //   formData.append(
+    //     `items[${index}][categoryId]`,
+    //     item.categoryId.toString()
+    //   ); // 숫자를 문자열로 변환
+    // });
+
     formData.append('place', JSON.stringify(logData.place));
     formData.append('x', logData.place.placeX);
     formData.append('y', logData.place.placeY);
@@ -79,6 +80,7 @@ const page = () => {
 
       // 응답 처리
       console.log(response.data);
+      console.log('로그 아이템:', logData.item);
 
       // 페이지 이동 후 상태 초기화
       router.push(`/home?x=${logData.place.placeX}&y=${logData.place.placeY}`);
