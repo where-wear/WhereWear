@@ -61,5 +61,5 @@ export interface UserData {
 export interface MapMarkerCountData {
   x: number;
   y: number;
-  logCount: number;
+  count: number;
 }
