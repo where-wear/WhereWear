@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import LogMarker from './LogMarker';
 import axios from 'axios';
 import { MapMarkerCountData } from '@/types/type';
@@ -133,17 +133,6 @@ const KakaoMap = () => {
           });
         }}
       >
-        {/* 쿼리값이 있다면 마커 표시 */}
-        {/* {queryLat && queryLng && (
-          <MapMarker
-            position={{ lat: queryLat, lng: queryLng }}
-            image={{
-              src: '/image/marker.png',
-              size: { width: 30, height: 30 },
-              options: { offset: { x: 27, y: 20 } },
-            }}
-          />
-        )} */}
         {/* 서버에서 가져온 마커 데이터 표시 */}
         {logMapData.map((log, index) => (
           <LogMarker
@@ -153,17 +142,6 @@ const KakaoMap = () => {
             logNum={log.count}
           />
         ))}
-
-        {/* {logMapData.map((log, index) => (
-          <MapMarker
-            position={{ lat: log.y, lng: log.x }}
-            image={{
-              src: '/image/marker.png',
-              size: { width: 30, height: 30 },
-              options: { offset: { x: 27, y: 20 } },
-            }}
-          />
-        ))} */}
       </Map>
     </>
   );

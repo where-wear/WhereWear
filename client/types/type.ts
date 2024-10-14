@@ -63,3 +63,12 @@ export interface MapMarkerCountData {
   y: number;
   count: number;
 }
+//맵 마커모달 데이터
+export interface MapMakerModal {
+  placeName: string;
+  placeaddress: string;
+  log: {
+    logId: number;
+    imgUrl: string;
+  }[];
+}
