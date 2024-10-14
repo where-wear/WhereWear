@@ -72,3 +72,22 @@ export interface MapMakerModal {
     imgUrl: string;
   }[];
 }
+
+//로그 타입
+export interface logData {
+  userId: number;
+  creatAt: string;
+  userNickname: string;
+  userImage: string;
+  logImageList: string[];
+  text: string;
+  tag: string[];
+  item: { categoryId: number; itemName: string }[];
+  place: {
+    placeName: string;
+    placeAddress: string;
+    placeX: string;
+    placeY: string;
+  };
+  isShow: boolean;
+}

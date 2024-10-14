@@ -5,15 +5,27 @@ import { useParams } from 'next/navigation';
 import axios from 'axios';
 import BackBar from '@/components/Global/BackBar';
 import FollowButton from '@/components/User/FollowButton';
+import { logData } from '@/types/type';
 const page = () => {
+  //토큰
+
   const [token, setToken] = useState<string | null>(null);
-  // 스토어값 가져오기
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     setToken(accessToken);
-  }, [token]);
-  //태그 나중에 flex-wrap해줘야함
-  const testTag: string[] = ['태그예시1', '태그예시2', '태그긴문장예시3'];
+  }, []);
+  //!태그 나중에 flex-wrap해줘야함
+
+  //날짜 변환
+  function formatDate(dateString: string) {
+    const date = new Date(dateString); // Date 객체 생성
+    const year = date.getFullYear(); // 연도
+    const month = date.getMonth() + 1; // 월 (0부터 시작하므로 +1)
+    const day = date.getDate(); // 일
+
+    return `${year}년 ${month}월 ${day}일`; // 원하는 형식으로 반환
+  }
+
   const testImgUrl: string[] = [
     'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDEwfHxmbG93ZXJ8ZW58MHx8fHwxNjEyNzI4MTU0&ixlib=rb-1.2.1&q=80&w=400',
     'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGJvYXQlMjBvY2VhbnxlbnwwfHx8fDE2MDA5ODUyODg&ixlib=rb-1.2.1&q=80&w=400',
@@ -28,7 +40,24 @@ const page = () => {
     'https://via.placeholder.com/300x200.png?text=80x80',
   ];
   //! 나중에 타입 설정
-  const [logData, setLogData] = useState({ logUserId: 1 });
+  const [logData, setLogData] = useState<logData>({
+    userId: 1,
+    creatAt: '',
+    userNickname: '',
+    userImage: '',
+
+    logImageList: [''],
+    text: '',
+    tag: [''],
+    item: [{ categoryId: 1, itemName: '' }],
+    place: {
+      placeName: '',
+      placeAddress: '',
+      placeX: '',
+      placeY: '',
+    },
+    isShow: true,
+  });
   const { logId } = useParams();
   //다른로그 더보기
   const showMoreLog = () => {};
@@ -38,14 +67,48 @@ const page = () => {
 
   //데이터 가져오기
   const getLogData = async () => {
+    console.log('로그아이디, 토큰', logId, 'AND', token);
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/log/getLog`,
         {
           params: { id: logId },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(response);
+      const data = response.data.response;
+      const logImageList: string[] = data.logImages.map(
+        (image: { publicUrl: string }) => image.publicUrl
+      );
+      const logTagList: string[] = data.tags.map(
+        (tag: { tagName: string }) => tag.tagName
+      );
+      // 콘솔
+      console.log('상세페이지', logId, response.data.response);
+      setLogData({
+        userId: data.user.id,
+        creatAt: formatDate(data.createdAt),
+        userNickname: data.user.nickname,
+        userImage: data.user.image,
+
+        logImageList: logImageList,
+        text: data.text,
+        tag: logTagList,
+        item: [
+          {
+            categoryId: data.fashionItems[0].category.categoryName,
+
+            itemName: data.fashionItems[0].itemName,
+          },
+        ],
+        place: {
+          placeName: data.place.placeName.replace(/"/g, ''),
+          placeAddress: data.place.address.replace(/"/g, ''),
+          placeX: '',
+          placeY: '',
+        },
+        isShow: data.isShow,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -53,15 +116,32 @@ const page = () => {
 
   useEffect(() => {
     getLogData();
-  }, [logId]);
+  }, [logId, token]);
 
   return (
     <>
       <BackBar text="" />
-      <div className="log-photo-box">
+      <div
+        className="log-photo-box"
+        style={{
+          backgroundImage: `url(${logData.logImageList[0]})`, // JSX에서 이미지 동적으로 삽입
+        }}
+      >
+        {/* 버튼 */}
+        {/* <div className="log-image-button-container">
+          <div className="log-image-button-inner">
+            <img src="/image/leftsvg.svg" className="svg-size" />
+          </div>
+          <div className="log-image-button-inner">
+            <img src="/image/rightsvg.svg" className="svg-size" />
+          </div>
+        </div>
+
         <div className="log-photo-text">
-          <div className="log-place-name-text">장소 이름</div>
-          <div className="log-place-address-text">로그주소</div>
+          <div className="log-place-name-text">{logData.place.placeName}</div>
+          <div className="log-place-address-text">
+            {logData.place.placeAddress}
+          </div>
         </div>
       </div>
       <div className="log-underbar-container">
@@ -76,7 +156,7 @@ const page = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
 
         <div className="log-show-more" onClick={showMoreLog}>
           ...
@@ -85,23 +165,21 @@ const page = () => {
       <hr className="log-hr" />
       <div className="log-user-contents-container">
         <div className="log-user-contents-box">
-          <div className="log-user-image"></div>
+          <div className="log-user-image">
+            <img src={`${logData.userImage}`} />
+          </div>
           <div className="log-nickname-date-container">
-            <div className="log-nickname">닉네임</div>
-            <div className="log-date">3000년 13월 47일</div>
+            <div className="log-nickname">{logData.userNickname}</div>
+            <div className="log-date">{logData.creatAt}</div>
           </div>
         </div>
 
         {/* token 값이 있을 때만 FollowButton을 렌더링 */}
-        {token ? (
-          <FollowButton token={token} userID={logData.logUserId} />
-        ) : (
-          <></>
-        )}
+        {token ? <FollowButton token={token} userID={logData.userId} /> : <></>}
       </div>
-      <div className="log-maintext">게시글 내용 입니다.</div>
+      <div className="log-maintext">{logData.text}</div>
       <div className="log-tag-container">
-        {testTag.map((tag, index) => (
+        {logData.tag.map((tag, index) => (
           <div key={index} className="log-tag">
             <div className="tag-inner"># {tag}</div>
           </div>
@@ -110,6 +188,7 @@ const page = () => {
       <div className="log-item-container">
         <div className="log-item-title">패션정보</div>
         <div className="log-item-inner">
+          {/* 여기 컴포넌트로 만들어야함 */}
           상의 {'>'} 니트/스웨터 {'>'} {"'"}폴로 반팔 니트{"'"}
         </div>
         <div className="log-item-inner">
