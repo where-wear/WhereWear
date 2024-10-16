@@ -6,7 +6,13 @@ import axios from 'axios';
 import BackBar from '@/components/Global/BackBar';
 import FollowButton from '@/components/User/FollowButton';
 import { logData } from '@/types/type';
+import { useRouter } from 'next/navigation';
+import LogAnotherPeople from '@/components/Log/LogAnotherPeople';
+import { log } from 'console';
+import ArroundData from '@/components/Log/ArroundData';
 const page = () => {
+  const router = useRouter();
+  const KAKAO_API_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json';
   //토큰
 
   const [token, setToken] = useState<string | null>(null);
@@ -26,14 +32,6 @@ const page = () => {
     return `${year}년 ${month}월 ${day}일`; // 원하는 형식으로 반환
   }
 
-  const testImgUrl: string[] = [
-    'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDEwfHxmbG93ZXJ8ZW58MHx8fHwxNjEyNzI4MTU0&ixlib=rb-1.2.1&q=80&w=400',
-    'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGJvYXQlMjBvY2VhbnxlbnwwfHx8fDE2MDA5ODUyODg&ixlib=rb-1.2.1&q=80&w=400',
-    'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE3fHxkZXNlcnQlMjBsYW5kc2NhcGV8ZW58MHx8fHwxNjEyNzMwMDEw&ixlib=rb-1.2.1&q=80&w=400',
-    'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE3fHxkZXNlcnQlMjBsYW5kc2NhcGV8ZW58MHx8fHwxNjEyNzMwMDEw&ixlib=rb-1.2.1&q=80&w=400',
-    'https://images.unsplash.com/photo-1517511620798-cec17d428bc0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGZvb2R8ZW58MHx8fHwxNjEyNzMwMTQy&ixlib=rb-1.2.1&q=80&w=400',
-    'https://images.unsplash.com/photo-1521747116042-5a810fda9664?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fHRyZWV8ZW58MHx8fHwxNjEyNzMwMzE1&ixlib=rb-1.2.1&q=80&w=400',
-  ];
   const testImgUrl2: string[] = [
     'https://via.placeholder.com/300x200.png?text=80x80',
     'https://via.placeholder.com/300x200.png?text=80x80',
@@ -53,8 +51,8 @@ const page = () => {
     place: {
       placeName: '',
       placeAddress: '',
-      placeX: '',
-      placeY: '',
+      placeX: 0,
+      placeY: 0,
     },
     isShow: true,
   });
@@ -63,11 +61,43 @@ const page = () => {
   const showMoreLog = () => {};
 
   //플레이스 정보 이동
-  const redirectPlaceInfo = () => {};
+  const redirectPlaceInfo = async () => {
+    const redirectUrl = await searchPlaceHandler(logData.place.placeName);
+
+    if (redirectUrl) {
+      console.log('Redirecting to:', redirectUrl);
+      await router.push(redirectUrl); // 페이지 이동이 완료될 때까지 기다리기
+      return; // 다음 코드가 실행되지 않도록 함
+    } else {
+      console.error('Redirect URL is undefined');
+    }
+  };
+
+  //카카오 검색 API
+  //카카오 로컬 검색 핸들러
+  const searchPlaceHandler = async (query: string) => {
+    try {
+      const response = await axios.get(KAKAO_API_URL, {
+        headers: {
+          Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_REST_API}`,
+        },
+        params: {
+          query,
+        },
+      });
+
+      console.log(response.data.documents[0].place_url);
+      return response.data.documents[0].place_url;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
   //데이터 가져오기
   const getLogData = async () => {
     console.log('로그아이디, 토큰', logId, 'AND', token);
+
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/log/getLog`,
@@ -104,8 +134,8 @@ const page = () => {
         place: {
           placeName: data.place.placeName.replace(/"/g, ''),
           placeAddress: data.place.address.replace(/"/g, ''),
-          placeX: '',
-          placeY: '',
+          placeX: data.place.x,
+          placeY: data.place.y,
         },
         isShow: data.isShow,
       });
@@ -128,7 +158,7 @@ const page = () => {
         }}
       >
         {/* 버튼 */}
-        {/* <div className="log-image-button-container">
+        <div className="log-image-button-container">
           <div className="log-image-button-inner">
             <img src="/image/leftsvg.svg" className="svg-size" />
           </div>
@@ -149,14 +179,12 @@ const page = () => {
       </div>
       <div className="log-another-user-circle-container">
         <div className="log-another-user-circle">
-          {testImgUrl.map((url, index) => (
-            <div key={index} className="log-another-user-circle-inner">
-              <div>
-                <img src={url} />
-              </div>
-            </div>
-          ))}
-        </div> */}
+          <LogAnotherPeople
+            x={logData.place.placeX}
+            y={logData.place.placeY}
+            token={token}
+          />
+        </div>
 
         <div className="log-show-more" onClick={showMoreLog}>
           ...
@@ -211,11 +239,16 @@ const page = () => {
       <div className="log-arround-container">
         <div className="log-arround-info">주변정보</div>
         <div className="log-arround-info-image">
-          {testImgUrl2.map((url, index) => (
+          {/* {testImgUrl2.map((url, index) => (
             <div key={index}>
               <img src={url} />
             </div>
-          ))}
+          ))} */}
+          <ArroundData
+            x={logData.place.placeX}
+            y={logData.place.placeY}
+            token={token}
+          />
         </div>
       </div>
     </>
