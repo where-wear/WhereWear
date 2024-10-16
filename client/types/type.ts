@@ -86,8 +86,8 @@ export interface logData {
   place: {
     placeName: string;
     placeAddress: string;
-    placeX: string;
-    placeY: string;
+    placeX: number;
+    placeY: number;
   };
   isShow: boolean;
 }
