@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import LogAnotherPeople from '@/components/Log/LogAnotherPeople';
 import { log } from 'console';
 import ArroundData from '@/components/Log/ArroundData';
+import Category from '@/components/Log/Category';
 const page = () => {
   const router = useRouter();
   const KAKAO_API_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json';
@@ -32,11 +33,6 @@ const page = () => {
     return `${year}년 ${month}월 ${day}일`; // 원하는 형식으로 반환
   }
 
-  const testImgUrl2: string[] = [
-    'https://via.placeholder.com/300x200.png?text=80x80',
-    'https://via.placeholder.com/300x200.png?text=80x80',
-    'https://via.placeholder.com/300x200.png?text=80x80',
-  ];
   //! 나중에 타입 설정
   const [logData, setLogData] = useState<logData>({
     userId: 1,
@@ -113,6 +109,13 @@ const page = () => {
       const logTagList: string[] = data.tags.map(
         (tag: { tagName: string }) => tag.tagName
       );
+      const logItemList: { categoryId: number; itemName: string }[] =
+        data.fashionItems.map(
+          (item: { category: { id: number }; itemName: string }) => ({
+            categoryId: item.category.id,
+            itemName: item.itemName,
+          })
+        );
       // 콘솔
       console.log('상세페이지', logId, response.data.response);
       setLogData({
@@ -124,13 +127,7 @@ const page = () => {
         logImageList: logImageList,
         text: data.text,
         tag: logTagList,
-        item: [
-          {
-            categoryId: data.fashionItems[0].category.categoryName,
-
-            itemName: data.fashionItems[0].itemName,
-          },
-        ],
+        item: logItemList,
         place: {
           placeName: data.place.placeName.replace(/"/g, ''),
           placeAddress: data.place.address.replace(/"/g, ''),
@@ -215,13 +212,9 @@ const page = () => {
       </div>
       <div className="log-item-container">
         <div className="log-item-title">패션정보</div>
-        <div className="log-item-inner">
-          {/* 여기 컴포넌트로 만들어야함 */}
-          상의 {'>'} 니트/스웨터 {'>'} {"'"}폴로 반팔 니트{"'"}
-        </div>
-        <div className="log-item-inner">
-          상의 {'>'} 니트/스웨터 {'>'} {"'"}폴로 반팔 니트{"'"}
-        </div>
+        {logData.item.map((item) => (
+          <Category categoryId={item.categoryId} userItemName={item.itemName} />
+        ))}
       </div>
       <hr className="log-hr" />
       <div className="log-place-container">
@@ -239,11 +232,6 @@ const page = () => {
       <div className="log-arround-container">
         <div className="log-arround-info">주변정보</div>
         <div className="log-arround-info-image">
-          {/* {testImgUrl2.map((url, index) => (
-            <div key={index}>
-              <img src={url} />
-            </div>
-          ))} */}
           <ArroundData
             x={logData.place.placeX}
             y={logData.place.placeY}

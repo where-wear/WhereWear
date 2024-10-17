@@ -167,6 +167,8 @@
 }
 
 .log-item-container {
+  display: flex;
+  flex-direction: column;
   padding-left: 20px;
   padding-right: 20px;
   margin-bottom: 20px;
@@ -236,8 +238,10 @@
   .log-arround-info-image {
     margin-bottom: 20px;
     display: flex;
-    justify-content: space-between;
+
+    overflow-x: auto;
     img {
+      margin-right: 8px;
       width: 100px;
       height: 100px;
     }

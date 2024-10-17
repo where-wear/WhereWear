@@ -24,13 +24,12 @@ const ArroundData = (props: arroundProps) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log('이게 뭐라암', response.data.response);
+
       const logs = response.data.response.map((log: any) => ({
         logId: log.id, // 로그의 ID
         imgUrl: log.logImages.length > 0 ? log.logImages[0].publicUrl : '', // 이미지 URL
       }));
       setArroundData(logs);
-      console.log(logs);
     } catch (err) {
       console.log(err);
     }
