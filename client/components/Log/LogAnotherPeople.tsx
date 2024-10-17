@@ -27,7 +27,6 @@ const LogAnotherPeople = (props: AnotherPeopleProps) => {
         }
       );
 
-      console.log('프롭스요청 성공', response.data.response);
       const logs = response.data.response.map((log: any) => ({
         logId: log.id, // 로그의 ID
         imgUrl: log.logImages.length > 0 ? log.logImages[0].publicUrl : '', // 이미지 URL
@@ -35,7 +34,7 @@ const LogAnotherPeople = (props: AnotherPeopleProps) => {
 
       setAnotherPeopleData(logs);
     } catch (err) {
-      console;
+      console.log(err);
     }
   };
 
