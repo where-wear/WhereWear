@@ -319,8 +319,8 @@
   }
 }
 
-.modal-overlay {
-  position: fixed;
+.add-modal-overlay {
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -331,7 +331,7 @@
   align-items: center;
 }
 
-.modal-content {
+.add-modal-content {
   display: flex;
   flex-direction: column;
   background: white;
@@ -368,7 +368,7 @@
   }
 }
 
-.modal-actions {
+.add-modal-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
