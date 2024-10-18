@@ -23,8 +23,8 @@ const AddItemModal: FC<AddItemModalProps> = ({
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="add-modal-overlay">
+      <div className="add-modal-content">
         <h2>선택한 아이템 상품명을 </h2>
         <h2>정확하게 입력해주세요!</h2>
         <label>
@@ -36,7 +36,7 @@ const AddItemModal: FC<AddItemModalProps> = ({
           />
         </label>
 
-        <div className="modal-actions">
+        <div className="add-modal-actions">
           {/* <button onClick={onClose}>취소</button> */}
           <button onClick={handleSave}>확인</button>
         </div>
