@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 interface DropdownProps {
   list: string[];
@@ -7,25 +7,46 @@ interface DropdownProps {
 const Dropdown = (props: DropdownProps) => {
   const { list } = props;
   const [view, setView] = useState(false);
+  const [nowselect, setSelect] = useState<string>(list[0]);
 
   return (
     <>
-      <ul
-        onClick={() => {
-          setView(!view);
-        }}
-        style={{ cursor: "pointer", listStyle: "none", padding: 0 }}
-      >
-        {/* 클릭하면 view 상태를 반전시키고, 아이콘 표시 */}
-        {view ? "⌃" : "⌄"} 클릭해서 리스트 열기 - 반가워요, nickname 님!
-      </ul>
+      <label className="recommend-drop-down-label">
+        <ul
+          onClick={() => {
+            setView(!view);
+          }}
+          style={{ cursor: 'pointer', listStyle: 'none', padding: 0 }}
+          className="test-drop-down"
+        >
+          {/* 클릭하면 view 상태를 반전시키고, 아이콘 표시 */}
+          <div className="rkdskarn">{nowselect}</div>
+          <div className="ghktkfvy">{view ? '︿' : '﹀'}</div>
+        </ul>
+      </label>
+
       {/* view가 true일 때만 리스트 항목들을 렌더링 */}
       {view && (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {list.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
+        <div className="dropdown-list-ul-container">
+          <ul
+            style={{ listStyle: 'none', padding: 0 }}
+            className="dropdown-list-ul"
+          >
+            {list.map((item, index) => (
+              <li key={index}>
+                <div
+                  onClick={() => {
+                    setSelect(item);
+                    setView(false);
+                  }}
+                  className="marker"
+                >
+                  {item}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </>
   );

@@ -1,6 +1,7 @@
-"use client";
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+'use client';
+import Dropdown from '@/components/Global/Dropdown';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 interface LogData {
   id: number;
@@ -10,38 +11,65 @@ interface LogData {
 }
 
 const page = () => {
-  const [userNickname, setUserNickname] = useState<string>("Jiwon");
-  const [place, setPlace] = useState<string>("송파구");
+  const [userNickname, setUserNickname] = useState<string>('ㅇㅇ');
+  const [place, setPlace] = useState<string>('송파구');
   const [token, setToken] = useState<string | null>(null);
+  const guOffice = [
+    '강남구',
+    '강동구',
+    '강북구',
+    '강서구',
+    '관악구',
+    '광진구',
+    '구로구',
+    '금천구',
+    '노원구',
+    '도봉구',
+    '동대문구',
+    '동작구',
+    '마포구',
+    '서대문구',
+    '서초구',
+    '성동구',
+    '성북구',
+    '송파구',
+    '양천구',
+    '영등포구',
+    '용산구',
+    '은평구',
+    '종로구',
+    '중구',
+    '중랑구',
+  ];
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem('accessToken');
     setToken(accessToken);
   }, [token]);
 
   const [topLogs, setTopLogs] = useState<LogData[]>([
     {
       id: 1,
-      imageUrl: "https://via.placeholder.com/102", // 임시 이미지 URL
-      title: "강남 패션 로그 1",
+      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
+      title: '강남 패션 로그 1',
       likes: 120,
     },
     {
       id: 2,
-      imageUrl: "https://via.placeholder.com/102", // 임시 이미지 URL
-      title: "강남 패션 로그 2",
+      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
+      title: '강남 패션 로그 2',
       likes: 95,
     },
     {
       id: 3,
-      imageUrl: "https://via.placeholder.com/102", // 임시 이미지 URL
-      title: "강남 패션 로그 3",
+      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
+      title: '강남 패션 로그 3',
       likes: 85,
     },
   ]);
   const [keyword, setKeyword] = useState<string[]>([
-    "백꾸",
-    "성수동 팝업",
-    "민희진 패션",
+    '백꾸',
+    '성수동 팝업',
+    '민희진 패션',
   ]);
 
   useEffect(() => {
@@ -64,7 +92,7 @@ const page = () => {
           .slice(0, 3);
         setTopLogs(sortedData);
       } catch (error) {
-        console.error("로그 데이터를 가져오는 중 오류 발생:", error);
+        console.error('로그 데이터를 가져오는 중 오류 발생:', error);
       }
     };
 
@@ -96,13 +124,7 @@ const page = () => {
         </div>
       </div>
       <div className="recommend-contents-container">
-        <label className="recommend-drop-down-label">
-          <div className="test-drop-down">
-            <div className="rkdskarn">강남구</div>{" "}
-            <div className="ghktkfvy"> ﹀</div>
-          </div>
-        </label>
-
+        <Dropdown list={guOffice} />
         <div>
           <div>
             <div className="top-fashion-log-text">이번주 top 패션로그</div>

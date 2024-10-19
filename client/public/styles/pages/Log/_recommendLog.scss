@@ -48,7 +48,7 @@
   height: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-between;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -75,6 +75,17 @@
     top: 7px;
   }
 }
+.dropdown-list-ul-container {
+  position: relative;
+
+  .dropdown-list-ul {
+    background-color: white;
+    position: absolute;
+    height: 25vh;
+    overflow: auto;
+  }
+}
+
 //top패션로그 텍스트
 .top-fashion-log-text {
   margin: 5px;
