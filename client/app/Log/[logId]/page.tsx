@@ -8,7 +8,7 @@ import FollowButton from '@/components/User/FollowButton';
 import { logData } from '@/types/type';
 import { useRouter } from 'next/navigation';
 import LogAnotherPeople from '@/components/Log/LogAnotherPeople';
-import { log } from 'console';
+
 import ArroundData from '@/components/Log/ArroundData';
 import Category from '@/components/Log/Category';
 const page = () => {
@@ -33,7 +33,7 @@ const page = () => {
     return `${year}년 ${month}월 ${day}일`; // 원하는 형식으로 반환
   }
 
-  //! 나중에 타입 설정
+  const [imagenum, setImageNum] = useState<number>(0);
   const [logData, setLogData] = useState<logData>({
     userId: 1,
     creatAt: '',
@@ -61,7 +61,6 @@ const page = () => {
     const redirectUrl = await searchPlaceHandler(logData.place.placeName);
 
     if (redirectUrl) {
-      console.log('Redirecting to:', redirectUrl);
       await router.push(redirectUrl); // 페이지 이동이 완료될 때까지 기다리기
       return; // 다음 코드가 실행되지 않도록 함
     } else {
@@ -82,7 +81,6 @@ const page = () => {
         },
       });
 
-      console.log(response.data.documents[0].place_url);
       return response.data.documents[0].place_url;
     } catch (error) {
       console.error(error);
@@ -92,8 +90,6 @@ const page = () => {
 
   //데이터 가져오기
   const getLogData = async () => {
-    console.log('로그아이디, 토큰', logId, 'AND', token);
-
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/log/getLog`,
@@ -144,22 +140,42 @@ const page = () => {
   useEffect(() => {
     getLogData();
   }, [logId, token]);
+  const rightImageController = () => {
+    // 이미지 오른쪽으로 이동
+    if (imagenum == logData.logImageList.length - 1) {
+      return;
+    }
 
+    setImageNum((prevImageNum) => prevImageNum + 1);
+  };
+  const leftImageController = () => {
+    if (imagenum == 0) {
+      return;
+    }
+
+    setImageNum((prevImageNum) => prevImageNum - 1);
+  };
   return (
     <>
       <BackBar text="" />
       <div
         className="log-photo-box"
         style={{
-          backgroundImage: `url(${logData.logImageList[0]})`, // JSX에서 이미지 동적으로 삽입
+          backgroundImage: `url(${logData.logImageList[imagenum]})`,
         }}
       >
         {/* 버튼 */}
         <div className="log-image-button-container">
-          <div className="log-image-button-inner">
+          <div
+            className="log-image-button-inner-left"
+            onClick={leftImageController}
+          >
             <img src="/image/leftsvg.svg" className="svg-size" />
           </div>
-          <div className="log-image-button-inner">
+          <div
+            className="log-image-button-inner-right"
+            onClick={rightImageController}
+          >
             <img src="/image/rightsvg.svg" className="svg-size" />
           </div>
         </div>
