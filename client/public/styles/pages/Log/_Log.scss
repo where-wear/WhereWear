@@ -1,5 +1,6 @@
 // ------------------------------------로그조회-------------------------
 .log-photo-box {
+  width: 100%;
   margin-top: 60px;
   // background-color: gray;
   height: 57vh;
@@ -24,27 +25,57 @@
     z-index: 20;
   }
   .log-image-button-container {
+    top: 40%;
+    position: absolute;
     display: flex;
-    justify-content: center;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 15px;
 
-    .log-image-button-inner {
+    .log-image-button-inner-left {
+      border-radius: 0px 5px 5px 0px;
+      display: flex;
       width: 60px;
       height: 80px;
       background-color: black;
-      opacity: 20%;
+      opacity: 0.35;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 20;
+      .svg-size {
+        opacity: 1;
+        width: 40px;
+        height: 40px;
+        fill: white;
+        z-index: 22;
+      }
     }
-
-    .svg-size {
-      width: 50px;
-      height: 50px;
-      color: white;
+    .log-image-button-inner-right {
+      border-radius: 5px 0px 0px 5px;
+      display: flex;
+      width: 60px;
+      height: 80px;
+      background-color: black;
+      opacity: 0.35;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 20;
+      .svg-size {
+        opacity: 1;
+        width: 40px;
+        height: 40px;
+        fill: white;
+        z-index: 22;
+      }
     }
   }
   .log-photo-text {
     margin-bottom: 13px;
     margin-left: 20px;
-    text-align: center;
+    text-align: left;
     position: relative;
     z-index: 21; /* 추가 */
     .log-place-name-text {

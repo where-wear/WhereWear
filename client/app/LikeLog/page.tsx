@@ -1,5 +1,7 @@
 //좋아한로그 log
 'use client';
+import Dropdown from '@/components/Global/Dropdown';
+import Dropbox from 'next-auth/providers/dropbox';
 import { redirect } from 'next/dist/server/api-utils';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -8,6 +10,33 @@ const page = () => {
   const redirectLog = () => {
     // 로그 누르면 리다이렉트
   };
+  const guOffice = [
+    '강남구',
+    '강동구',
+    '강북구',
+    '강서구',
+    '관악구',
+    '광진구',
+    '구로구',
+    '금천구',
+    '노원구',
+    '도봉구',
+    '동대문구',
+    '동작구',
+    '마포구',
+    '서대문구',
+    '서초구',
+    '성동구',
+    '성북구',
+    '송파구',
+    '양천구',
+    '영등포구',
+    '용산구',
+    '은평구',
+    '종로구',
+    '중구',
+    '중랑구',
+  ];
   const [likeLogData, setLikeLogData] = useState([
     {
       imgUrl: 'https://placehold.co/200x200/gray/white?text=Sample',
@@ -48,7 +77,9 @@ const page = () => {
   return (
     <>
       <div className="like-log-header">좋아한 로그</div>
-      <div>지역 드롭</div>
+      <div className="like-log-dropdown-container">
+        <Dropdown list={guOffice} />
+      </div>
       <div>
         <div className="like-log-container">
           {likeLogData.map((data, index) => (
