@@ -37,6 +37,9 @@ const page = () => {
     '중구',
     '중랑구',
   ];
+  //! 사용할 변수값
+  const [thisGu, setThisGu] = useState<string>('강남구');
+
   const [likeLogData, setLikeLogData] = useState([
     {
       imgUrl: 'https://placehold.co/200x200/gray/white?text=Sample',
@@ -74,11 +77,14 @@ const page = () => {
       logId: 1,
     },
   ]);
+  const handlePlaceChange = (selectedPlace: string) => {
+    setThisGu(selectedPlace);
+  };
   return (
     <>
       <div className="like-log-header">좋아한 로그</div>
       <div className="like-log-dropdown-container">
-        <Dropdown list={guOffice} />
+        <Dropdown list={guOffice} onSelect={handlePlaceChange} />
       </div>
       <div>
         <div className="like-log-container">
