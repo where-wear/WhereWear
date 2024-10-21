@@ -1,14 +1,9 @@
 'use client';
+import TopFashionLog from '@/components/Explore/TopFashionLog';
 import Dropdown from '@/components/Global/Dropdown';
+import { SimpleLogData } from '@/types/type';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-
-interface LogData {
-  id: number;
-  imageUrl: string;
-  title: string;
-  likes: number;
-}
 
 const page = () => {
   const [userNickname, setUserNickname] = useState<string>('ㅇㅇ');
@@ -46,7 +41,44 @@ const page = () => {
     setToken(accessToken);
   }, [token]);
 
-  const [topLogs, setTopLogs] = useState<LogData[]>([
+  const getTopLogsHandler = async () => {
+    // 추천로그 데이터를 가져오는 코드 (API 요청)
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/explore/topPlace`,
+        {
+          params: { category: place },
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log('탑로그 api 요청', response.data.response);
+      setTopLogs(response.data.response);
+    } catch (error) {
+      console.error('로그 데이터를 가져오는 중 오류 발생:', error);
+    }
+  };
+
+  const [topLogs, setTopLogs] = useState<SimpleLogData[]>([
+    {
+      id: 1,
+      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
+      title: '강남 패션 로그 1',
+      likes: 120,
+    },
+    {
+      id: 2,
+      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
+      title: '강남 패션 로그 2',
+      likes: 95,
+    },
+    {
+      id: 3,
+      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
+      title: '강남 패션 로그 3',
+      likes: 85,
+    },
+  ]);
+  const [tagLogs, setTagLogs] = useState<SimpleLogData[]>([
     {
       id: 1,
       imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
@@ -74,27 +106,6 @@ const page = () => {
 
   useEffect(() => {
     // 구가 변경될 때마다 해당 구의 top 3 로그를 가져오는 함수
-    const getTopLogsHandler = async () => {
-      // 추천로그 데이터를 가져오는 코드 (API 요청)
-      try {
-        const response: LogData[] = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/explore`,
-          {
-            params: { category: place },
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        console.log(response);
-
-        // 좋아요 수 기준으로 내림차순 정렬 후 상위 3개만 slice
-        const sortedData = response
-          .sort((a, b) => b.likes - a.likes)
-          .slice(0, 3);
-        setTopLogs(sortedData);
-      } catch (error) {
-        console.error('로그 데이터를 가져오는 중 오류 발생:', error);
-      }
-    };
 
     getTopLogsHandler();
   }, [place]); // place가 변경될 때마다 실행
@@ -129,32 +140,12 @@ const page = () => {
           <div>
             <div className="top-fashion-log-text">이번주 top 패션로그</div>
 
-            <div className="top-fashion-log-container">
-              {topLogs.map((log) => (
-                <div key={log.id} className="top-fashion-log-item">
-                  <img
-                    src={log.imageUrl}
-                    alt={log.title}
-                    className="log-image"
-                  />
-                </div>
-              ))}
-            </div>
+            <TopFashionLog topLogs={topLogs} />
           </div>
           <div>
             <div className="top-fashion-log-text">이번주 태그 top 플레이스</div>
 
-            <div className="top-fashion-log-container">
-              {topLogs.map((log) => (
-                <div key={log.id} className="top-fashion-log-item">
-                  <img
-                    src={log.imageUrl}
-                    alt={log.title}
-                    className="log-image"
-                  />
-                </div>
-              ))}
-            </div>
+            <TopFashionLog topLogs={tagLogs} />
           </div>
         </div>
         <div className="weekend-hot-keyword-container">

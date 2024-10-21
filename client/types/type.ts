@@ -91,3 +91,11 @@ export interface logData {
   };
   isShow: boolean;
 }
+
+//간단 로그 타입
+export interface SimpleLogData {
+  id: number;
+  imageUrl: string;
+  title: string;
+  likes: number;
+}
