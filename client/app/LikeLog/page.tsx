@@ -37,13 +37,9 @@ const page = () => {
     '중구',
     '중랑구',
   ];
-  const [likeLogParams, setLikeLogParams] = useState({
-    gu: '',
-    height: 0,
-    weight: 0,
-    footSize: 0,
-    job: '',
-  });
+  //! 사용할 변수값
+  const [thisGu, setThisGu] = useState<string>('강남구');
+
   const [likeLogData, setLikeLogData] = useState([
     {
       imgUrl: 'https://placehold.co/200x200/gray/white?text=Sample',
@@ -82,10 +78,7 @@ const page = () => {
     },
   ]);
   const handlePlaceChange = (selectedPlace: string) => {
-    setLikeLogParams((prevParams) => ({
-      ...prevParams,
-      gu: selectedPlace, // 선택된 구로 업데이트
-    }));
+    setThisGu(selectedPlace);
   };
   return (
     <>

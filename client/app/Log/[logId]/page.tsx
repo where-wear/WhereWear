@@ -11,6 +11,7 @@ import LogAnotherPeople from '@/components/Log/LogAnotherPeople';
 
 import ArroundData from '@/components/Log/ArroundData';
 import Category from '@/components/Log/Category';
+import LikeFooter from '@/components/Global/LikeFooter';
 const page = () => {
   const router = useRouter();
   const KAKAO_API_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json';
@@ -53,6 +54,10 @@ const page = () => {
     isShow: true,
   });
   const { logId } = useParams();
+  const numericLogId = Array.isArray(logId)
+    ? parseInt(logId[0], 10)
+    : parseInt(logId, 10);
+
   //다른로그 더보기
   const showMoreLog = () => {};
 
@@ -255,6 +260,7 @@ const page = () => {
           />
         </div>
       </div>
+      <LikeFooter logId={numericLogId} token={token} />
     </>
   );
 };
