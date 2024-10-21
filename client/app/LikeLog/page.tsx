@@ -37,6 +37,13 @@ const page = () => {
     '중구',
     '중랑구',
   ];
+  const [likeLogParams, setLikeLogParams] = useState({
+    gu: '',
+    height: 0,
+    weight: 0,
+    footSize: 0,
+    job: '',
+  });
   const [likeLogData, setLikeLogData] = useState([
     {
       imgUrl: 'https://placehold.co/200x200/gray/white?text=Sample',
@@ -74,11 +81,17 @@ const page = () => {
       logId: 1,
     },
   ]);
+  const handlePlaceChange = (selectedPlace: string) => {
+    setLikeLogParams((prevParams) => ({
+      ...prevParams,
+      gu: selectedPlace, // 선택된 구로 업데이트
+    }));
+  };
   return (
     <>
       <div className="like-log-header">좋아한 로그</div>
       <div className="like-log-dropdown-container">
-        <Dropdown list={guOffice} />
+        <Dropdown list={guOffice} onSelect={handlePlaceChange} />
       </div>
       <div>
         <div className="like-log-container">
