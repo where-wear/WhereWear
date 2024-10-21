@@ -57,6 +57,9 @@ const page = () => {
       console.error('로그 데이터를 가져오는 중 오류 발생:', error);
     }
   };
+  const handlePlaceChange = (selectedPlace: string) => {
+    setPlace(selectedPlace); // 선택된 구를 place 상태로 저장
+  };
 
   const [topLogs, setTopLogs] = useState<SimpleLogData[]>([
     {
@@ -135,7 +138,7 @@ const page = () => {
         </div>
       </div>
       <div className="recommend-contents-container">
-        <Dropdown list={guOffice} />
+        <Dropdown list={guOffice} onSelect={handlePlaceChange} />
         <div>
           <div>
             <div className="top-fashion-log-text">이번주 top 패션로그</div>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface DropdownProps {
   list: string[];
+  onSelect: (selectedItem: string) => void;
 }
 
 const Dropdown = (props: DropdownProps) => {
@@ -38,6 +39,7 @@ const Dropdown = (props: DropdownProps) => {
                   onClick={() => {
                     setSelect(item);
                     setView(false);
+                    props.onSelect(item);
                   }}
                   className="marker"
                 >
