@@ -94,10 +94,12 @@
 .top-fashion-log-container {
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: left;
+
   margin-bottom: 20px;
   .top-fashion-log-item {
     .log-image {
+      margin-right: 5px;
       width: 102px;
       height: 102px;
     }

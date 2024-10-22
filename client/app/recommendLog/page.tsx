@@ -1,13 +1,14 @@
 'use client';
+import TagTopPlace from '@/components/Explore/TagTopPlace';
 import TopFashionLog from '@/components/Explore/TopFashionLog';
 import Dropdown from '@/components/Global/Dropdown';
-import { SimpleLogData } from '@/types/type';
+import { RecoLogDataType, SimpleLogData } from '@/types/type';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const page = () => {
   const [userNickname, setUserNickname] = useState<string>('ㅇㅇ');
-  const [place, setPlace] = useState<string>('송파구');
+  const [place, setPlace] = useState<string>('강남구');
   const [token, setToken] = useState<string | null>(null);
   const guOffice = [
     '강남구',
@@ -45,14 +46,15 @@ const page = () => {
     // 추천로그 데이터를 가져오는 코드 (API 요청)
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/explore/topPlace`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/explore`,
         {
           params: { category: place },
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log('탑로그 api 요청', response.data.response);
-      setTopLogs(response.data.response);
+      console.log(place, '탑로그 api 요청', response);
+      setRecoData(response.data.response);
+      setUserNickname(response.data.response.nickname);
     } catch (error) {
       console.error('로그 데이터를 가져오는 중 오류 발생:', error);
     }
@@ -61,56 +63,12 @@ const page = () => {
     setPlace(selectedPlace); // 선택된 구를 place 상태로 저장
   };
 
-  const [topLogs, setTopLogs] = useState<SimpleLogData[]>([
-    {
-      id: 1,
-      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
-      title: '강남 패션 로그 1',
-      likes: 120,
-    },
-    {
-      id: 2,
-      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
-      title: '강남 패션 로그 2',
-      likes: 95,
-    },
-    {
-      id: 3,
-      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
-      title: '강남 패션 로그 3',
-      likes: 85,
-    },
-  ]);
-  const [tagLogs, setTagLogs] = useState<SimpleLogData[]>([
-    {
-      id: 1,
-      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
-      title: '강남 패션 로그 1',
-      likes: 120,
-    },
-    {
-      id: 2,
-      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
-      title: '강남 패션 로그 2',
-      likes: 95,
-    },
-    {
-      id: 3,
-      imageUrl: 'https://via.placeholder.com/102', // 임시 이미지 URL
-      title: '강남 패션 로그 3',
-      likes: 85,
-    },
-  ]);
-  const [keyword, setKeyword] = useState<string[]>([
-    '백꾸',
-    '성수동 팝업',
-    '민희진 패션',
-  ]);
-
+  const [recoData, setRecoData] = useState<RecoLogDataType>();
   useEffect(() => {
     // 구가 변경될 때마다 해당 구의 top 3 로그를 가져오는 함수
 
     getTopLogsHandler();
+    console.log(recoData);
   }, [place]); // place가 변경될 때마다 실행
 
   return (
@@ -143,18 +101,18 @@ const page = () => {
           <div>
             <div className="top-fashion-log-text">이번주 top 패션로그</div>
 
-            <TopFashionLog topLogs={topLogs} />
+            <TopFashionLog topLogs={recoData?.topFashionLogs} />
           </div>
           <div>
             <div className="top-fashion-log-text">이번주 태그 top 플레이스</div>
 
-            <TopFashionLog topLogs={tagLogs} />
+            <TagTopPlace tagTopPlace={recoData?.tagTopPlaces} />
           </div>
         </div>
         <div className="weekend-hot-keyword-container">
           <div className="top-fashion-log-text">이번주 핫키워드</div>
           <div className="weekend-hot-keyword-item">
-            {keyword.map((word, index) => (
+            {recoData?.hotKeywords.map((word, index) => (
               <div key={index} className="keyword-text">
                 #{word}
               </div>
