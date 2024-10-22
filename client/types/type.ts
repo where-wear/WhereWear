@@ -95,7 +95,23 @@ export interface logData {
 //간단 로그 타입
 export interface SimpleLogData {
   id: number;
-  imageUrl: string;
-  title: string;
-  likes: number;
+  imgUrl: string;
+  like: boolean | null;
+}
+
+//추천로그 페이지 데이터 타입
+export interface RecoLogDataType {
+  nickname: string;
+  topFashionLogs: {
+    id: number;
+    imgUrl: string;
+    like: boolean;
+  }[];
+
+  tagTopPlaces: {
+    placeName: string;
+    imgUrl: string;
+  }[];
+
+  hotKeywords: string[];
 }
