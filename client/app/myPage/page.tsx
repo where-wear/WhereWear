@@ -15,55 +15,79 @@ const page = () => {
   }, []);
 
   useEffect(() => {
-    getMyPageData();
-  }, []);
+    if (token) {
+      getMyPageData();
+    }
+  }, [token]);
 
   const getMyPageData = async () => {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/log/getLogs`,
         {
-          params: { userId: null },
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log('마이페이지 데이터', response);
+      console.log('마이페이지 데이터', response.data.response);
+      const mydataRes = response.data.response;
+
+      // const logData =mydataRes.map((data,index)=>())
+      const logData = await mydataRes.map((log: any) => ({
+        id: log.id,
+        logImgUrl: log.logImages[0].publicUrl, // 첫번째 이미지를 로그 이미지로 설정
+        placeName: log.place.placeName,
+      }));
+      setMyPageData({
+        userData: {
+          imgUrl: mydataRes[0].user.image,
+          nickname: mydataRes[0].user.nickname,
+          logNum: mydataRes.length,
+          following: 0,
+          follower: 0,
+          introduction: mydataRes[0].user.introduction,
+        },
+        logData: logData,
+      });
     } catch (err) {
       console.log(err);
     }
   };
-  const [myPageData, setMyPageData] = useState([
-    {
-      imageUrl: 'https://via.placeholder.com/100',
-      logId: '1',
-      placeName: '플레이스명',
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/100',
-      logId: '1',
-      placeName: '플레이스명',
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/100',
-      logId: '1',
-      placeName: '플레이스명',
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/100',
-      logId: '1',
-      placeName: '플레이스명',
-    },
-  ]);
 
+  const [myPageData, setMyPageData] = useState({
+    userData: {
+      imgUrl: '',
+      nickname: '',
+      logNum: 0,
+      following: 0,
+      follower: 0,
+      introduction: '',
+    },
+    logData: [
+      {
+        id: 0,
+        logImgUrl: '',
+        placeName: '',
+      },
+    ],
+  });
+  useEffect(() => {
+    console.log(myPageData);
+  }, [myPageData]);
   return (
     <>
       <div className="my-page-container">
         <div className="my-page-user-container">
           <div className="my-page-image">
-            <div className="my-page-image-inner"></div>
+            <img
+              src={myPageData.userData.imgUrl}
+              alt="프로필 이미지"
+              className="my-page-image-inner"
+            />
           </div>
           <div className="my-page-user-nickname">
-            <div className="my-page-user-nickname-inner">닉네임</div>
+            <div className="my-page-user-nickname-inner">
+              {myPageData.userData.nickname}
+            </div>
           </div>
         </div>
         <div className="my-page-data-container">
@@ -81,31 +105,44 @@ const page = () => {
           <div className="my-page-log-follow">
             <div className="my-page-number">
               <div>로그 개수</div>
-              <div className="my-page-number-inner">100</div>
+              <div className="my-page-number-inner">
+                {myPageData.userData.logNum}
+              </div>
             </div>
             <div className="my-page-number">
               <div>팔로잉</div>
-              <div className="my-page-number-inner">100</div>
+              <div className="my-page-number-inner">
+                {myPageData.userData.following}
+              </div>
             </div>
             <div className="my-page-number">
-              <div>팔로잉</div>
-              <div className="my-page-number-inner">100</div>
+              <div>팔로워</div>
+              <div className="my-page-number-inner">
+                {myPageData.userData.follower}
+              </div>
             </div>
           </div>
           <div className="my-page-coment">
-            소개글 어쩌고 저쩌고 어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고
-            저쩌고어쩌고 저쩌고
+            {myPageData.userData.introduction}
           </div>
         </div>
       </div>
       <hr className="my-page-hr" />
       <div className="maypage-log-container">
         <div className="my-page-log-image-container">
-          {myPageData.map((data) => (
-            <div key={data.logId} className="my-page-log-image-inner">
-              <img src={data.imageUrl} alt="" className="my-page-log-image" />
+          {myPageData.logData.map((data) => (
+            <div key={data.id} className="my-page-log-image-inner">
+              <Link href={`/Log/${data.id}`}>
+                <img
+                  src={data.logImgUrl}
+                  alt=""
+                  className="my-page-log-image"
+                />
+              </Link>
+
               <div className="my-page-log-place-name">
                 <img src="/image/placeNamepin.png" />
+
                 {data.placeName}
               </div>
             </div>
