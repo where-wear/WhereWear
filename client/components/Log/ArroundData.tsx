@@ -37,7 +37,7 @@ const ArroundData = (props: arroundProps) => {
   return (
     <>
       {arroundData.map((log, index) => (
-        <Link href={`/Log/${log.logId}`}>
+        <Link href={`/Log/${log.logId}`} key={index}>
           {log.imgUrl && <img src={log.imgUrl} alt="로그 이미지" />}
         </Link>
       ))}

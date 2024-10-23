@@ -67,9 +67,11 @@ const page = () => {
   useEffect(() => {
     // 구가 변경될 때마다 해당 구의 top 3 로그를 가져오는 함수
 
-    getTopLogsHandler();
+    if (token) {
+      getTopLogsHandler();
+    }
     console.log(recoData);
-  }, [place]); // place가 변경될 때마다 실행
+  }, [place, token]); // place가 변경될 때마다 실행
 
   return (
     <>

@@ -143,7 +143,9 @@ const page = () => {
   };
 
   useEffect(() => {
-    getLogData();
+    if (token) {
+      getLogData();
+    }
   }, [logId, token]);
   const rightImageController = () => {
     // 이미지 오른쪽으로 이동
@@ -233,8 +235,12 @@ const page = () => {
       </div>
       <div className="log-item-container">
         <div className="log-item-title">패션정보</div>
-        {logData.item.map((item) => (
-          <Category categoryId={item.categoryId} userItemName={item.itemName} />
+        {logData.item.map((item, index) => (
+          <Category
+            categoryId={item.categoryId}
+            userItemName={item.itemName}
+            key={index}
+          />
         ))}
       </div>
       <hr className="log-hr" />
