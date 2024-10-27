@@ -26,7 +26,10 @@ const KakaoMap = () => {
   const [debouncedX, setDebouncedX] = useState<number | null>(null);
   const [debouncedY, setDebouncedY] = useState<number | null>(null);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
-  const [location, setLocation] = useState({ lat: 37.483034, lng: 126.902435 });
+  const [location, setLocation] = useState({
+    lat: 37.629331956463695,
+    lng: 127.09045603606533,
+  });
   const [queryLat, setQueryLat] = useState<number | null>(null);
   const [queryLng, setQueryLng] = useState<number | null>(null);
 
