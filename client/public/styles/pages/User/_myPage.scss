@@ -83,18 +83,28 @@
     flex-wrap: wrap;
     .my-page-log-image-inner {
       height: 190px;
+      display: flex;
+      flex-direction: column;
       .my-page-log-image {
         width: 33.33333vw;
         height: 153px;
       }
     }
     .my-page-log-place-name {
+      width: 33.33333vw;
+
       display: flex;
-      justify-content: center;
+      justify-content: left;
       align-items: center;
       text-align: center;
       font-size: 13px;
       font-weight: 500;
+      .my-page-log-place-name-text {
+        white-space: nowrap; /* 줄바꿈 방지 */
+        overflow: hidden; /* 넘치는 텍스트 숨기기 */
+        text-overflow: ellipsis; /* 넘친 부분에 '...' 표시 */
+        width: 100%; /* 너비를 100%로 설정 */
+      }
       img {
         width: 14px;
         margin-right: 3px;
