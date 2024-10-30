@@ -8,9 +8,20 @@ import React, { useState, useEffect } from 'react';
 
 const page = () => {
   const [userNickname, setUserNickname] = useState<string>('');
-  const [place, setPlace] = useState<string>('강남구');
+  const [place, setPlace] = useState<string | number>('강남구');
+  const [dataHeiht, setdDataHeight] = useState<string | number>(150);
+  const [dataWeight, setdDataWeight] = useState<string | number>(159);
+  const [dataFootSize, setdDataFootSize] = useState<string | number>(230);
+  const [dataJob, setdDataJob] = useState<string | number>('학생');
   const [token, setToken] = useState<string | null>(null);
   const [isReco, SetisReco] = useState<boolean>(false); //참이면 추천페이지
+  const [isRecoScss, SetIsRecoScss] = useState<{
+    short: string;
+    reco: string;
+  }>({
+    short: 'recommend-bottom-bar',
+    reco: 'none',
+  }); //참이면 추천페이지
   const guOffice = [
     '강남구',
     '강동구',
@@ -66,20 +77,7 @@ const page = () => {
     '100이상',
   ];
   const footSize = [
-    '225',
-    '230',
-    '235',
-    '240',
-    '245',
-    '250',
-    '255',
-    '260',
-    '265',
-    '270',
-    '280',
-    '285',
-    '290',
-    '295',
+    225, 230, 235, 240, 245, 250, 255, 260, 265, 270, 280, 285, 290, 295,
   ];
 
   const job = ['학생', '직장인', '프리랜서', '자영업자'];
@@ -106,22 +104,118 @@ const page = () => {
       console.error('로그 데이터를 가져오는 중 오류 발생:', error);
     }
   };
-  const handlePlaceChange = (selectedPlace: string) => {
+
+  const getRecoLogsDataHandler = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/explore/RecommendLog`,
+        {
+          params: {
+            gu: place, //지역(구) 문자열
+            height: dataHeiht, //키 숫자
+            weight: dataWeight, // 몸무게 숫자
+            footSize: dataFootSize, //발사이즈 숫자
+            job: dataJob, // 직업 문자열
+          },
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log('추천로그 api요청', response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handlePlaceChange = (selectedPlace: string | number) => {
     setPlace(selectedPlace); // 선택된 구를 place 상태로 저장
   };
-  const handleHeightChange = (selectedPlace: string) => {};
-  const handleWeightChange = (selectedPlace: string) => {};
-  const handleFootSizeChange = (selectedPlace: string) => {};
-  const handleJobChange = (selectedPlace: string) => {};
+  const handleHeightChange = (selectedHeight: number | string) => {
+    if (selectedHeight == height[0]) {
+      setdDataHeight(150);
+    } else if (selectedHeight == height[1]) {
+      setdDataHeight(155);
+    } else if (selectedHeight == height[2]) {
+      setdDataHeight(159);
+    } else if (selectedHeight == height[3]) {
+      setdDataHeight(165);
+    } else if (selectedHeight == height[4]) {
+      setdDataHeight(170);
+    } else if (selectedHeight == height[5]) {
+      setdDataHeight(175);
+    } else if (selectedHeight == height[6]) {
+      setdDataHeight(180);
+    } else if (selectedHeight == height[7]) {
+      setdDataHeight(185);
+    } else if (selectedHeight == height[8]) {
+      setdDataHeight(190);
+    } else if (selectedHeight == height[9]) {
+      setdDataHeight(195);
+    } else {
+      setdDataHeight(200);
+    }
+  };
+  const handleWeightChange = (selectedWeight: string | number) => {
+    if (selectedWeight == weight[0]) {
+      setdDataWeight(40);
+    } else if (selectedWeight == weight[1]) {
+      setdDataWeight(45);
+    } else if (selectedWeight == weight[2]) {
+      setdDataWeight(50);
+    } else if (selectedWeight == weight[3]) {
+      setdDataWeight(55);
+    } else if (selectedWeight == weight[4]) {
+      setdDataWeight(60);
+    } else if (selectedWeight == weight[5]) {
+      setdDataWeight(65);
+    } else if (selectedWeight == weight[6]) {
+      setdDataWeight(70);
+    } else if (selectedWeight == weight[7]) {
+      setdDataWeight(75);
+    } else if (selectedWeight == weight[8]) {
+      setdDataWeight(80);
+    } else if (selectedWeight == weight[9]) {
+      setdDataWeight(85);
+    } else if (selectedWeight == weight[10]) {
+      setdDataWeight(90);
+    } else if (selectedWeight == weight[11]) {
+      setdDataWeight(95);
+    } else if (selectedWeight == weight[12]) {
+      setdDataWeight(100);
+    } else if (selectedWeight == weight[13]) {
+      setdDataWeight(105);
+    } else {
+      setdDataWeight(110);
+    }
+  };
+  const handleFootSizeChange = (selectedFS: string | number) => {
+    setdDataFootSize(selectedFS);
+  };
+  const handleJobChange = (selectedJob: string | number) => {
+    setdDataJob(selectedJob);
+  };
   const [recoData, setRecoData] = useState<RecoLogDataType>();
   useEffect(() => {
     // 구가 변경될 때마다 해당 구의 top 3 로그를 가져오는 함수
 
-    if (token) {
+    if (token && !isReco) {
       getTopLogsHandler();
     }
     console.log(recoData);
   }, [place, token]); // place가 변경될 때마다 실행
+
+  useEffect(() => {
+    if (isReco) {
+      console.log(
+        '보낼 데이터 처리',
+        place,
+        dataFootSize,
+        dataHeiht,
+        dataWeight,
+        dataJob
+      );
+
+      getRecoLogsDataHandler();
+    }
+  }, [token, place, dataFootSize, dataHeiht, dataWeight, dataJob]);
 
   return (
     <>
@@ -141,19 +235,21 @@ const page = () => {
             className="recommend-button-inner"
             onClick={() => {
               SetisReco(false);
+              SetIsRecoScss({ short: 'recommend-bottom-bar', reco: 'none' });
             }}
           >
             <div>주간 요약</div>
-            <div className="recommend-bottom-bar"></div>
+            <div className={`${isRecoScss.short}`}></div>
           </div>
           <div
             className="recommend-button-inner"
             onClick={() => {
               SetisReco(true);
+              SetIsRecoScss({ short: 'none', reco: 'recommend-bottom-bar' });
             }}
           >
             <div className="recommend-log-text">추천 로그</div>
-            <div className="recommend-bottom-bar none"></div>
+            <div className={`${isRecoScss.reco}`}></div>
           </div>
         </div>
       </div>

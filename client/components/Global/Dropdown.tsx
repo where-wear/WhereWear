@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 interface DropdownProps {
   list: string[];
-  onSelect: (selectedItem: string) => void;
+  onSelect: (selectedItem: string | number) => void;
   title: string;
 }
 
