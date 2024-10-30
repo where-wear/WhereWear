@@ -143,7 +143,7 @@ const page = () => {
               <div className="my-page-log-place-name">
                 <img src="/image/placeNamepin.png" />
                 <div className="my-page-log-place-name-text">
-                  {data.placeName}
+                  {data.placeName.replace(/"/g, '')}
                 </div>
               </div>
             </div>

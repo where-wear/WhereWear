@@ -281,10 +281,12 @@
 //-----------------------로그 이미지 변경 언더바----------------
 .log-underbar-container {
   background-color: #d9d9d9;
+  height: 6px;
   .log-photo-underbar {
-    height: 6px;
-    width: 33vw;
+    height: 100%;
+    width: 0%;
     background-color: #8f00ff;
+    transition: width 0.15s ease;
   }
 }
 //----------------------hr------------------------

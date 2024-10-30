@@ -4,6 +4,7 @@ import TopFashionLog from '@/components/Explore/TopFashionLog';
 import Dropdown from '@/components/Global/Dropdown';
 import { RecoLogDataType, SimpleLogData } from '@/types/type';
 import axios from 'axios';
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const page = () => {
@@ -15,13 +16,7 @@ const page = () => {
   const [dataJob, setdDataJob] = useState<string | number>('학생');
   const [token, setToken] = useState<string | null>(null);
   const [isReco, SetisReco] = useState<boolean>(false); //참이면 추천페이지
-  const [isRecoScss, SetIsRecoScss] = useState<{
-    short: string;
-    reco: string;
-  }>({
-    short: 'recommend-bottom-bar',
-    reco: 'none',
-  }); //참이면 추천페이지
+
   const guOffice = [
     '강남구',
     '강동구',
@@ -108,7 +103,7 @@ const page = () => {
   const getRecoLogsDataHandler = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/explore/RecommendLog`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/recommend`,
         {
           params: {
             gu: place, //지역(구) 문자열
@@ -120,13 +115,16 @@ const page = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log('추천로그 api요청', response.data);
+      console.log('추천로그 api요청', response.data.response);
+      setFilterRecoData(response.data.response);
     } catch (err) {
       console.log(err);
     }
   };
   const handlePlaceChange = (selectedPlace: string | number) => {
-    setPlace(selectedPlace); // 선택된 구를 place 상태로 저장
+    if (typeof selectedPlace === 'string') {
+      setPlace(selectedPlace);
+    }
   };
   const handleHeightChange = (selectedHeight: number | string) => {
     if (selectedHeight == height[0]) {
@@ -217,6 +215,9 @@ const page = () => {
     }
   }, [token, place, dataFootSize, dataHeiht, dataWeight, dataJob]);
 
+  const [filterRecoData, setFilterRecoData] =
+    useState<{ imgUrl: string; id: number }[]>();
+
   return (
     <>
       <div className="top-black-container">
@@ -232,25 +233,27 @@ const page = () => {
 
         <div className="recommend-button-container">
           <div
-            className="recommend-button-inner"
+            className={`recommend-button-inner ${!isReco ? 'active' : ''}`}
             onClick={() => {
               SetisReco(false);
-              SetIsRecoScss({ short: 'recommend-bottom-bar', reco: 'none' });
             }}
           >
             <div>주간 요약</div>
-            <div className={`${isRecoScss.short}`}></div>
           </div>
           <div
-            className="recommend-button-inner"
+            className={`recommend-button-inner ${isReco ? 'active' : ''}`}
             onClick={() => {
               SetisReco(true);
-              SetIsRecoScss({ short: 'none', reco: 'recommend-bottom-bar' });
             }}
           >
             <div className="recommend-log-text">추천 로그</div>
-            <div className={`${isRecoScss.reco}`}></div>
           </div>
+          <div
+            className="recommend-bottom-bar"
+            style={{
+              transform: isReco ? 'translateX(100%)' : 'translateX(0%)',
+            }}
+          ></div>
         </div>
       </div>
       <div className="recommend-contents-container">
@@ -294,7 +297,15 @@ const page = () => {
                 />
               </div> */}
             </div>
-            <div>이미지 리스트들</div>
+            <div className="filterRecoData-container">
+              {filterRecoData?.map((data, index) => (
+                <div key={index}>
+                  <Link href={`/Log/${data.id}`}>
+                    <img src={`${data.imgUrl}`} alt="" />
+                  </Link>
+                </div>
+              ))}
+            </div>
           </>
         ) : (
           <>

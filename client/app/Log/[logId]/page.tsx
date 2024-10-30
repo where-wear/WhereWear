@@ -162,6 +162,14 @@ const page = () => {
 
     setImageNum((prevImageNum) => prevImageNum - 1);
   };
+
+  // underbar width 계산
+  const getUnderbarWidth = () => {
+    if (logData.logImageList.length > 0) {
+      return ((imagenum + 1) / logData.logImageList.length) * 100 + '%';
+    }
+    return '0%'; // 기본값
+  };
   return (
     <>
       <BackBar text="" />
@@ -195,7 +203,10 @@ const page = () => {
         </div>
       </div>
       <div className="log-underbar-container">
-        <div className="log-photo-underbar"></div>
+        <div
+          className="log-photo-underbar"
+          style={{ width: getUnderbarWidth() }}
+        ></div>
       </div>
       <div className="log-another-user-circle-container">
         <div className="log-another-user-circle">
