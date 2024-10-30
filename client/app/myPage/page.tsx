@@ -142,8 +142,9 @@ const page = () => {
 
               <div className="my-page-log-place-name">
                 <img src="/image/placeNamepin.png" />
-
-                {data.placeName}
+                <div className="my-page-log-place-name-text">
+                  {data.placeName}
+                </div>
               </div>
             </div>
           ))}
