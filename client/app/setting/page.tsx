@@ -1,8 +1,31 @@
+'use client';
 import BackBar from '@/components/Global/BackBar';
+import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const page = () => {
+  const [token, setToken] = useState<string | null>(null);
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    setToken(accessToken);
+  }, []);
+
+  const signOutHandler = async () => {
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/accounts/dropUser`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div>
@@ -42,6 +65,9 @@ const page = () => {
         <Link href="" className="setting-link-com">
           <div className="setting-link">로그아웃</div>
         </Link>
+        <div className="setting-link-com" onClick={signOutHandler}>
+          <div className="setting-link sign-out-red">회원탈퇴</div>
+        </div>
       </div>
     </>
   );

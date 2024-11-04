@@ -12,6 +12,7 @@ import LogAnotherPeople from '@/components/Log/LogAnotherPeople';
 import ArroundData from '@/components/Log/ArroundData';
 import Category from '@/components/Log/Category';
 import LikeFooter from '@/components/Global/LikeFooter';
+import MyLogFooter from '@/components/Global/MyLogFooter';
 const page = () => {
   const router = useRouter();
   const KAKAO_API_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json';
@@ -277,7 +278,9 @@ const page = () => {
           />
         </div>
       </div>
-      <LikeFooter logId={numericLogId} token={token} />
+      {/* ! 이거 다시 살려야함 */}
+      {/* <LikeFooter logId={numericLogId} token={token} /> */}
+      <MyLogFooter logId={numericLogId} token={token} />
     </>
   );
 };
