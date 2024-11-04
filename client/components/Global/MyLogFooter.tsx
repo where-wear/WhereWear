@@ -5,7 +5,7 @@ interface LikeFooterPropsType {
   logId: number;
   token: string | null;
 }
-const LikeFooter = (props: LikeFooterPropsType) => {
+const MyLogFooter = (props: LikeFooterPropsType) => {
   //좋아요 api
   const likeLogApi = async () => {
     try {
@@ -28,6 +28,21 @@ const LikeFooter = (props: LikeFooterPropsType) => {
   };
 
   //로그 삭제  api
+  const DeleteLogHandler = async () => {
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/log/${props.logId}/delete`,
+        {
+          headers: {
+            Authorization: `Bearer ${props.token}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -48,7 +63,7 @@ const LikeFooter = (props: LikeFooterPropsType) => {
                 </div>
               </li>
               <li>
-                <div>
+                <div onClick={DeleteLogHandler}>
                   <img
                     src={'/image/bookmarkIcon.svg'}
                     className="footer-icon"
@@ -63,4 +78,4 @@ const LikeFooter = (props: LikeFooterPropsType) => {
   );
 };
 
-export default LikeFooter;
+export default MyLogFooter;
