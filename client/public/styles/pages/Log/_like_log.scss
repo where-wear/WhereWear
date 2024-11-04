@@ -8,28 +8,41 @@
   margin: 20px;
   display: flex;
   flex-wrap: wrap;
-  //   justify-content: space-between;
+
   .like-log-inner {
     margin-right: 5px;
     margin-bottom: 20px;
     .like-log-image {
       img {
         width: 100px;
+        height: 100px;
       }
     }
-    .like-place-plcename {
-      font-size: 12px;
-      font-weight: 550;
-    }
-    .like-place-address {
+    .like-place-plcename-container {
       display: flex;
-      font-size: 10px;
-      font-weight: 200;
-      align-items: center;
-      img {
-        margin-right: 2px;
-        width: 10px;
-        height: 10px;
+      flex-direction: column;
+      width: 100px;
+      .like-place-plcename {
+        font-size: 12px;
+        font-weight: 550;
+      }
+      .like-place-address {
+        display: flex;
+        font-size: 10px;
+        font-weight: 200;
+
+        align-items: center;
+        .like-place-address-text {
+          white-space: nowrap; /* 줄바꿈 방지 */
+          overflow: hidden; /* 넘치는 텍스트 숨기기 */
+          text-overflow: ellipsis; /* 넘친 부분에 '...' 표시 */
+          width: 100%; /* 너비를 100%로 설정 */
+        }
+        img {
+          margin-right: 2px;
+          width: 10px;
+          height: 10px;
+        }
       }
     }
   }

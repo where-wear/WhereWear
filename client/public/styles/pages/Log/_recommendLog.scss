@@ -30,18 +30,26 @@
     width: 50%;
     text-align: center;
     font-size: 16px;
-    .recommend-bottom-bar {
-      height: 5px;
-      background-color: white;
-      opacity: 40%;
-      margin-top: 10px;
+    position: relative; // 클릭 시 배경 색상용
+    color: #707070;
+
+    &.active {
+      color: white;
     }
-    .none {
-      display: none;
-    }
-    .recommend-log-text {
-      color: #707070;
-    }
+  }
+  .recommend-log-text {
+    margin-bottom: 10px;
+  }
+  .recommend-bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 5px;
+    background-color: white;
+    opacity: 0.4;
+    transition: transform 0.15s ease;
+    transform: translateX(0%); // 기본 위치
   }
 }
 
@@ -136,12 +144,23 @@
   }
 }
 
-//
+//추천페이지
 
 .reco-page-dropdown-list {
   display: flex;
 
   .reco-page-dropdown {
     margin-right: 5px;
+  }
+}
+
+.filterRecoData-container {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  img {
+    margin-right: 8px;
+    width: 100px;
+    height: 100px;
   }
 }

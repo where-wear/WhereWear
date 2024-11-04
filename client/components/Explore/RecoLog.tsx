@@ -37,16 +37,18 @@ const RecoLog = (props: RecoLogPropsType) => {
     footSize: 0,
     job: '',
   });
-  const handlePlaceChange = (selectedPlace: string) => {
-    setRecoLogParams((prevParams) => ({
-      ...prevParams,
-      gu: selectedPlace, // 선택된 구로 업데이트
-    }));
+  const handlePlaceChange = (selectedPlace: string | number) => {
+    if (typeof selectedPlace === 'string') {
+      setRecoLogParams((prevParams) => ({
+        ...prevParams,
+        gu: selectedPlace, // 선택된 구로 업데이트
+      }));
+    }
   };
   return (
     <>
       <div className="recommend-contents-container">
-        <Dropdown list={guOffice} onSelect={handlePlaceChange} />
+        <Dropdown list={guOffice} onSelect={handlePlaceChange} title="강남구" />
         <div>
           <div>{/* 여기 이제 가져온 데이터 값 */}</div>
         </div>
