@@ -85,25 +85,27 @@ const LogMarker = (props: MarkerPropsType) => {
           onClose={closeModal}
         >
           <div className="map-modal-component">
-            <div className="modal-log-place-name">
-              {markerModalData.placeName}
-            </div>
-            <div className="modal-log-place-address">
-              {markerModalData.placeaddress}
-            </div>
-            <div className="modal-log-container">
-              {/* 로그들 */}{' '}
-              {markerModalData.log.map((log) => (
-                <div key={log.logId}>
-                  <div>
-                    <Link href={`/Log/${log.logId}`}>
-                      {log.imgUrl && (
-                        <img src={log.imgUrl} alt="로그 이미지" width="100" />
-                      )}
-                    </Link>
+            <div className="map-modal-component-inner">
+              <div className="modal-log-place-name">
+                {markerModalData.placeName}
+              </div>
+              <div className="modal-log-place-address">
+                {markerModalData.placeaddress}
+              </div>
+              <div className="modal-log-container">
+                {/* 로그들 */}{' '}
+                {markerModalData.log.map((log) => (
+                  <div key={log.logId}>
+                    <div>
+                      <Link href={`/Log/${log.logId}`}>
+                        {log.imgUrl && (
+                          <img src={log.imgUrl} alt="로그 이미지" width="100" />
+                        )}
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </LogMarkerModal>
