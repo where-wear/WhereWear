@@ -73,6 +73,85 @@ const page = () => {
   useEffect(() => {
     console.log(myPageData);
   }, [myPageData]);
+  // return (
+  //   <>
+  //     <div className="my-page-container">
+  //       <div className="my-page-user-container">
+  //         <div className="my-page-image">
+  //           <img
+  //             src={myPageData.userData.imgUrl}
+  //             alt="프로필 이미지"
+  //             className="my-page-image-inner"
+  //           />
+  //         </div>
+  //         <div className="my-page-user-nickname">
+  //           <div className="my-page-user-nickname-inner">
+  //             {myPageData.userData.nickname}
+  //           </div>
+  //         </div>
+  //       </div>
+  //       <div className="my-page-data-container">
+  //         <div className="my-page-button-container">
+  //           <div className="my-page-button">
+  //             <img src="/image/mypagepen.svg" />
+  //           </div>
+  //           <Link href={'/setting'}>
+  //             {' '}
+  //             <div className="my-page-button">
+  //               <img src="/image/mypageedit.svg" />
+  //             </div>
+  //           </Link>
+  //         </div>
+  //         <div className="my-page-log-follow">
+  //           <div className="my-page-number">
+  //             <div>로그 개수</div>
+  //             <div className="my-page-number-inner">
+  //               {myPageData.userData.logNum}
+  //             </div>
+  //           </div>
+  //           <div className="my-page-number">
+  //             <div>팔로잉</div>
+  //             <div className="my-page-number-inner">
+  //               {myPageData.userData.following}
+  //             </div>
+  //           </div>
+  //           <div className="my-page-number">
+  //             <div>팔로워</div>
+  //             <div className="my-page-number-inner">
+  //               {myPageData.userData.follower}
+  //             </div>
+  //           </div>
+  //         </div>
+  //         <div className="my-page-coment">
+  //           {myPageData.userData.introduction}
+  //         </div>
+  //       </div>
+  //     </div>
+  //     <hr className="my-page-hr" />
+  //     <div className="maypage-log-container">
+  //       <div className="my-page-log-image-container">
+  //         {myPageData.logData.map((data) => (
+  //           <div key={data.id} className="my-page-log-image-inner">
+  //             <Link href={`/Log/${data.id}`} className="my-page-log-image-size">
+  //               <img
+  //                 src={data.logImgUrl}
+  //                 alt=""
+  //                 className="my-page-log-image"
+  //               />
+  //             </Link>
+
+  //             <div className="my-page-log-place-name">
+  //               <img src="/image/placeNamepin.png" />
+  //               <div className="my-page-log-place-name-text">
+  //                 {data.placeName.replace(/"/g, '')}
+  //               </div>
+  //             </div>
+  //           </div>
+  //         ))}
+  //       </div>
+  //     </div>
+  //   </>
+  // );
   return (
     <>
       <div className="my-page-container">
@@ -96,7 +175,6 @@ const page = () => {
               <img src="/image/mypagepen.svg" />
             </div>
             <Link href={'/setting'}>
-              {' '}
               <div className="my-page-button">
                 <img src="/image/mypageedit.svg" />
               </div>
@@ -132,14 +210,13 @@ const page = () => {
         <div className="my-page-log-image-container">
           {myPageData.logData.map((data) => (
             <div key={data.id} className="my-page-log-image-inner">
-              <Link href={`/Log/${data.id}`}>
+              <Link href={`/Log/${data.id}`} className="my-page-log-image-size">
                 <img
                   src={data.logImgUrl}
                   alt=""
                   className="my-page-log-image"
                 />
               </Link>
-
               <div className="my-page-log-place-name">
                 <img src="/image/placeNamepin.png" />
                 <div className="my-page-log-place-name-text">

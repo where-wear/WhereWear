@@ -45,7 +45,12 @@ body {
   background: #fff;
   color: #242729;
   margin: 0;
+  -ms-overflow-style: none;
 }
+::-webkit-scrollbar {
+  display: none;
+}
+
 .__next,
 .root {
   display: flex;

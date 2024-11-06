@@ -50,7 +50,6 @@ const page = () => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/liked`,
         {
-          params: { userId: 8 },
           headers: { Authorization: `Bearer ${token}` },
         }
       );

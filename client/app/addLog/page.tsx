@@ -26,8 +26,23 @@ const page = () => {
     setToken(accessToken);
   }, [token]);
 
+  // logData가 비어 있는지 확인하는 함수
+  const isLogDataComplete = () => {
+    return (
+      logData.logImageList.length > 0 && // 이미지가 있는지 확인
+      logData.text.trim() !== '' && // 텍스트가 입력되었는지 확인
+      logData.tag.length > 0 && // 태그가 추가되었는지 확인
+      logData.item.length > 0 && // 아이템이 추가되었는지 확인
+      logData.place.placeName.trim() !== '' && // 장소 이름이 있는지 확인
+      logData.place.placeAddress.trim() !== '' && // 주소가 있는지 확인
+      logData.place.placeX !== '' && // X 좌표가 있는지 확인
+      logData.place.placeY !== '' // Y 좌표가 있는지 확인
+    );
+  };
+
   async function addLogFormHandler() {
-    //Todo: formdata제출
+    if (!isLogDataComplete()) return;
+
     const formData = new FormData();
     // 이미지 파일 추가
     logData.logImageList.forEach((image, index) => {
@@ -49,15 +64,6 @@ const page = () => {
     formData.append('text', logData.text);
     formData.append('tags', JSON.stringify(logData.tag));
     formData.append('items', JSON.stringify(logData.item));
-
-    // logData.item.forEach((item, index) => {
-    //   formData.append(`items[${index}][itemName]`, item.itemName);
-    //   formData.append(
-    //     `items[${index}][categoryId]`,
-    //     item.categoryId.toString()
-    //   ); // 숫자를 문자열로 변환
-    // });
-
     formData.append('place', JSON.stringify(logData.place));
     formData.append('x', logData.place.placeX);
     formData.append('y', logData.place.placeY);
@@ -139,7 +145,12 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="add-log-button" onClick={addLogFormHandler}>
+      <div
+        className={`add-log-button ${
+          !isLogDataComplete() ? 'disabled-button' : ''
+        }`}
+        onClick={addLogFormHandler}
+      >
         <p>패션 로그 업로드하기</p>
       </div>
     </>
