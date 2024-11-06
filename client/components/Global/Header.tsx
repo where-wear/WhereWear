@@ -7,7 +7,7 @@ const Header = () => {
       <div className="header-box">
         <div className="header-inner-box">
           <div>
-            <Link href={'/'}>
+            <Link href={'/home'}>
               <img
                 src="/image/whereWearHeaderLogo.svg"
                 className="header-main-logo"
