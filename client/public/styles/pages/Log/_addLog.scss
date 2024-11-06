@@ -1,6 +1,10 @@
 .add-log-button {
   @include bottom-button;
 }
+.disabled-button {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 //-----------------------------사진 등록-----------------------------
 
 .photo-box {

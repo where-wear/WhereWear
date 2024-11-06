@@ -1,11 +1,14 @@
 //컴포넌트 분리
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import LogMarkerModal from './LogMarkerModal';
 import { MapMakerModal } from '@/types/type';
 import axios from 'axios';
 import Link from 'next/link';
+import { enableHorizontalScroll } from '../Function/enableHorizontalScroll';
+//스크롤관련
+
 interface MarkerPropsType {
   logLat: number;
   logLng: number;
@@ -16,6 +19,7 @@ interface MarkerPropsType {
 const LogMarker = (props: MarkerPropsType) => {
   //토큰
   const [token, setToken] = useState<string | null>(null);
+  const modalLogContainerRef = useRef(null); // 가로 스크롤을 위한 참조
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     setToken(accessToken);
@@ -28,6 +32,12 @@ const LogMarker = (props: MarkerPropsType) => {
     placeaddress: '',
     log: [{ logId: 0, imgUrl: '' }],
   });
+  useEffect(() => {
+    // 모달이 열릴 때마다 가로 스크롤 기능 추가
+    if (isModalOpen && modalLogContainerRef.current) {
+      enableHorizontalScroll(modalLogContainerRef.current);
+    }
+  }, [isModalOpen]);
   const openMarkerLogList = async () => {
     setIsModalOpen(true);
     try {
@@ -92,7 +102,7 @@ const LogMarker = (props: MarkerPropsType) => {
               <div className="modal-log-place-address">
                 {markerModalData.placeaddress}
               </div>
-              <div className="modal-log-container">
+              <div className="modal-log-container" ref={modalLogContainerRef}>
                 {/* 로그들 */}{' '}
                 {markerModalData.log.map((log) => (
                   <div key={log.logId}>
