@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 const KakaoLogin = () => {
   const handleLogin = () => {
@@ -7,11 +7,10 @@ const KakaoLogin = () => {
   };
 
   return (
-    <div className="social-login-button kakao-button ">
+    <div className="social-login-button kakao-button " onClick={handleLogin}>
       <div className="social-login-image">
         <img
-          style={{ width: "50px" }}
-          onClick={handleLogin}
+          style={{ width: '48px' }}
           src="/image/kakaoLogo.png"
           alt="카카오 로그인"
         />

@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 const GoogleLogin = () => {
   const handleLogin = () => {
@@ -7,11 +7,10 @@ const GoogleLogin = () => {
   };
 
   return (
-    <div className="social-login-button google-button ">
+    <div className="social-login-button google-button " onClick={handleLogin}>
       <div className="social-login-image">
         <img
-          style={{ width: "25px" }}
-          onClick={handleLogin}
+          style={{ width: '25px' }}
           src="/image/googleLogo.png"
           alt="구글 로그인"
         />
