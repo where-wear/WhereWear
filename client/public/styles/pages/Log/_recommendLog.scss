@@ -85,9 +85,15 @@
   }
 }
 .dropdown-list-ul-container {
+  margin-top: 8px;
   position: relative;
 
   .dropdown-list-ul {
+    border-radius: 16px;
+    border: 1.3px solid;
+    border-color: #d4d4d4;
+    color: #6d6d6d;
+    width: 100px;
     background-color: white;
     position: absolute;
     height: 25vh;
@@ -95,9 +101,11 @@
     z-index: 100;
     top: 100%; /* 부모 요소 아래에 나타나도록 */
     height: auto;
-    max-height: 25vh; /* 스크롤이 필요한 경우만 스크롤 */
+    max-height: 23vh; /* 스크롤이 필요한 경우만 스크롤 */
     overflow-y: auto;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    li {
+      margin: 5px 5px 5px 15px;
+    }
   }
 }
 

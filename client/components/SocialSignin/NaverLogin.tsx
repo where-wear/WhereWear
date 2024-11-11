@@ -1,5 +1,5 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
 const NaverLogin = () => {
   const handleLogin = () => {
@@ -7,11 +7,10 @@ const NaverLogin = () => {
   };
 
   return (
-    <div className="social-login-button naver-button ">
+    <div className="social-login-button naver-button " onClick={handleLogin}>
       <div className="social-login-image">
         <img
-          style={{ width: "20px" }}
-          onClick={handleLogin}
+          style={{ width: '20px' }}
           src="/image/naverLogo.png"
           alt="네이버 로그인"
         />

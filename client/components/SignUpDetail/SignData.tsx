@@ -10,7 +10,9 @@ import BackBar from '../Global/BackBar';
 import { redirect, useSearchParams } from 'next/navigation';
 import { UserData } from '@/types/type';
 import UserImage from './UserImage';
+import Dropdown from '../Global/Dropdown';
 const SignData = () => {
+  const job = ['학생', '직장인', '프리랜서', '자영업자'];
   //닉네임 체크 관련 변수
   const [CheckNickname, setCheckNickname] = useState<string>('');
 
@@ -18,6 +20,7 @@ const SignData = () => {
   const [isCheck, setIsCheck] = useState<boolean>(false);
   //이미지 상태
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   //닉네임이 변할때 마다 중복확인 변수를 false로 초기화
   useEffect(() => {
@@ -44,9 +47,35 @@ const SignData = () => {
     height: 0,
     weight: 0,
     footSize: 0,
-    job: '',
+    job: '학생',
     introduction: '',
   });
+  const handleJobChange = (selectedJob: string | number) => {
+    if (typeof selectedJob === 'string') {
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        job: selectedJob,
+      }));
+    }
+  };
+
+  // 모든 필드가 채워져 있는지 확인
+  const isFormComplete = () => {
+    return (
+      imageFile !== null &&
+      userdata.nickname.trim() !== '' &&
+      isCheck &&
+      userdata.height > 0 &&
+      userdata.weight > 0 &&
+      userdata.footSize > 0 &&
+      userdata.job.trim() !== '' &&
+      userdata.introduction.trim() !== ''
+    );
+  };
+  useEffect(() => {
+    setIsButtonDisabled(!isFormComplete());
+    console.log('버튼 관련 디버그', isButtonDisabled);
+  }, [userdata, imageFile, isCheck]);
 
   const ninckNameCheckHandler = async () => {
     //닉네임 체크하는 axios요청 함수 checkNickname 변수를 담아서 보내기
@@ -75,6 +104,7 @@ const SignData = () => {
     } catch (error) {}
   };
   const subUserDataHandler = async () => {
+    if (isButtonDisabled) return;
     const formData = new FormData();
     if (imageFile) {
       formData.append('image', imageFile); // 이미지 파일 추가
@@ -123,97 +153,98 @@ const SignData = () => {
       />
 
       <form onSubmit={handleSubmit(subUserDataHandler)}>
-        <div className="user-input-container">
-          <label className="tile-label">계정명</label>
-          <label className="signup-user-input-underline">
-            <input
-              type="text"
-              {...register('nickname', { required: true, maxLength: 20 })}
-              value={CheckNickname}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setCheckNickname(e.target.value);
-              }}
-            />
-          </label>
+        <div className="user-input-out">
+          <div className="user-input-container">
+            <label className="tile-label">계정명</label>
+            <label className="signup-user-input-underline">
+              <input
+                type="text"
+                {...register('nickname', { required: true, maxLength: 20 })}
+                value={CheckNickname}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setCheckNickname(e.target.value);
+                }}
+              />
+            </label>
 
-          <button onClick={ninckNameCheckHandler} type="button">
-            중복확인
-          </button>
-        </div>
+            <button onClick={ninckNameCheckHandler} type="button">
+              중복확인
+            </button>
+          </div>
 
-        {errors.nickname && errors.nickname.type === 'required' && (
-          <div>닉네임을 입력해 주세요!</div>
-          // 나중에 붉은색으로 css입혀야함
-        )}
-        <div className="user-input-container">
-          <label className="tile-label">키</label>
-          <label className="signup-user-input-underline">
-            <input
-              {...register('height', { required: true, maxLength: 300 })}
-              type="number"
-              value={userdata.height || ''}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setUserData((prevUserData) => ({
-                  ...prevUserData,
-                  height: Number(e.target.value),
-                }));
-              }}
-            />
-          </label>
-          <div className="gray-unit">cm</div>
-        </div>
-        {errors.height && errors.height.type === 'required' && (
-          <div>키를 입력해 주세요!</div>
-          // 나중에 붉은색으로 css입혀야함
-        )}
-        <div className="user-input-container">
-          <label className="tile-label">몸무게</label>
-          <label className="signup-user-input-underline">
-            <input
-              {...register('weight', { required: true, maxLength: 1000 })}
-              type="number"
-              value={userdata.weight || ''}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setUserData((prevUserData) => ({
-                  ...prevUserData,
-                  weight: Number(e.target.value),
-                }));
-              }}
-            />
-          </label>
-          <div className="gray-unit">kg</div>
-        </div>
+          {errors.nickname && errors.nickname.type === 'required' && (
+            <div>닉네임을 입력해 주세요!</div>
+            // 나중에 붉은색으로 css입혀야함
+          )}
+          <div className="user-input-container">
+            <label className="tile-label">키</label>
+            <label className="signup-user-input-underline">
+              <input
+                {...register('height', { required: true, maxLength: 300 })}
+                type="number"
+                value={userdata.height || ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setUserData((prevUserData) => ({
+                    ...prevUserData,
+                    height: Number(e.target.value),
+                  }));
+                }}
+              />
+            </label>
+            <div className="gray-unit">cm</div>
+          </div>
+          {errors.height && errors.height.type === 'required' && (
+            <div>키를 입력해 주세요!</div>
+            // 나중에 붉은색으로 css입혀야함
+          )}
+          <div className="user-input-container">
+            <label className="tile-label">몸무게</label>
+            <label className="signup-user-input-underline">
+              <input
+                {...register('weight', { required: true, maxLength: 1000 })}
+                type="number"
+                value={userdata.weight || ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setUserData((prevUserData) => ({
+                    ...prevUserData,
+                    weight: Number(e.target.value),
+                  }));
+                }}
+              />
+            </label>
+            <div className="gray-unit">kg</div>
+          </div>
 
-        {errors.weight && errors.weight.type === 'required' && (
-          <div>몸무게를 입력해 주세요!</div>
-          // 나중에 붉은색으로 css입혀야함
-        )}
-        <div className="user-input-container">
-          <label className="tile-label">발사이즈</label>
-          <label className="signup-user-input-underline">
-            <input
-              {...register('footSize', { required: true, maxLength: 500 })}
-              type="number"
-              value={userdata.footSize || ''}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setUserData((prevUserData) => ({
-                  ...prevUserData,
-                  footSize: Number(e.target.value),
-                }));
-              }}
-            />
-          </label>
-          <div className="gray-unit">mm</div>
-        </div>
+          {errors.weight && errors.weight.type === 'required' && (
+            <div>몸무게를 입력해 주세요!</div>
+            // 나중에 붉은색으로 css입혀야함
+          )}
+          <div className="user-input-container">
+            <label className="tile-label">발사이즈</label>
+            <label className="signup-user-input-underline">
+              <input
+                {...register('footSize', { required: true, maxLength: 500 })}
+                type="number"
+                value={userdata.footSize || ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setUserData((prevUserData) => ({
+                    ...prevUserData,
+                    footSize: Number(e.target.value),
+                  }));
+                }}
+              />
+            </label>
+            <div className="gray-unit">mm</div>
+          </div>
 
-        {errors.footSize && errors.footSize.type === 'required' && (
-          <div>발사이즈를 입력해 주세요!</div>
-          // 나중에 붉은색으로 css입혀야함
-        )}
-        <div className="user-input-container">
-          <label className="tile-label">직업</label>
-          <label className="signup-user-input-underline">
-            <input
+          {errors.footSize && errors.footSize.type === 'required' && (
+            <div>발사이즈를 입력해 주세요!</div>
+            // 나중에 붉은색으로 css입혀야함
+          )}
+          <div className="user-input-container">
+            <label className="tile-label">직업</label>
+            <label className="signup-user-input-underline">
+              {/* <input
               {...register('job', { required: true, maxLength: 20 })}
               type="text"
               value={userdata.job}
@@ -223,33 +254,36 @@ const SignData = () => {
                   job: e.target.value,
                 }));
               }}
-            />
-          </label>
+            /> */}
+              <Dropdown list={job} onSelect={handleJobChange} title="학생" />
+            </label>
+          </div>
+
+          <div className="user-input-container">
+            <label className="tile-label">소개글</label>
+            <label className="signup-user-text-box ">
+              <textarea
+                {...register('introduction')}
+                value={userdata.introduction}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  setUserData((prevUserData) => ({
+                    ...prevUserData,
+                    introduction: e.target.value,
+                  }));
+                }}
+                placeholder={`최대 20자\nex) 인스타그램 계정을\n소개해주세요`}
+              />
+            </label>
+          </div>
         </div>
 
-        {errors.job && errors.job.type === 'required' && (
-          <div>직업을 입력해 주세요!</div>
-          // 나중에 붉은색으로 css입혀야함
-        )}
-        <div className="user-input-container">
-          <label className="tile-label">소개글</label>
-          <label className="signup-user-text-box ">
-            <textarea
-              {...register('introduction')}
-              value={userdata.introduction}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                setUserData((prevUserData) => ({
-                  ...prevUserData,
-                  introduction: e.target.value,
-                }));
-              }}
-              placeholder={`최대 20자\nex) 인스타그램 계정을\n소개해주세요`}
-            />
-          </label>
-        </div>
-
-        <label className="user-data-sub"></label>
-        <button type="submit" className="user-data-sub">
+        <button
+          type="submit"
+          className={`user-data-sub ${
+            isButtonDisabled ? 'user-disabled-button' : ''
+          }`}
+          disabled={isButtonDisabled}
+        >
           입력 완료
         </button>
       </form>
