@@ -18,6 +18,7 @@ const SignData = () => {
   const [isCheck, setIsCheck] = useState<boolean>(false);
   //이미지 상태
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   //닉네임이 변할때 마다 중복확인 변수를 false로 초기화
   useEffect(() => {
@@ -47,6 +48,23 @@ const SignData = () => {
     job: '',
     introduction: '',
   });
+  // 모든 필드가 채워져 있는지 확인
+  const isFormComplete = () => {
+    return (
+      imageFile !== null &&
+      userdata.nickname.trim() !== '' &&
+      isCheck &&
+      userdata.height > 0 &&
+      userdata.weight > 0 &&
+      userdata.footSize > 0 &&
+      userdata.job.trim() !== '' &&
+      userdata.introduction.trim() !== ''
+    );
+  };
+  useEffect(() => {
+    setIsButtonDisabled(!isFormComplete());
+    console.log('버튼 관련 디버그', isButtonDisabled);
+  }, [userdata, imageFile, isCheck]);
 
   const ninckNameCheckHandler = async () => {
     //닉네임 체크하는 axios요청 함수 checkNickname 변수를 담아서 보내기
@@ -75,6 +93,7 @@ const SignData = () => {
     } catch (error) {}
   };
   const subUserDataHandler = async () => {
+    if (isButtonDisabled) return;
     const formData = new FormData();
     if (imageFile) {
       formData.append('image', imageFile); // 이미지 파일 추가
@@ -248,8 +267,13 @@ const SignData = () => {
           </label>
         </div>
 
-        <label className="user-data-sub"></label>
-        <button type="submit" className="user-data-sub">
+        <button
+          type="submit"
+          className={`user-data-sub ${
+            isButtonDisabled ? 'user-disabled-button' : ''
+          }`}
+          disabled={isButtonDisabled}
+        >
           입력 완료
         </button>
       </form>
