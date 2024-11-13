@@ -11,10 +11,14 @@ export const metadata: Metadata = {
 const HomePage = () => {
   return (
     <>
-      <Link href="/signin">
+      <Link href="/signin" style={{ textDecoration: 'none' }}>
         <div className="home-container">
-          <img src="/image/home_main_text.png" className="home-main-text" />
-          <img src="/image/home_sub_text.png" className="home-sub-text" />
+          <div
+            style={{ whiteSpace: 'pre-line' }}
+            className="home-main-text"
+          >{`어디에 \n 뭐 입고 가지?`}</div>
+
+          <div className="home-sub-text">WHERE WEAR | 웨어웨어</div>
           <img src="/image/home_W.png" className="home-w" />
         </div>
       </Link>

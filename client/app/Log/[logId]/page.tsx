@@ -41,7 +41,7 @@ const page = () => {
     creatAt: '',
     userNickname: '',
     userImage: '',
-
+    myLog: false,
     logImageList: [''],
     text: '',
     tag: [''],
@@ -125,7 +125,7 @@ const page = () => {
         creatAt: formatDate(data.createdAt),
         userNickname: data.user.nickname,
         userImage: data.user.image,
-
+        myLog: data.myLog,
         logImageList: logImageList,
         text: data.text,
         tag: logTagList,
@@ -278,9 +278,13 @@ const page = () => {
           />
         </div>
       </div>
-      {/* ! 이거 다시 살려야함 */}
+      {/*  이거 다시 살려야함, 삼항 연산자 */}
       {/* <LikeFooter logId={numericLogId} token={token} /> */}
-      <MyLogFooter logId={numericLogId} token={token} />
+      {logData.myLog ? (
+        <MyLogFooter logId={numericLogId} token={token} />
+      ) : (
+        <LikeFooter logId={numericLogId} token={token} />
+      )}
     </>
   );
 };

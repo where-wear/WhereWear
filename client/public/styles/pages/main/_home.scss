@@ -1,4 +1,5 @@
 .home-container {
+  position: absolute;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -6,19 +7,32 @@
   h1 {
     color: white;
   }
+
   .home-main-text {
-    margin-top: 120px;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    color: white;
+    margin-top: 110px;
     margin-left: 20px;
+    font-size: 40px;
+    font-weight: 500;
   }
   .home-sub-text {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    color: rgb(116, 116, 116);
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
+    font-size: 25px;
+    font-weight: 50;
   }
+
   .home-w {
-    scale: 90%;
-    position: relative;
-    right: 262px;
-    margin-top: 125px;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    left: 0;
+    bottom: 0;
   }
 }
 // ------------------------------------로그인-------------------------

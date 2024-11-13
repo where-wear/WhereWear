@@ -1,31 +1,13 @@
+'useclient';
 import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 interface LikeFooterPropsType {
   logId: number;
   token: string | null;
 }
 const MyLogFooter = (props: LikeFooterPropsType) => {
-  //좋아요 api
-  const likeLogApi = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/liked`,
-        null,
-        {
-          params: {
-            logId: props.logId,
-          },
-          headers: {
-            Authorization: `Bearer ${props.token}`, // 헤더에 토큰 추가
-          },
-        }
-      );
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   //로그 삭제  api
   const DeleteLogHandler = async () => {
@@ -43,6 +25,16 @@ const MyLogFooter = (props: LikeFooterPropsType) => {
       console.log(err);
     }
   };
+  // 모달 열기/닫기
+  const handleDeleteClick = () => {
+    console.log(isDeleteModalOpen);
+    setIsDeleteModalOpen(!isDeleteModalOpen);
+  };
+
+  // 모달 바깥 클릭 시 닫기
+  const handleOutsideClick = () => {
+    setIsDeleteModalOpen(false);
+  };
 
   return (
     <>
@@ -57,16 +49,29 @@ const MyLogFooter = (props: LikeFooterPropsType) => {
               </li>
               <li></li>
               <li className="addLog-li"></li>
+
               <li>
-                <div onClick={likeLogApi}>
-                  <img src={'/image/LikeLogIcon.svg'} className="footer-icon" />
-                </div>
-              </li>
-              <li>
-                <div onClick={DeleteLogHandler}>
+                <div
+                  onClick={handleDeleteClick}
+                  className="delete-modal-wrapper-container"
+                >
+                  {/* 삭제 확인 모달 */}
+                  {isDeleteModalOpen && (
+                    <div
+                      className="delete-modal-wrapper"
+                      onClick={handleOutsideClick}
+                    >
+                      <div
+                        className="delete-modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div onClick={DeleteLogHandler}>삭제</div>
+                      </div>
+                    </div>
+                  )}
                   <img
-                    src={'/image/bookmarkIcon.svg'}
-                    className="footer-icon"
+                    src={'/image/menuIcon.svg'}
+                    className="footer-icon-menu"
                   />
                 </div>
               </li>

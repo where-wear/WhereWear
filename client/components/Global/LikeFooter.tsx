@@ -27,8 +27,6 @@ const LikeFooter = (props: LikeFooterPropsType) => {
     }
   };
 
-  //로그 삭제  api
-
   return (
     <>
       <div className="footer-box">
@@ -45,14 +43,6 @@ const LikeFooter = (props: LikeFooterPropsType) => {
               <li>
                 <div onClick={likeLogApi}>
                   <img src={'/image/LikeLogIcon.svg'} className="footer-icon" />
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img
-                    src={'/image/bookmarkIcon.svg'}
-                    className="footer-icon"
-                  />
                 </div>
               </li>
             </ul>
