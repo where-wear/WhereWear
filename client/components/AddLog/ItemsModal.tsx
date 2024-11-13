@@ -37,7 +37,7 @@ const ItemsModal = ({ isOpen, onDelete }: ItemsModalProps) => {
             <div
               key={item.itemName}
               onClick={() => onDelete(item.itemName)}
-              className="add-log-item-imgtext"
+              className="add-log-item-imgtext-prime"
             >
               <div className="item-add-log-item-detail-inner ">
                 <img
@@ -45,8 +45,11 @@ const ItemsModal = ({ isOpen, onDelete }: ItemsModalProps) => {
                   alt={`${item.itemName} 이미지`}
                 />
               </div>
-
-              <span>{item.itemName}</span>
+              <div className="modal-item-container">
+                <div className="item-add-log-item-detail-inner-text">
+                  {item.itemName}
+                </div>
+              </div>
             </div>
           );
         })}

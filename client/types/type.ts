@@ -75,6 +75,7 @@ export interface MapMakerModal {
 
 //로그 타입
 export interface logData {
+  myLog: boolean;
   userId: number;
   creatAt: string;
   userNickname: string;

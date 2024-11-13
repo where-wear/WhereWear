@@ -319,6 +319,32 @@ const AddLogItem = () => {
                   ))}
                 </>
               )}
+              {selectedCategory === '가방' && (
+                <>
+                  {[
+                    '숄더백',
+                    '토트백',
+                    '크로스백',
+                    '클러치백',
+                    '백팩',
+                    '에코백',
+                  ].map((subCategory) => (
+                    <div
+                      className="add-log-item-imgtext"
+                      key={subCategory}
+                      onClick={() => handleSubCategoryClick(subCategory)}
+                    >
+                      <div className="add-log-item-detail-inner">
+                        <img
+                          src={`/image/${subCategory}.png`}
+                          alt={`${subCategory} 이미지`}
+                        />
+                      </div>
+                      <div className="add-log-item-text">{subCategory}</div>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           )}
         </div>
