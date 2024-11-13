@@ -1,86 +1,271 @@
-//아이템  "" 이면 그냥 함수 중단 시키기(버튼 안눌리게 처리한다던지)
-//필요없는 코드 지우기(state관련)
+// 'use client';
+// import { useStore } from '@/Zustand/store';
+// import React, { useState } from 'react';
+// import AddItemModal from './AddItemModal';
+// import ItemsModal from './ItemsModal';
+
+// const AddLogItem = () => {
+//   const logData = useStore((state) => state.logData);
+//   const setLogData = useStore((state) => state.setLogData);
+//   const [selectedCategory, setSelectedCategory] = useState<string>('상의');
+//   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
+//     null
+//   );
+//   const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
+//   const [isItemsModalOpen, setIsItemsModalOpen] = useState(false);
+
+//   // 카테고리 클릭 시
+//   const handleCategoryClick = (category: string) => {
+//     setSelectedCategory(category);
+//     setSelectedSubCategory(null);
+//   };
+
+//   // 서브 카테고리 클릭 시
+//   const handleSubCategoryClick = (subCategory: string) => {
+//     setSelectedSubCategory(subCategory);
+//     setIsAddItemModalOpen(true);
+//   };
+
+//   // 아이템 추가 모달에서 저장
+//   const handleModalSave = (itemName: string) => {
+//     if (!itemName.trim()) return; // 아이템 이름이 비어 있으면 중단
+
+//     const categoryMap: { [key: string]: number } = {
+//       숄더백: 1,
+//       토트백: 2,
+//       크로스백: 3,
+//       클러치백: 4,
+//       백팩: 5,
+//       에코백: 6,
+//       셔츠: 7,
+//       맨투맨: 8,
+//       니트스웨터: 9,
+//       후드: 10,
+//       스포츠티: 11,
+//       티셔츠: 12,
+//     };
+//     const categoryNum = categoryMap[selectedSubCategory || ''] || 0;
+
+//     const newItem = {
+//       categoryId: categoryNum,
+//       itemName,
+//     };
+
+//     // 아이템 추가 후 전역 상태 업데이트
+//     setLogData({
+//       ...logData,
+//       item: [...logData.item, newItem],
+//     });
+
+//     setIsAddItemModalOpen(false);
+//     setIsItemsModalOpen(true); // 아이템 추가 후 목록 모달 자동 열기
+//   };
+
+//   // 아이템 목록 모달에서 아이템 삭제
+//   const handleItemDelete = (itemName: string) => {
+//     const updatedItems = logData.item.filter(
+//       (item) => item.itemName !== itemName
+//     );
+//     setLogData({
+//       ...logData,
+//       item: updatedItems,
+//     });
+//   };
+
+//   return (
+//     <>
+//       <div className="add-log-item-continerbox">
+//         {/* <div className="add-log-place-container">
+//           <label>
+//             <div className="add-log-place-inner">
+//               <div>
+//                 <img src="/image/searchPlace.svg" alt="장소 검색" />
+//               </div>
+//               <input type="text" />
+//             </div>
+//           </label>
+//         </div> */}
+
+//         <div className="add-log-item-container">
+//           <div className="add-log-item-category">
+//             {[
+//               '상의',
+//               '아우터',
+//               '바지',
+//               '원피스/스커트',
+//               '신발',
+//               '가방',
+//               '패션 소품',
+//               '뷰티템',
+//               '스포츠/레저',
+//             ].map((category) => (
+//               <div
+//                 key={category}
+//                 className={`add-log-item-category-inner ${
+//                   selectedCategory === category ? 'selected' : ''
+//                 }`}
+//                 onClick={() => handleCategoryClick(category)}
+//               >
+//                 {category}
+//               </div>
+//             ))}
+//           </div>
+//           {selectedCategory && (
+//             <div className="add-log-item-detail">
+//               {selectedCategory === '상의' && (
+//                 <>
+//                   {[
+//                     '티셔츠',
+//                     '셔츠',
+//                     '맨투맨',
+//                     '니트스웨터',
+//                     '후드',
+//                     '스포츠티',
+//                   ].map((subCategory) => (
+//                     <div
+//                       className="add-log-item-imgtext"
+//                       key={subCategory}
+//                       onClick={() => handleSubCategoryClick(subCategory)}
+//                     >
+//                       <div className="add-log-item-detail-inner">
+//                         <img
+//                           src={`/image/${subCategory}.png`}
+//                           alt={`${subCategory} 이미지`}
+//                         />
+//                       </div>
+//                       <div className="add-log-item-text">{subCategory}</div>
+//                     </div>
+//                   ))}
+//                 </>
+//               )}
+//               {selectedCategory === '가방' && (
+//                 <>
+//                   {[
+//                     '숄더백',
+//                     '토트백',
+//                     '크로스백',
+//                     '클러치백',
+//                     '백팩',
+//                     '에코백',
+//                   ].map((subCategory) => (
+//                     <div
+//                       className="add-log-item-imgtext"
+//                       key={subCategory}
+//                       onClick={() => handleSubCategoryClick(subCategory)}
+//                     >
+//                       <div className="add-log-item-detail-inner">
+//                         <img
+//                           src={`/image/${subCategory}.png`}
+//                           alt={`${subCategory} 이미지`}
+//                         />
+//                       </div>
+//                       <div className="add-log-item-text">{subCategory}</div>
+//                     </div>
+//                   ))}
+//                 </>
+//               )}
+//             </div>
+//           )}
+//         </div>
+//       </div>
+
+//       {/* 아이템 추가 모달 */}
+//       <AddItemModal
+//         isOpen={isAddItemModalOpen}
+//         onSave={handleModalSave}
+//         category={selectedSubCategory}
+//       />
+
+//       {/* 아이템 목록 모달 */}
+//       <ItemsModal
+//         isOpen={isItemsModalOpen}
+//         onClose={() => setIsItemsModalOpen(false)}
+//         onDelete={handleItemDelete}
+//       />
+//     </>
+//   );
+// };
+
+// export default AddLogItem;
+
 'use client';
 import { useStore } from '@/Zustand/store';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddItemModal from './AddItemModal';
+import ItemsModal from './ItemsModal';
 
 const AddLogItem = () => {
   const logData = useStore((state) => state.logData);
   const setLogData = useStore((state) => state.setLogData);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(
-    '상의'
-  );
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('상의');
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null
   );
+  const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
 
-  //전역state에 저장
+  // 전역 상태인 logData.item의 길이를 통해 모달 열림/닫힘 상태 제어
+  const isItemsModalOpen = logData.item.length > 0;
 
+  // 카테고리 클릭 시
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
-    setSelectedSubCategory(null); // 서브 카테고리 초기화
+    setSelectedSubCategory(null);
   };
 
+  // 서브 카테고리 클릭 시
   const handleSubCategoryClick = (subCategory: string) => {
     setSelectedSubCategory(subCategory);
-    setIsModalOpen(true);
+    setIsAddItemModalOpen(true);
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
-
+  // 아이템 추가 모달에서 저장
   const handleModalSave = (itemName: string) => {
-    let categoryNum = 0;
-    if (selectedSubCategory == '숄더백') {
-      categoryNum = 1;
-    } else if (selectedSubCategory == '토트백') {
-      categoryNum = 2;
-    } else if (selectedSubCategory == '크로스백') {
-      categoryNum = 3;
-    } else if (selectedSubCategory == '클러치백') {
-      categoryNum = 4;
-    } else if (selectedSubCategory == '백팩') {
-      categoryNum = 5;
-    } else if (selectedSubCategory == '에코백') {
-      categoryNum = 6;
-    } else if (selectedSubCategory == '셔츠') {
-      categoryNum = 7;
-    } else if (selectedSubCategory == '맨투맨') {
-      categoryNum = 8;
-    } else if (selectedSubCategory == '니트스웨터') {
-      categoryNum = 9;
-    } else if (selectedSubCategory == '후드') {
-      categoryNum = 10;
-    } else if (selectedSubCategory == '스포츠티') {
-      categoryNum = 11;
-    } else if (selectedSubCategory == '티셔츠') {
-      categoryNum = 12;
-    }
+    if (!itemName.trim()) return; // 아이템 이름이 비어 있으면 중단
 
+    const categoryMap: { [key: string]: number } = {
+      숄더백: 1,
+      토트백: 2,
+      크로스백: 3,
+      클러치백: 4,
+      백팩: 5,
+      에코백: 6,
+      셔츠: 7,
+      맨투맨: 8,
+      니트스웨터: 9,
+      후드: 10,
+      스포츠티: 11,
+      티셔츠: 12,
+    };
+    const categoryNum = categoryMap[selectedSubCategory || ''] || 0;
+
+    const newItem = {
+      categoryId: categoryNum,
+      itemName,
+    };
+
+    // 아이템 추가 후 전역 상태 업데이트
     setLogData({
       ...logData,
-      item: [...logData.item, { categoryId: categoryNum, itemName: itemName }],
+      item: [...logData.item, newItem],
     });
-    setIsModalOpen(false);
+
+    setIsAddItemModalOpen(false);
+  };
+
+  // 아이템 목록 모달에서 아이템 삭제
+  const handleItemDelete = (itemName: string) => {
+    const updatedItems = logData.item.filter(
+      (item) => item.itemName !== itemName
+    );
+    setLogData({
+      ...logData,
+      item: updatedItems,
+    });
   };
 
   return (
     <>
       <div className="add-log-item-continerbox">
-        <div className="add-log-place-container">
-          <label>
-            <div className="add-log-place-inner">
-              <div>
-                <img src="/image/searchPlace.svg" alt="장소 검색" />
-              </div>
-              <input type="text" />
-            </div>
-          </label>
-        </div>
-
         <div className="add-log-item-container">
           <div className="add-log-item-category">
             {[
@@ -105,6 +290,7 @@ const AddLogItem = () => {
               </div>
             ))}
           </div>
+
           {selectedCategory && (
             <div className="add-log-item-detail">
               {selectedCategory === '상의' && (
@@ -133,42 +319,20 @@ const AddLogItem = () => {
                   ))}
                 </>
               )}
-              {selectedCategory === '가방' && (
-                <>
-                  {[
-                    '숄더백',
-                    '토트백',
-                    '크로스백',
-                    '클러치백',
-                    '백팩',
-                    '에코백',
-                  ].map((subCategory) => (
-                    <div
-                      className="add-log-item-imgtext"
-                      key={subCategory}
-                      onClick={() => handleSubCategoryClick(subCategory)}
-                    >
-                      <div className="add-log-item-detail-inner">
-                        <img
-                          src={`/image/${subCategory}.png`}
-                          alt={`${subCategory} 이미지`}
-                        />
-                      </div>
-                      <div className="add-log-item-text">{subCategory}</div>
-                    </div>
-                  ))}
-                </>
-              )}
             </div>
           )}
         </div>
       </div>
+
+      {/* 아이템 추가 모달 */}
       <AddItemModal
-        isOpen={isModalOpen}
-        // onClose={handleModalClose}
+        isOpen={isAddItemModalOpen}
         onSave={handleModalSave}
-        category={selectedCategory}
+        category={selectedSubCategory}
       />
+
+      {/* 아이템 목록 모달 */}
+      <ItemsModal isOpen={isItemsModalOpen} onDelete={handleItemDelete} />
     </>
   );
 };
