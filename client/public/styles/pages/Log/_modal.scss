@@ -129,3 +129,68 @@
     z-index: 1000;
   }
 }
+
+//검색모달
+.search-modal-outline {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  .map-search-input-outline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    top: 70px;
+    .map-search-input-lable {
+      display: flex;
+      justify-content: center;
+      label {
+        align-items: center;
+        position: relative;
+
+        display: block;
+        width: 90%;
+        // background-color: #d9d9d9;
+        border: 2px solid #6e6e6e;
+        border-radius: 10px;
+        height: 29px;
+
+        input {
+          position: relative;
+          width: 90%;
+          left: 10px;
+          top: 4px;
+          border: none;
+          background: transparent;
+          outline: none;
+        }
+        img {
+          position: relative;
+          left: 10px;
+          top: 7px;
+          margin-right: 7px;
+        }
+        .add-log-place-inner {
+          display: flex;
+        }
+      }
+    }
+  }
+  .map-search-input-result-out {
+    display: flex;
+    justify-content: center;
+    .map-search-input-result-container {
+      width: 90%;
+    }
+  }
+}
+
+.map-search-title {
+  font-size: 18px;
+  margin-top: 10px;
+}
