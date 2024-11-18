@@ -5,7 +5,9 @@ import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import LogMarker from './LogMarker';
 import axios from 'axios';
 import { MapMarkerCountData } from '@/types/type';
-import { headers } from 'next/headers';
+import SearchModal from './SearchModal';
+import Link from 'next/link';
+import Header from '@/components/Global/Header';
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env
   .NEXT_PUBLIC_KAKAO_CLIENT_ID!}&autoload=false`;
 // !아래는 최적화
@@ -22,6 +24,10 @@ const KakaoMap = () => {
     position: { lat: 37.483034, lng: 126.902435 },
     bounds: { southWest: { La: 0, Ma: 0 }, northEast: { La: 0, Ma: 0 } },
   });
+  //검색 모달 체크
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
+  const closeSearchModal = () => setIsSearchModalOpen(false);
+
   const [logMapData, setLogMapData] = useState<MapMarkerCountData[]>([]);
   const [debouncedX, setDebouncedX] = useState<number | null>(null);
   const [debouncedY, setDebouncedY] = useState<number | null>(null);
@@ -103,6 +109,35 @@ const KakaoMap = () => {
 
   return (
     <>
+      {/* 헤더 부분 */}
+      {!isSearchModalOpen && (
+        <div className="header-box">
+          <div className="header-inner-box">
+            <div>
+              <Link href={'/home'}>
+                <img
+                  src="/image/whereWearHeaderLogo.svg"
+                  className="header-main-logo"
+                />
+              </Link>
+            </div>
+            <div>
+              <img
+                src="/image/search.svg"
+                className="header-icon "
+                onClick={() => {
+                  setIsSearchModalOpen(true);
+                }}
+              />
+              <img src="/image/bell.svg" className="header-icon" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isSearchModalOpen && (
+        <SearchModal onClose={closeSearchModal} token={token} />
+      )}
       <Script
         src={KAKAO_SDK_URL}
         strategy="beforeInteractive"

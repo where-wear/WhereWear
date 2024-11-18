@@ -6,8 +6,10 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
+import { useParams, useRouter } from 'next/navigation';
 
 const page = () => {
+  const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -20,11 +22,13 @@ const page = () => {
     }
   }, [token]);
 
+  const { userId } = useParams();
   const getMyPageData = async () => {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/log/getLogs`,
         {
+          params: { userId: { userId } },
           headers: { Authorization: `Bearer ${token}` },
         }
       );
