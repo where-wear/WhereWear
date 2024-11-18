@@ -192,5 +192,29 @@
 
 .map-search-title {
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.map-search-user-outline {
+  display: flex;
+  overflow-x: auto;
+  .map-search-user-container {
+    @include link-style;
+    width: 8vh;
+    .search-user-image {
+      text-align: center;
+      @include link-style;
+      img {
+        width: 6vh;
+        height: 6vh;
+        border-radius: 100%;
+      }
+    }
+    .map-search-user-text {
+      @include link-style;
+      text-decoration: none;
+      font-size: 11px;
+      text-align: center;
+    }
+  }
 }

@@ -235,7 +235,9 @@ const page = () => {
         </div>
 
         {/* token 값이 있을 때만 FollowButton을 렌더링 */}
-        {token ? <FollowButton token={token} userID={logData.userId} /> : <></>}
+        {!logData.myLog && token && (
+          <FollowButton token={token} userID={logData.userId} />
+        )}
       </div>
       <div className="log-maintext">{logData.text}</div>
       <div className="log-tag-container">

@@ -26,6 +26,9 @@
   color: var(--main-black);
   text-decoration: none;
   cursor: pointer;
+  a {
+    text-decoration: none;
+  }
 }
 
 //input 박스 없애고 하단 밑줄만

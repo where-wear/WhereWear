@@ -103,16 +103,20 @@ const SearchModal = ({ onClose, token }: SearchModalProps) => {
               {userResults.length > 0 && (
                 <div>
                   <div className="map-search-title">사용자</div>
-                  {userResults.map((result) => (
-                    <div>
-                      <Link href={`/myPage/${result.id}`}>
-                        <div>
-                          <img src={`${result.image}}`} />
-                        </div>
-                        <div>{result.nickname}</div>
-                      </Link>
-                    </div>
-                  ))}
+                  <div className="map-search-user-outline">
+                    {userResults.map((result) => (
+                      <div className="map-search-user-container">
+                        <Link href={`/myPage/${result.id}`}>
+                          <div className="search-user-image">
+                            <img src={`${result.image}`} />
+                          </div>
+                          <div className="map-search-user-text">
+                            {result.nickname}
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
               {placeResults.length > 0 && (
