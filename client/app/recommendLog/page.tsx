@@ -9,7 +9,7 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const page = () => {
-  const [userNickname, setUserNickname] = useState<string>('');
+  const [userNickname, setUserNickname] = useState<string>('게스트');
   const [place, setPlace] = useState<string | number>('강남구');
   const [dataHeiht, setdDataHeight] = useState<string | number>(0);
   const [dataWeight, setdDataWeight] = useState<string | number>(0);
