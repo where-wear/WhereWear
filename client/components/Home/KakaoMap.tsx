@@ -1,17 +1,19 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Script from 'next/script';
 import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import LogMarker from './LogMarker';
 import axios from 'axios';
 import { MapMarkerCountData } from '@/types/type';
+import { MapMakerModal } from '@/types/type';
 import SearchModal from './SearchModal';
 import Link from 'next/link';
 import Header from '@/components/Global/Header';
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env
   .NEXT_PUBLIC_KAKAO_CLIENT_ID!}&autoload=false`;
-// !아래는 최적화
+
 import { redirect, useSearchParams } from 'next/navigation';
+import LogMarkerModal from './LogMarkerModal';
 const KakaoMap = () => {
   const [token, setToken] = useState<string | null>(null);
 
@@ -27,7 +29,9 @@ const KakaoMap = () => {
   //검색 모달 체크
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
   const closeSearchModal = () => setIsSearchModalOpen(false);
-
+  const modalLogContainerRef = useRef(null); // 가로 스크롤을 위한 참조
+  const [isClosing, setIsClosing] = useState(false); // 모달 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [logMapData, setLogMapData] = useState<MapMarkerCountData[]>([]);
   const [debouncedX, setDebouncedX] = useState<number | null>(null);
   const [debouncedY, setDebouncedY] = useState<number | null>(null);
@@ -38,6 +42,11 @@ const KakaoMap = () => {
   });
   const [queryLat, setQueryLat] = useState<number | null>(null);
   const [queryLng, setQueryLng] = useState<number | null>(null);
+  const [markerModalData, setMarkerModalData] = useState<MapMakerModal>({
+    placeName: '',
+    placeaddress: '',
+    log: [{ logId: 0, imgUrl: '' }],
+  });
 
   // 디바운스 처리된 위치 업데이트
   useEffect(() => {
@@ -106,6 +115,39 @@ const KakaoMap = () => {
       console.error(err);
     }
   };
+  const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsClosing(true); // 모달이 닫히기 시작
+    setTimeout(() => {
+      setIsModalOpen(false); // 일정 시간 후 모달을 실제로 닫음
+      setIsClosing(false); // 닫힘 상태 초기화
+      setIsModalOpen(false);
+    }, 200); // 애니메이션 시간과 맞추기
+  };
+  const openMarkerLogList = async (lat: number, lng: number) => {
+    setIsModalOpen(true);
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/place/detail`,
+        {
+          params: { x: lng, y: lat },
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      console.log('마커 데이터:', response.data.response);
+      const logs = response.data.response.map((log: any) => ({
+        logId: log.id, // 로그의 ID
+        imgUrl: log.logImages.length > 0 ? log.logImages[0].publicUrl : '', // 이미지 URL
+      }));
+      setMarkerModalData({
+        placeName: response.data.response[0].place.placeName.replace(/"/g, ''),
+        placeaddress: response.data.response[0].place.address.replace(/"/g, ''),
+        log: logs,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -136,7 +178,16 @@ const KakaoMap = () => {
       )}
 
       {isSearchModalOpen && (
-        <SearchModal onClose={closeSearchModal} token={token} />
+        <SearchModal
+          onClose={closeSearchModal}
+          token={token}
+          onLocationSelect={(lat: number, lng: number) => {
+            setLocation({ lat, lng });
+            setIsSearchModalOpen(false);
+            // 여기서 함수를 호출하자
+            openMarkerLogList(lat, lng);
+          }}
+        />
       )}
       <Script
         src={KAKAO_SDK_URL}
@@ -180,6 +231,42 @@ const KakaoMap = () => {
             logNum={log.count}
           />
         ))}
+        {isModalOpen && (
+          <LogMarkerModal
+            isOpen={isModalOpen}
+            isClosing={isClosing}
+            onClose={closeModal}
+          >
+            <div className="map-modal-component">
+              <div className="map-modal-component-inner">
+                <div className="modal-log-place-name">
+                  {markerModalData.placeName}
+                </div>
+                <div className="modal-log-place-address">
+                  {markerModalData.placeaddress}
+                </div>
+                <div className="modal-log-container" ref={modalLogContainerRef}>
+                  {/* 로그들 */}{' '}
+                  {markerModalData.log.map((log) => (
+                    <div key={log.logId}>
+                      <div>
+                        <Link href={`/Log/${log.logId}`}>
+                          {log.imgUrl && (
+                            <img
+                              src={log.imgUrl}
+                              alt="로그 이미지"
+                              width="100"
+                            />
+                          )}
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </LogMarkerModal>
+        )}
       </Map>
     </>
   );

@@ -1,9 +1,11 @@
 .my-page-container {
-  margin-top: 25px;
+  margin-top: 13px;
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 15vh;
+  height: 16vh;
   margin-bottom: 15px;
+  padding-bottom: 10px;
 }
 .my-page-user-container {
   display: flex;
@@ -11,6 +13,7 @@
   width: 32vw;
   justify-content: center;
   align-content: center;
+  margin-right: 10px;
   .my-page-image {
     display: flex;
     justify-content: center;
@@ -34,27 +37,28 @@
     }
   }
 }
-
-.my-page-data-container {
-  width: 68vw;
-
-  .my-page-button-container {
-    justify-content: flex-end;
-    margin-right: 20px;
-    display: flex;
-    .my-page-button {
-      margin: 5px;
-      img {
-        width: 16px;
-      }
+.my-page-button-container {
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-bottom: 2px;
+  display: flex;
+  .my-page-button {
+    margin: 5px;
+    img {
+      width: 16px;
     }
   }
+}
+.my-page-data-container {
+  width: 100%;
+  display: flex;
 
   .my-page-log-follow {
+    display: flex;
     color: #777777;
     font-weight: 450;
+    margin-top: 10px;
     margin-bottom: 10px;
-    display: flex;
   }
   .my-page-number {
     .my-page-number-inner {
@@ -66,7 +70,7 @@
     font-size: 14px;
   }
   .my-page-coment {
-    margin-right: 20px;
+    // margin-right: 20px;
     height: 41px;
     font-size: 13px;
     color: #a7a7a7;
@@ -75,62 +79,18 @@
 }
 .my-page-hr {
   margin: 0px;
+  border: 0;
+}
+.my-page-user-container {
+  position: relative;
+  bottom: 10px;
 }
 
-// .maypage-log-container {
-//   .my-page-log-image-container {
-//     height: 100%;
-//     display: flex;
-//     flex-wrap: wrap;
-//     .my-page-log-image-inner {
-//       position: relative;
-//       width: 33.33333%;
-//       height: 45%;
-//       display: flex;
-//       flex-direction: column;
-//       flex-grow: 1;
-
-//       .my-page-log-image-size {
-//         position: relative;
-//         width: 100%;
-//         height: calc(100% - 20px);
-//         flex-grow: 1;
-//         overflow: hidden; // 넘치는 콘텐츠 숨기기
-//         display: flex;
-//         align-items: center;
-//         img {
-//           width: 100%;
-//           height: 100%;
-//           object-fit: cover;
-//         }
-//       }
-//     }
-//     .my-page-log-place-name {
-//       height: 20px;
-//       position: relative;
-//       width: 100%;
-
-//       display: flex;
-//       justify-content: left;
-//       align-items: center;
-//       text-align: center;
-//       font-size: 13px;
-//       font-weight: 500;
-//       .my-page-log-place-name-text {
-//         width: 100%; /* 너비를 100%로 설정 */
-//         white-space: nowrap; /* 줄바꿈 방지 */
-//         overflow: hidden; /* 넘치는 텍스트 숨기기 */
-//         text-overflow: ellipsis; /* 넘친 부분에 '...' 표시 */
-//       }
-//       img {
-//         width: 14px;
-//         margin-right: 3px;
-//       }
-//     }
-//   }
-// }
+.my-page-user-container-outline {
+  display: flex;
+}
 .maypage-log-container {
-  height: calc(85vh - 120px);
+  height: calc(85vh - 124px);
   overflow: scroll;
   .my-page-log-image-container {
     display: grid;

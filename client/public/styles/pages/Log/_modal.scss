@@ -15,7 +15,7 @@
 }
 
 .modal-content {
-  position: relative;
+  position: absolute;
   background-color: white;
   border-radius: 8px;
   width: 100%;
@@ -26,7 +26,8 @@
   justify-content: flex-start;
   transition: transform 0.3s ease;
   // padding: 20px;
-  height: 270px;
+  height: 200px;
+  bottom: 78px;
 }
 
 .item-add-log-item-detail {

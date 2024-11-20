@@ -1,6 +1,7 @@
 //좋아한로그 log
 'use client';
 import Dropdown from '@/components/Global/Dropdown';
+import GoSignin from '@/components/Global/GoSignin';
 import axios from 'axios';
 import Dropbox from 'next-auth/providers/dropbox';
 import { redirect } from 'next/dist/server/api-utils';
@@ -102,36 +103,62 @@ const page = () => {
       ? likeLogData // 전체 데이터 보여줌
       : likeLogData.filter((data) => data.address.startsWith(`서울 ${thisGu}`));
 
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    setToken(accessToken);
+    setIsLoading(false); // 토큰 확인 후 로딩 상태 종료
+  }, []);
+
+  if (isLoading) {
+    // 로딩 중에는 아무것도 렌더링하지 않음
+    return null;
+  }
+
   return (
     <>
-      <div className="like-log-header">좋아한 로그</div>
-      <div className="like-log-dropdown-container">
-        <Dropdown list={guOffice} onSelect={handlePlaceChange} title="전체" />
-      </div>
-      <div>
-        <div className="like-log-container">
-          {filteredLikeLogData.map((data, index) => (
-            <div key={data.logId} className="like-log-click">
-              <Link href={`/Log/${data.logId}`} className="like-log-link">
-                <div className="like-log-inner">
-                  <div className="like-log-image">
-                    <img src={`${data.imgUrl}`} />
-                  </div>
-                  <div className="like-place-plcename-container">
-                    <div className="like-place-plcename">{data.placeName}</div>
-                    <div className="like-place-address">
-                      <img src="/image/placeNamepin.png" />
-                      <div className="like-place-address-text">
-                        {data.address}
+      {token !== null && token !== undefined ? (
+        <>
+          <div className="like-log-header">좋아한 로그</div>
+          <div className="like-log-dropdown-container">
+            <Dropdown
+              list={guOffice}
+              onSelect={handlePlaceChange}
+              title="전체"
+            />
+          </div>
+          <div>
+            <div className="like-log-container">
+              {filteredLikeLogData.map((data, index) => (
+                <div key={data.logId} className="like-log-click">
+                  <Link href={`/Log/${data.logId}`} className="like-log-link">
+                    <div className="like-log-inner">
+                      <div className="like-log-image">
+                        <img src={`${data.imgUrl}`} />
+                      </div>
+                      <div className="like-place-plcename-container">
+                        <div className="like-place-plcename">
+                          <div className="like-place-plcename-inner">
+                            {data.placeName}
+                          </div>
+                        </div>
+                        <div className="like-place-address">
+                          <img src="/image/placeNamepin.png" />
+                          <div className="like-place-address-text">
+                            {data.address}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
-              </Link>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </>
+      ) : (
+        <GoSignin />
+      )}
     </>
   );
 };

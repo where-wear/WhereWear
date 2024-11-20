@@ -4,15 +4,16 @@ import TopFashionLog from '@/components/Explore/TopFashionLog';
 import Dropdown from '@/components/Global/Dropdown';
 import { RecoLogDataType, SimpleLogData } from '@/types/type';
 import axios from 'axios';
+import { tree } from 'next/dist/build/templates/app-page';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const page = () => {
-  const [userNickname, setUserNickname] = useState<string>('');
+  const [userNickname, setUserNickname] = useState<string>('게스트');
   const [place, setPlace] = useState<string | number>('강남구');
-  const [dataHeiht, setdDataHeight] = useState<string | number>(150);
-  const [dataWeight, setdDataWeight] = useState<string | number>(159);
-  const [dataFootSize, setdDataFootSize] = useState<string | number>(230);
+  const [dataHeiht, setdDataHeight] = useState<string | number>(0);
+  const [dataWeight, setdDataWeight] = useState<string | number>(0);
+  const [dataFootSize, setdDataFootSize] = useState<string | number>(0);
   const [dataJob, setdDataJob] = useState<string | number>('학생');
   const [token, setToken] = useState<string | null>(null);
   const [isReco, SetisReco] = useState<boolean>(false); //참이면 추천페이지

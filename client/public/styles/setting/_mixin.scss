@@ -36,3 +36,11 @@
   border-bottom: 2px solid;
   border-color: #121212;
 }
+
+//넘어가는경우 생략
+@mixin over-flow-controll {
+  width: 100%;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 텍스트 넘칠 경우 '...' 처리 */
+}

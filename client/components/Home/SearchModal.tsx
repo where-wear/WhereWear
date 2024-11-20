@@ -5,8 +5,13 @@ import React, { useEffect, useState } from 'react';
 interface SearchModalProps {
   onClose: () => void;
   token: string | null;
+  onLocationSelect: (lat: number, lng: number) => void;
 }
-const SearchModal = ({ onClose, token }: SearchModalProps) => {
+const SearchModal = ({
+  onClose,
+  token,
+  onLocationSelect,
+}: SearchModalProps) => {
   const [searchText, setsearchText] = useState('');
   const [userResults, setUserResults] = useState<
     | {
@@ -128,7 +133,9 @@ const SearchModal = ({ onClose, token }: SearchModalProps) => {
                       <div
                         key={result.id}
                         className="search-result-item"
-                        onClick={onClose}
+                        onClick={() => {
+                          onLocationSelect(result.y, result.x); // lat = y, lng = x
+                        }}
                       >
                         {/* <div className="search-result-photo">사진</div> */}
                         <div>

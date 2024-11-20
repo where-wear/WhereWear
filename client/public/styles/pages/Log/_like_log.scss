@@ -23,8 +23,12 @@
       flex-direction: column;
       width: 100px;
       .like-place-plcename {
+        position: relative;
         font-size: 12px;
         font-weight: 550;
+        .like-place-plcename-inner {
+          @include over-flow-controll;
+        }
       }
       .like-place-address {
         display: flex;

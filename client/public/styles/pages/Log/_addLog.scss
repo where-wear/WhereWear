@@ -355,8 +355,8 @@
   }
   label {
     margin: 20px 0px 20px 0px;
-    display: inline-block;
-    width: 190px;
+    display: flex;
+    width: 225px;
     height: 45px;
 
     input {
@@ -374,7 +374,6 @@
     }
   }
 }
-
 .add-modal-actions {
   display: flex;
   justify-content: space-between;
