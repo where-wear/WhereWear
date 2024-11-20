@@ -10,9 +10,9 @@ import React, { useState, useEffect } from 'react';
 const page = () => {
   const [userNickname, setUserNickname] = useState<string>('');
   const [place, setPlace] = useState<string | number>('강남구');
-  const [dataHeiht, setdDataHeight] = useState<string | number>(150);
-  const [dataWeight, setdDataWeight] = useState<string | number>(159);
-  const [dataFootSize, setdDataFootSize] = useState<string | number>(230);
+  const [dataHeiht, setdDataHeight] = useState<string | number>(0);
+  const [dataWeight, setdDataWeight] = useState<string | number>(0);
+  const [dataFootSize, setdDataFootSize] = useState<string | number>(0);
   const [dataJob, setdDataJob] = useState<string | number>('학생');
   const [token, setToken] = useState<string | null>(null);
   const [isReco, SetisReco] = useState<boolean>(false); //참이면 추천페이지
