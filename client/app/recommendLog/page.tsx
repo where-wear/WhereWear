@@ -4,6 +4,7 @@ import TopFashionLog from '@/components/Explore/TopFashionLog';
 import Dropdown from '@/components/Global/Dropdown';
 import { RecoLogDataType, SimpleLogData } from '@/types/type';
 import axios from 'axios';
+import { tree } from 'next/dist/build/templates/app-page';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 

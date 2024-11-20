@@ -118,7 +118,11 @@ const page = () => {
                     <img src={`${data.imgUrl}`} />
                   </div>
                   <div className="like-place-plcename-container">
-                    <div className="like-place-plcename">{data.placeName}</div>
+                    <div className="like-place-plcename">
+                      <div className="like-place-plcename-inner">
+                        {data.placeName}
+                      </div>
+                    </div>
                     <div className="like-place-address">
                       <img src="/image/placeNamepin.png" />
                       <div className="like-place-address-text">

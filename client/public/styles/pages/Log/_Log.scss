@@ -102,7 +102,7 @@
     padding-right: 10px;
     display: flex;
     justify-content: flex-start;
-
+    overflow-x: scroll;
     width: 85vw;
     .log-another-user-circle-inner {
       img {
@@ -240,16 +240,28 @@
       background-color: #fae200;
       box-shadow: 0 5px 3px rgba(0, 0, 0, 0.2);
       cursor: pointer;
+
       img {
         position: relative;
         right: 12px;
         height: 25px;
       }
       .log-place-button-text {
+        display: flex;
+
         position: relative;
         right: 10px;
         font-size: 12px;
         font-weight: 500;
+        .button-text-container {
+          max-width: 110px;
+          p {
+            width: 100%;
+            white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+            overflow: hidden;
+            text-overflow: ellipsis; /* 텍스트 넘칠 경우 '...' 처리 */
+          }
+        }
       }
     }
   }

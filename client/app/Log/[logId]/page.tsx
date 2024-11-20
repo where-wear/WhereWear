@@ -264,7 +264,10 @@ const page = () => {
           <div className="log-place-redirect-button">
             <img src="/image/logPlacePointer.png" />
             <div className="log-place-button-text" onClick={redirectPlaceInfo}>
-              장소이름 바로확인
+              <div className="button-text-container">
+                <p>{logData.place.placeName}</p>
+              </div>{' '}
+              바로확인
             </div>
           </div>
         </div>

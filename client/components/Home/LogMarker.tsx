@@ -80,8 +80,16 @@ const LogMarker = (props: MarkerPropsType) => {
           lng: props.logLng,
         }}
         image={{
-          src: '/image/mapMarkerLow.png',
-          size: { width: 30, height: 30 },
+          src:
+            props.logNum >= 20
+              ? '/image/mapMarkerHigh.png'
+              : props.logNum >= 5
+              ? '/image/mapMarkerMiddle.png'
+              : '/image/mapMarkerLow.png',
+          size:
+            props.logNum >= 5
+              ? { width: 35, height: 35 }
+              : { width: 25, height: 25 },
           options: { offset: { x: 27, y: 20 } },
         }}
         onClick={openMarkerLogList}
