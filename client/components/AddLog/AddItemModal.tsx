@@ -32,7 +32,7 @@ const AddItemModal: FC<AddItemModalProps> = ({
             type="text"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
-            placeholder="ex) 자라 회색 맨투맨 24년도 봄 구매,일자핏 연청바지 24년도 여름 구매"
+            placeholder="ex) 자라 회색 맨투맨 24년도 봄 구매"
           />
         </label>
 
