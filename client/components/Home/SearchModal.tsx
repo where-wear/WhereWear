@@ -110,7 +110,10 @@ const SearchModal = ({
                   <div className="map-search-title">사용자</div>
                   <div className="map-search-user-outline">
                     {userResults.map((result) => (
-                      <div className="map-search-user-container">
+                      <div
+                        className="map-search-user-container"
+                        key={result.id}
+                      >
                         <Link href={`/myPage/${result.id}`}>
                           <div className="search-user-image">
                             <img src={`${result.image}`} />
