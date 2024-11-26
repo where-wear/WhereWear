@@ -91,6 +91,7 @@ export interface logData {
     placeY: number;
   };
   isShow: boolean;
+  like: boolean;
 }
 
 //간단 로그 타입

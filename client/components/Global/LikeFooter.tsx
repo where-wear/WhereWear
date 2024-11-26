@@ -1,13 +1,18 @@
 import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 interface LikeFooterPropsType {
   logId: number;
   token: string | null;
+  like: boolean;
 }
 const LikeFooter = (props: LikeFooterPropsType) => {
+  const [islike, setIslike] = useState<boolean>(props.like);
+
   //좋아요 api
   const likeLogApi = async () => {
+    setIslike((prevLike) => !prevLike);
+
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/liked`,
@@ -21,8 +26,10 @@ const LikeFooter = (props: LikeFooterPropsType) => {
           },
         }
       );
-      console.log(response);
+      console.log(response.data.response.liked);
+      setIslike(response.data.response.liked);
     } catch (err) {
+      setIslike((prevLike) => !prevLike);
       console.log(err);
     }
   };
@@ -42,7 +49,12 @@ const LikeFooter = (props: LikeFooterPropsType) => {
               <li className="addLog-li"></li>
               <li>
                 <div onClick={likeLogApi}>
-                  <img src={'/image/LikeLogIcon.svg'} className="footer-icon" />
+                  <img
+                    src={
+                      islike ? '/image/LikeLogIcon.svg' : '/image/fillHeart.svg'
+                    }
+                    className="footer-icon"
+                  />
                 </div>
               </li>
             </ul>
