@@ -53,6 +53,7 @@ const page = () => {
       placeY: 0,
     },
     isShow: true,
+    like: false,
   });
   const { logId } = useParams();
   const numericLogId = Array.isArray(logId)
@@ -137,6 +138,7 @@ const page = () => {
           placeY: data.place.y,
         },
         isShow: data.isShow,
+        like: data.like,
       });
     } catch (error) {
       console.log(error);
@@ -266,8 +268,8 @@ const page = () => {
             <div className="log-place-button-text" onClick={redirectPlaceInfo}>
               <div className="button-text-container">
                 <p>{logData.place.placeName}</p>
-              </div>{' '}
-              바로확인
+              </div>
+              &nbsp; 바로확인
             </div>
           </div>
         </div>
@@ -288,7 +290,7 @@ const page = () => {
       {logData.myLog ? (
         <MyLogFooter logId={numericLogId} token={token} />
       ) : (
-        <LikeFooter logId={numericLogId} token={token} />
+        <LikeFooter logId={numericLogId} token={token} like={logData.like} />
       )}
     </>
   );
