@@ -1,6 +1,7 @@
+'use client';
 import axios from 'axios';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 interface LikeFooterPropsType {
   logId: number;
   token: string | null;
@@ -8,6 +9,11 @@ interface LikeFooterPropsType {
 }
 const LikeFooter = (props: LikeFooterPropsType) => {
   const [islike, setIslike] = useState<boolean>(props.like);
+
+  useEffect(() => {
+    // 컴포넌트가 처음 렌더링되면 서버에서 받은 `like` 값으로 상태 초기화
+    setIslike(props.like);
+  }, [props.like]);
 
   //좋아요 api
   const likeLogApi = async () => {
@@ -51,7 +57,7 @@ const LikeFooter = (props: LikeFooterPropsType) => {
                 <div onClick={likeLogApi}>
                   <img
                     src={
-                      islike ? '/image/LikeLogIcon.svg' : '/image/fillHeart.svg'
+                      islike ? '/image/fillHeart.svg' : '/image/LikeLogIcon.svg'
                     }
                     className="footer-icon"
                   />

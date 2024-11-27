@@ -14,7 +14,7 @@ const page = () => {
   const [dataHeiht, setdDataHeight] = useState<string | number>(0);
   const [dataWeight, setdDataWeight] = useState<string | number>(0);
   const [dataFootSize, setdDataFootSize] = useState<string | number>(0);
-  const [dataJob, setdDataJob] = useState<string | number>('학생');
+  const [dataJob, setdDataJob] = useState<string | number>('');
   const [token, setToken] = useState<string | null>(null);
   const [isReco, SetisReco] = useState<boolean>(false); //참이면 추천페이지
 
@@ -214,7 +214,7 @@ const page = () => {
 
       getRecoLogsDataHandler();
     }
-  }, [token, place, dataFootSize, dataHeiht, dataWeight, dataJob]);
+  }, [token, place, dataFootSize, dataHeiht, dataWeight, dataJob, isReco]);
 
   const [filterRecoData, setFilterRecoData] =
     useState<{ imgUrl: string; id: number }[]>();
@@ -265,7 +265,7 @@ const page = () => {
                 <Dropdown
                   list={guOffice}
                   onSelect={handlePlaceChange}
-                  title="강남구"
+                  title={place}
                 />
               </div>
 
@@ -313,7 +313,7 @@ const page = () => {
             <Dropdown
               list={guOffice}
               onSelect={handlePlaceChange}
-              title="강남구"
+              title={place}
             />
             <div>
               <div>
