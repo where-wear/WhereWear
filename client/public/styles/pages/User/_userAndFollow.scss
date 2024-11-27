@@ -32,6 +32,7 @@
 
 //유저 추가정보 입력 칸
 .signup-user-input-underline {
+  position: relative;
   display: block;
   width: 110px;
   height: 20px;
@@ -45,6 +46,21 @@
     width: 100%;
     background-color: transparent;
     color: black;
+  }
+  .check-nickname-signdata {
+    font-size: 11px;
+    position: absolute;
+    width: 120px;
+    top: 20px;
+  }
+  .red {
+    color: red;
+  }
+  .gray {
+    color: gray;
+  }
+  .green {
+    color: #1962ff;
   }
 }
 

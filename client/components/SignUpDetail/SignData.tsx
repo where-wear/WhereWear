@@ -15,7 +15,10 @@ const SignData = () => {
   const job = ['학생', '직장인', '프리랜서', '자영업자'];
   //닉네임 체크 관련 변수
   const [CheckNickname, setCheckNickname] = useState<string>('');
-
+  const [nicknameMessage, setNicknameMessage] =
+    useState<string>('중복확인 부탁드립니다'); // 메시지 상태
+  const [nicknameMessageColor, setNicknameMessageColor] =
+    useState<string>('gray'); // 메시지 색상 상태
   //중복확인 변수
   const [isCheck, setIsCheck] = useState<boolean>(false);
   //이미지 상태
@@ -26,6 +29,12 @@ const SignData = () => {
   useEffect(() => {
     setIsCheck(false);
     console.log(isCheck);
+  }, [CheckNickname]);
+
+  useEffect(() => {
+    setNicknameMessage('중복확인 부탁드립니다');
+    setNicknameMessageColor('gray');
+    setIsCheck(false);
   }, [CheckNickname]);
 
   //토큰값 url에서 가져오기
@@ -79,6 +88,11 @@ const SignData = () => {
 
   const ninckNameCheckHandler = async () => {
     //닉네임 체크하는 axios요청 함수 checkNickname 변수를 담아서 보내기
+    if (!CheckNickname.trim()) {
+      setNicknameMessage('닉네임을 입력해주세요');
+      setNicknameMessageColor('red');
+      return;
+    }
     try {
       console.log(`서버에 보내는 토큰 ${token} , 닉네임 ${CheckNickname}`);
       const response = await axios.post(
@@ -93,15 +107,32 @@ const SignData = () => {
         }
       );
       console.log(response.data.success, '성공');
-      if (response.data.success === true) {
+      // if (response.data.success === true) {
+      //   setIsCheck(true);
+      //   setUserData((prevUserData) => ({
+      //     ...prevUserData,
+      //     nickname: CheckNickname,
+      //   }));
+      //   console.log(isCheck);
+      // }
+      if (response.data.success) {
         setIsCheck(true);
         setUserData((prevUserData) => ({
           ...prevUserData,
           nickname: CheckNickname,
         }));
-        console.log(isCheck);
+        setNicknameMessage('사용 가능한 닉네임입니다');
+        setNicknameMessageColor('green');
+      } else {
+        setIsCheck(false);
+        setNicknameMessage('사용 중인 닉네임입니다');
+        setNicknameMessageColor('red');
       }
-    } catch (error) {}
+    } catch (error) {
+      setNicknameMessage('닉네임 확인 오류');
+
+      setNicknameMessageColor('red');
+    }
   };
   const subUserDataHandler = async () => {
     if (isButtonDisabled) return;
@@ -165,6 +196,11 @@ const SignData = () => {
                   setCheckNickname(e.target.value);
                 }}
               />
+              <div
+                className={`check-nickname-signdata ${nicknameMessageColor}`}
+              >
+                {nicknameMessage}
+              </div>
             </label>
 
             <button onClick={ninckNameCheckHandler} type="button">

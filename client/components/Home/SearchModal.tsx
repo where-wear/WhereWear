@@ -142,8 +142,8 @@ const SearchModal = ({
                       >
                         {/* <div className="search-result-photo">사진</div> */}
                         <div>
-                          <h2>{result.placeName}</h2>
-                          <p>{result.address}</p>
+                          <h2>{result.placeName.replace(/^"|"$/g, '')}</h2>
+                          <p>{result.address.replace(/^"|"$/g, '')}</p>
                         </div>
                       </div>
                     ))}

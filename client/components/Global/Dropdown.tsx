@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 interface DropdownProps {
   list: string[];
   onSelect: (selectedItem: string | number) => void;
-  title: string;
+  title: string | number;
 }
 
 const Dropdown = (props: DropdownProps) => {
   const { list } = props;
   const [view, setView] = useState(false);
-  const [nowselect, setSelect] = useState<string>(props.title);
+  const [nowselect, setSelect] = useState<string | number>(props.title);
 
   return (
     <>
