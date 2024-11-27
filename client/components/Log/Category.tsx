@@ -90,7 +90,7 @@ const Category = (props: CategoryPropsType) => {
   return (
     <>
       <div className="log-item-inner">
-        {category} "{props.userItemName}"
+        {category} &quot;{props.userItemName}&quot;
       </div>
     </>
   );
