@@ -27,7 +27,7 @@ export const categoryDetails: { [key: string]: { [key: string]: number } } = {
     '스포츠 하의': 24,
     기타: 25,
   },
-  원피스스커트: {
+  '원피스/스커트': {
     미니원피스: 27,
     미디원피스: 28,
     롱원피스: 29,
