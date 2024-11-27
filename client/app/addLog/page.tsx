@@ -10,6 +10,7 @@ import { useStore } from '@/Zustand/store';
 import axios from 'axios';
 import GoSignin from '@/components/Global/GoSignin';
 import Footer from '@/components/Global/Footer';
+import Loading from '@/components/Global/Loading';
 
 //! Link쓰면 주소가 저장되기때문에 모달창뜨는 느낌으로 바뀌어야 할 것같다 (중간 발표전에는 못고칠 예정) 또는 주소가 저장되지않게 하는방법도 있음
 const page = () => {
@@ -43,8 +44,8 @@ const page = () => {
   };
 
   async function addLogFormHandler() {
-    if (!isLogDataComplete()) return;
-
+    if (!isLogDataComplete() || isLoading) return;
+    setIsLoading(true);
     const formData = new FormData();
     // 이미지 파일 추가
     logData.logImageList.forEach((image, index) => {
@@ -95,10 +96,10 @@ const page = () => {
       deleteData();
     } catch (error) {
       console.error('Error uploading data:', error);
+    } finally {
+      setIsLoading(false); // 로딩 상태 종료
     }
-    router.push(
-      '/home?x=' + logData.place.placeX + '&y=' + logData.place.placeY
-    );
+
     //이동후 전역스테이트 값 삭제
     deleteData();
   }
@@ -117,7 +118,7 @@ const page = () => {
 
   if (isLoading) {
     // 로딩 중에는 아무것도 렌더링하지 않음
-    return null;
+    return <Loading />;
   }
 
   return (
@@ -166,7 +167,7 @@ const page = () => {
             }`}
             onClick={addLogFormHandler}
           >
-            <p>패션 로그 업로드하기</p>
+            {isLoading ? <p>업로드 중...</p> : <p>패션 로그 업로드하기</p>}
           </div>
         </>
       ) : (
