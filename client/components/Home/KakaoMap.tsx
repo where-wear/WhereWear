@@ -14,6 +14,7 @@ const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env
 
 import { redirect, useSearchParams } from 'next/navigation';
 import LogMarkerModal from './LogMarkerModal';
+import { useKakaoLoader } from 'react-kakao-maps-sdk';
 const KakaoMap = () => {
   const [token, setToken] = useState<string | null>(null);
 
@@ -81,6 +82,9 @@ const KakaoMap = () => {
       );
     }
   }, []);
+  useEffect(() => {
+    console.log('새로운 위치로 이동:', location.lat, location.lng);
+  }, [location]);
 
   // 지도 위치 변경시 데이터 가져오기
   useEffect(() => {
@@ -148,7 +152,29 @@ const KakaoMap = () => {
       console.log(err);
     }
   };
+  useKakaoLoader;
 
+  const rocateChangeHandler = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+
+          console.log(
+            '새로운 위치:',
+            position.coords.latitude,
+            position.coords.longitude
+          );
+        },
+        () => {
+          console.log('위치 받기 실패');
+        }
+      );
+    }
+  };
   return (
     <>
       {/* 헤더 부분 */}
@@ -195,8 +221,9 @@ const KakaoMap = () => {
         onLoad={() => setIsScriptLoaded(true)}
       />
       <Map
+        isPanto={true}
         center={location}
-        style={{ width: '100%', height: '90vh' }}
+        style={{ width: '100%', height: '100%' }}
         onCenterChanged={(map) => {
           const southWest = map.getBounds().getSouthWest();
           const northEast = map.getBounds().getNorthEast();
@@ -267,6 +294,9 @@ const KakaoMap = () => {
             </div>
           </LogMarkerModal>
         )}
+        <div className="here-icon" onClick={rocateChangeHandler}>
+          <img src="/image/here_Icon.svg" alt="" />
+        </div>
       </Map>
     </>
   );

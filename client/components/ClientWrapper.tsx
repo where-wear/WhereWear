@@ -74,7 +74,10 @@ export default function ClientWrapper({
 
   return (
     <div className="__next">
-      <div className="content_box">{children}</div>
+      {/* <div className="content_box">{children}</div> */}
+      <div className={hideFooter ? 'content_box' : 'content_box-with-footer'}>
+        {children}
+      </div>
       {!hideFooter && <Footer />}
     </div>
   );
