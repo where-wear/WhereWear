@@ -117,3 +117,14 @@
   height: 100%;
   background-color: #e7e7e7;
 }
+//--------------------현위치 아이콘-------------------
+.here-icon {
+  cursor: pointer;
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  z-index: 99;
+  img {
+    width: 60px;
+  }
+}

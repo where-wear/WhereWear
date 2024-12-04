@@ -91,6 +91,9 @@ body {
 .content_box {
   height: 100%;
 }
+.content_box-with-footer {
+  height: calc(100% - 78px);
+}
 hr {
   background-color: #d9d9d9;
 }

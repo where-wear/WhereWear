@@ -1,5 +1,8 @@
 .header-box {
+  position: absolute;
   width: 100%;
+  z-index: 999;
+  background-color: white;
 }
 .header-inner-box {
   padding: 0px 20px 0px 20px;
