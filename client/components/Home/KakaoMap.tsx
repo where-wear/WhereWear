@@ -1,25 +1,25 @@
-'use client';
-import React, { useEffect, useRef, useState } from 'react';
-import Script from 'next/script';
-import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
-import LogMarker from './LogMarker';
-import axios from 'axios';
-import { MapMarkerCountData } from '@/types/type';
-import { MapMakerModal } from '@/types/type';
-import SearchModal from './SearchModal';
-import Link from 'next/link';
-import Header from '@/components/Global/Header';
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import Script from "next/script";
+import { CustomOverlayMap, Map, MapMarker } from "react-kakao-maps-sdk";
+import LogMarker from "./LogMarker";
+import axios from "axios";
+import { MapMarkerCountData } from "@/types/type";
+import { MapMakerModal } from "@/types/type";
+import SearchModal from "./SearchModal";
+import Link from "next/link";
+import Header from "@/components/Global/Header";
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env
   .NEXT_PUBLIC_KAKAO_CLIENT_ID!}&autoload=false`;
 
-import { redirect, useSearchParams } from 'next/navigation';
-import LogMarkerModal from './LogMarkerModal';
-import { useKakaoLoader } from 'react-kakao-maps-sdk';
+import { redirect, useSearchParams } from "next/navigation";
+import LogMarkerModal from "./LogMarkerModal";
+import { useKakaoLoader } from "react-kakao-maps-sdk";
 const KakaoMap = () => {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem("accessToken");
     setToken(accessToken);
   }, [token]);
   const [mapdata, setMapData] = useState({
@@ -44,9 +44,9 @@ const KakaoMap = () => {
   const [queryLat, setQueryLat] = useState<number | null>(null);
   const [queryLng, setQueryLng] = useState<number | null>(null);
   const [markerModalData, setMarkerModalData] = useState<MapMakerModal>({
-    placeName: '',
-    placeaddress: '',
-    log: [{ logId: 0, imgUrl: '' }],
+    placeName: "",
+    placeaddress: "",
+    log: [{ logId: 0, imgUrl: "" }],
   });
 
   // 디바운스 처리된 위치 업데이트
@@ -61,8 +61,8 @@ const KakaoMap = () => {
   // 현재 위치 또는 쿼리 파라미터로부터 위치 설정
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const lat = params.get('y') ? parseFloat(params.get('y')!) : null;
-    const lng = params.get('x') ? parseFloat(params.get('x')!) : null;
+    const lat = params.get("y") ? parseFloat(params.get("y")!) : null;
+    const lng = params.get("x") ? parseFloat(params.get("x")!) : null;
 
     if (lat && lng) {
       setQueryLat(lat);
@@ -77,13 +77,13 @@ const KakaoMap = () => {
           });
         },
         () => {
-          console.log('위치 받기 실패');
+          console.log("위치 받기 실패");
         }
       );
     }
   }, []);
   useEffect(() => {
-    console.log('새로운 위치로 이동:', location.lat, location.lng);
+    console.log("새로운 위치로 이동:", location.lat, location.lng);
   }, [location]);
 
   // 지도 위치 변경시 데이터 가져오기
@@ -114,7 +114,7 @@ const KakaoMap = () => {
       );
       const data: MapMarkerCountData[] = response.data.response;
       setLogMapData(data);
-      console.log('성공 쓰인 x값:', debouncedX, 'y값:', debouncedY, logMapData);
+      console.log("성공 쓰인 x값:", debouncedX, "y값:", debouncedY, logMapData);
     } catch (err) {
       console.error(err);
     }
@@ -138,21 +138,21 @@ const KakaoMap = () => {
         }
       );
 
-      console.log('마커 데이터:', response.data.response);
+      console.log("마커 데이터:", response.data.response);
       const logs = response.data.response.map((log: any) => ({
         logId: log.id, // 로그의 ID
-        imgUrl: log.logImages.length > 0 ? log.logImages[0].publicUrl : '', // 이미지 URL
+        imgUrl: log.logImages.length > 0 ? log.logImages[0].publicUrl : "", // 이미지 URL
       }));
       setMarkerModalData({
-        placeName: response.data.response[0].place.placeName.replace(/"/g, ''),
-        placeaddress: response.data.response[0].place.address.replace(/"/g, ''),
+        placeName: response.data.response[0].place.placeName.replace(/"/g, ""),
+        placeaddress: response.data.response[0].place.address.replace(/"/g, ""),
         log: logs,
       });
     } catch (err) {
       console.log(err);
     }
   };
-  useKakaoLoader;
+  // useKakaoLoader;
 
   const rocateChangeHandler = () => {
     if (navigator.geolocation) {
@@ -164,13 +164,13 @@ const KakaoMap = () => {
           });
 
           console.log(
-            '새로운 위치:',
+            "새로운 위치:",
             position.coords.latitude,
             position.coords.longitude
           );
         },
         () => {
-          console.log('위치 받기 실패');
+          console.log("위치 받기 실패");
         }
       );
     }
@@ -182,7 +182,7 @@ const KakaoMap = () => {
         <div className="header-box">
           <div className="header-inner-box">
             <div>
-              <Link href={'/home'}>
+              <Link href={"/home"}>
                 <img
                   src="/image/whereWearHeaderLogo.svg"
                   className="header-main-logo"
@@ -223,7 +223,7 @@ const KakaoMap = () => {
       <Map
         isPanto={true}
         center={location}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: "100%", height: "100%" }}
         onCenterChanged={(map) => {
           const southWest = map.getBounds().getSouthWest();
           const northEast = map.getBounds().getNorthEast();
@@ -273,7 +273,7 @@ const KakaoMap = () => {
                   {markerModalData.placeaddress}
                 </div>
                 <div className="modal-log-container" ref={modalLogContainerRef}>
-                  {/* 로그들 */}{' '}
+                  {/* 로그들 */}{" "}
                   {markerModalData.log.map((log) => (
                     <div key={log.logId}>
                       <div>
@@ -294,9 +294,9 @@ const KakaoMap = () => {
             </div>
           </LogMarkerModal>
         )}
-        <div className="here-icon" onClick={rocateChangeHandler}>
+        {/* <div className="here-icon" onClick={rocateChangeHandler}>
           <img src="/image/here_Icon.svg" alt="" />
-        </div>
+        </div> */}
       </Map>
     </>
   );
