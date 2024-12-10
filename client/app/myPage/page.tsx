@@ -57,7 +57,7 @@ const page = () => {
   const [myPageData, setMyPageData] = useState({
     userData: {
       imgUrl: '',
-      nickname: '',
+      nickname: 'Soyoung',
       logNum: 0,
       following: 0,
       follower: 0,
@@ -116,20 +116,22 @@ const page = () => {
                   </div>
                 </div>
               </div>
-              <div>
+              <div className="my-page-log-out-box">
                 <div className="my-page-log-follow">
                   <div className="my-page-number">
-                    <div>로그 개수</div>
+                    <div>패션로그</div>
                     <div className="my-page-number-inner">
                       {myPageData.userData.logNum}
                     </div>
                   </div>
+                  <div className="vertical-line"></div>
                   <div className="my-page-number">
                     <div>팔로잉</div>
                     <div className="my-page-number-inner">
                       {myPageData.userData.following}
                     </div>
                   </div>
+                  <div className="vertical-line"></div>
                   <div className="my-page-number">
                     <div>팔로워</div>
                     <div className="my-page-number-inner">
