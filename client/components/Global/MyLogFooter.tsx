@@ -2,13 +2,14 @@
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 interface LikeFooterPropsType {
   logId: number;
   token: string | null;
 }
 const MyLogFooter = (props: LikeFooterPropsType) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
+  const router = useRouter();
   //로그 삭제  api
   const DeleteLogHandler = async () => {
     try {
@@ -21,6 +22,7 @@ const MyLogFooter = (props: LikeFooterPropsType) => {
         }
       );
       console.log(response);
+      router.push('/home');
     } catch (err) {
       console.log(err);
     }
