@@ -57,7 +57,7 @@ const page = () => {
   const [myPageData, setMyPageData] = useState({
     userData: {
       imgUrl: '',
-      nickname: 'Soyoung',
+      nickname: '',
       logNum: 0,
       following: 0,
       follower: 0,
@@ -138,9 +138,6 @@ const page = () => {
                       {myPageData.userData.follower}
                     </div>
                   </div>
-                </div>
-                <div className="my-page-coment">
-                  {myPageData.userData.introduction}
                 </div>
               </div>
             </div>

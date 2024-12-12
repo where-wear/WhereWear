@@ -28,7 +28,7 @@ const page = () => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/log/getLogs`,
         {
-          params: { userId: { userId } },
+          params: { userId: userId },
           headers: { Authorization: `Bearer ${token}` },
         }
       );
@@ -129,9 +129,6 @@ const page = () => {
                   {myPageData.userData.follower}
                 </div>
               </div>
-            </div>
-            <div className="my-page-coment">
-              {myPageData.userData.introduction}
             </div>
           </div>
         </div>
